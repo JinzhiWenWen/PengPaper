@@ -7,6 +7,7 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import Api from '@/assets/axios.js'
 import '@/assets/index.css'
+import 'swiper/dist/css/swiper.css';
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.prototype.$axios=Api;

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 let http=axios.create({
-  bseURL:'heep://localhost:8088/',
+  bseURL:'',
   withCredentials:true,
   headers:{
     'Content-Type':'application/json'
