@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="footer_all">
+  <div class="footer_all" :style="{marginTop:height}">
     <div class="contact_us ">
       <div class="contact_us_left">
         <ul>
@@ -38,6 +38,7 @@
 
 <script>
 export default {
+  props:['height']
 }
 </script>
 
@@ -53,7 +54,6 @@ export default {
     height:80%;
     box-sizing: border-box;
     position: relative;
-    z-index: 10;
     background: #e5e5e5;
     .contact_us_left{
       width: 26%;

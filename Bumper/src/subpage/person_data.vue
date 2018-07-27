@@ -1,0 +1,201 @@
+<template lang="html">
+  <div class="person_data">
+    <div class="person_data_process">
+      <img src="../../static/img/process.png" alt="">
+    </div>
+    <p class="person_data_company">
+      <span>企业信息</span>
+    </p>
+    <div class="company_mes">
+      <p style="padding-left:1.5%;">
+        <span>公司名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+      <p class="">
+        <span>联系人姓名&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+      <p class="">
+        <span>联系人电话&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+      <p class="">
+        <span>联系人邮箱&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+    </div>
+    <p class="person_data_company">
+      <span>上传营业执照</span>
+    </p>
+    <div class="company_license">
+      <div class="reprod">
+        <img src="../../static/img/pic_icon.png" alt="">
+        <p>点击上传营业执照</p>
+        <input type="file" name="" accept="image/jpg" value="">
+      </div>
+    </div>
+    <p class="person_data_company">
+      <span>对公银行账户</span>
+    </p>
+    <div class="company_mes">
+      <p>
+        <span>账户名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+      <p class="">
+        <span>开户地址&nbsp;&nbsp;&nbsp;&nbsp;
+          <select>
+            <option value ="volvo">海绵宝宝</option>
+            <option value ="saab">派大星</option>
+            <option value="opel">章鱼哥</option>
+            <option value="audi">蟹老板</option>
+          </select>
+        </span>
+      </p>
+      <p class="">
+        <span>开户银行&nbsp;&nbsp;&nbsp;&nbsp;
+          <select>
+            <option value ="volvo">海绵宝宝</option>
+            <option value ="saab">派大星</option>
+            <option value="opel">章鱼哥</option>
+            <option value="audi">蟹老板</option>
+          </select>
+        </span>
+      </p>
+      <p class="">
+        <span>开户支行&nbsp;&nbsp;&nbsp;&nbsp;
+          <select>
+            <option value ="volvo">海绵宝宝</option>
+            <option value ="saab">派大星</option>
+            <option value="opel">章鱼哥</option>
+            <option value="audi">蟹老板</option>
+          </select>
+        </span>
+      </p>
+      <p class="">
+        <span>银行账号&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+    </div>
+    <p class="person_data_company">
+      <span>设置交易密码</span>
+    </p>
+    <div class="company_mes">
+      <p style="padding-left:2.5%;">
+        <span>请输入交易密码&nbsp;&nbsp;<input type="text" value=""/></span>
+      </p>
+      <p class="">
+        <span>请再次输入交易密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="" style="margin-left:-5.5%;"/></span>
+      </p>
+    </div>
+    <p class="saveMes">
+      <button type="button" name="button">确认</button>
+    </p>
+  </div>
+</template>
+
+<script>
+export default {
+}
+</script>
+
+<style lang="scss" scoped>
+.person_data{
+  width: 100%;
+  height:100%;
+  .person_data_process{
+    width: 100%;
+    height:25%;
+    img{
+      width: 100%;
+      height:100%;
+    }
+  }
+  .person_data_company{
+    width: 82%;
+    border-bottom:1px solid #999;
+    margin-left: 18%;
+    text-align: left;
+    span{
+      padding-bottom:1%;
+      border-bottom: 4px solid #000152;
+      font-weight: bold;
+      font-size: 16px;
+      color:#000152;
+      letter-spacing:2px;
+    }
+  }
+  .company_mes{
+    width: 82%;
+    height:auto;
+    padding-top:7%;
+    padding-bottom:7%;
+    margin-left: 18%;
+    text-align: center;
+    p{
+      width: 100%;
+      text-align: center;
+      color:#333333;
+      margin-bottom: 2%;
+      input{
+        border:1px solid #979797;
+        height:24px;
+        width: 260px;
+      }
+      select{
+        border:1px solid #979797;
+        height:30px;
+        width: 260px;
+        margin-left:-2%;
+      }
+    }
+  }
+  .company_license{
+    width: 82%;
+    margin-left: 18%;
+    height:30%;
+    text-align: center;
+    position: relative;
+    .reprod{
+      width: 60%;
+      height:75%;
+      position: absolute;
+      left:50%;
+      margin-left: -30%;
+      top:50%;
+      margin-top:-18%;
+      border:1px solid #979797;
+      line-height: 210px;
+      img{
+        width: 20%;
+        height:25%;
+      }
+      p{
+        position: absolute;
+        top:15%;
+        left:31.5%;
+        color:#999;
+      }
+      input{
+        width: 100%;
+        height:100%;
+        position: absolute;
+        left:0;
+        top:0;
+        background: red;
+        cursor:pointer;
+        opacity: 0;
+      }
+    }
+  }
+  .saveMes{
+    width: 82%;
+    height:3%;
+    margin-left: 18%;
+    text-align: center;
+    margin-bottom:5%;;
+    button{
+      width: 60%;
+      height:100%;
+      background: #000152;
+      font-size: 14px;
+      color:white;
+      border-radius: 5px;
+    }
+  }
+}
+</style>

@@ -1,7 +1,7 @@
 <template lang="html">
   <div class="header_all">
     <div class="logo">
-      <img src="../../static/img/Logo.png" alt="">
+      <img src="../../static/img/Logo.png" alt="" @click="page()">
     </div>
     <ul class="header_title">
       <li>首页</li>
@@ -20,7 +20,11 @@
 
 <script>
 export default {
-
+  methods:{
+    page(){
+      this.$router.push('/page')
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -36,6 +40,7 @@ export default {
     width: 250px;
     height:50px;
     padding-top: 1%;
+    cursor:pointer;
   }
   .header_title{
     width: 22%;

@@ -3,7 +3,7 @@
     <Header/>
     <Swiper/>
     <div class="page_con">
-      <p class="page_release">急速发票</p>
+      <router-link to="/release" tag="p" class="page_release">急速发票</router-link>
       <p class="page_title_f">实时<span>票据</span>行情</p>
       <div class="page_options">
         <ul class="list">
@@ -125,6 +125,7 @@ export default {
       color:white;
       font-size: 18px;
       cursor:pointer;
+      border-radius: 5px;
     }
     .page_title_f{
       font-size: 30px;
@@ -191,6 +192,7 @@ export default {
       min-height: 208px;
       min-width: 70px;
       border-radius: 5px;
+      z-index: 500;
       .list{
         width: 100%;
         height:100%;
