@@ -5,12 +5,12 @@
     </div>
     <ul class="header_title">
       <li>首页</li>
-      <li>票据市场</li>
+      <router-link to="/marketpa" tag="li">票据市场</router-link>
       <li>我要贴现</li>
       <li>我要买票</li>
     </ul>
     <div class="header_oper">
-      <span class="signIn">注册</span>
+      <router-link to="/sginIn" tag="span" class="signIn">注册</router-link>
       <span class="signUp">登录</span>
       <span class="user_icon"><img src="../../static/img/user.png" alt="" title="" /></span>
       <span class="mes_icon"><img src="../../static/img/mes.png" alt="" title="" /></span>

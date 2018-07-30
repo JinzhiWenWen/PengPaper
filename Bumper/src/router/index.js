@@ -26,6 +26,21 @@ const router = new Router({
         }
       ],
       redirect:'/release/data'
+    },
+    {
+      path:'/sginIn',
+      name:'SginIn',
+      component:resolve=>require(['@/subpage/signIn'],resolve)
+    },
+    {
+      path:'/releasepa',//发布票据
+      name:'ReleasePa',
+      component:resolve=>require(['@/subpage/release_paper'],resolve)
+    },
+    {
+      path:'/marketpa',//票据市场
+      name:'MarketPa',
+      component:resolve=>require(['@/subpage/market_paper'],resolve)
     }
   ]
 });
