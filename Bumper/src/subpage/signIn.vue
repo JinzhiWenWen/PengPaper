@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="sgin_in">
-    <Header/>
+    <!-- <Header/> -->
     <div class="sgin_in_con">
       <p class="sgin_in_title">用户信息</p>
       <p><span style="color:red;">*</span>用户名<input type="text" title="" palceholder="" alt="" value=""/></p>

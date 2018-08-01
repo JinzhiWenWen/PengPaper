@@ -23,6 +23,11 @@ const router = new Router({
           path:'/release/data',
           name:'Data',
           component:resolve=>require(['@/subpage/person_data'],resolve)
+        },
+        {
+          path:'/trad',//平台担保交易
+          name:'Trad',
+          component:resolve=>require(['@/subpage/platform_trading'],resolve)
         }
       ],
       redirect:'/release/data'
@@ -41,6 +46,11 @@ const router = new Router({
       path:'/marketpa',//票据市场
       name:'MarketPa',
       component:resolve=>require(['@/subpage/market_paper'],resolve)
+    },
+    {
+      path:'/details',//票据详情
+      name:'Details',
+      component:resolve=>require(['@/subpage/paper_details'],resolve)
     }
   ]
 });

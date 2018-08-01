@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="release">
-    <Header/>
+    <!-- <Header/> -->
     <div class="release_con">
       <div class="release_con_table">
         <el-row>

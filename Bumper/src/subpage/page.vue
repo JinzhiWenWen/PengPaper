@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="page">
-    <Header/>
     <Swiper/>
     <div class="page_con">
       <router-link to="/release" tag="p" class="page_release">急速发票</router-link>

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Header/>
     <transition :name="transitionName">
       <router-view class="trans-view" ref="trans_view"></router-view>
     </transition>
@@ -12,6 +13,11 @@ export default {
   data(){
     return{
       transitionName:'slide-left'
+    }
+  },
+  components:{
+    Header:resolve=>{
+      require(['@/components/header-all'],resolve)
     }
   }
 }
@@ -32,7 +38,8 @@ export default {
   top: 0;
   width:100%;
   height:100%;
-  transition: all .8s cubic-bezier(.55,0,.5,1)
+  transition: all .8s cubic-bezier(.55,0,.5,1);
+  padding-top:4%;
 }
 .slide-left-enter,.slide-right-leave-active{
   opacity:0;

@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="market_paper">
-  <Header/>
+  <!-- <Header/> -->
   <div class="market_paper_con">
     <p>
       <span>票据类型:</span>
@@ -46,7 +46,8 @@
         <el-col :span="2"><div class="table data"></div></el-col>
         <el-col :span="2"><div class="table status"></div></el-col>
         <el-col :span="4"><div class="table status"></div></el-col>
-        <el-col :span="3"><div class="table status"><span style="color:#089e0b;">查看>></span></div></el-col>
+
+        <el-col :span="3"><div class="table status"><router-link to="/details" tag="span" style="color:#089e0b;">查看>></router-link></div></el-col>
       </el-row>
     </div>
   </div>

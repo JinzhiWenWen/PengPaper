@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="release_paper">
-    <Header/>
+    <!-- <Header/> -->
     <div class="release_paper_con">
       <p class="release_paper_title"><span>票据信息</span></p>
       <div class="release_paper_mes">

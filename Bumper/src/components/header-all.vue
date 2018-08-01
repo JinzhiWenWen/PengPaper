@@ -4,7 +4,7 @@
       <img src="../../static/img/Logo.png" alt="" @click="page()">
     </div>
     <ul class="header_title">
-      <li>首页</li>
+      <router-link to="/page" tag="li">首页</router-link>
       <router-link to="/marketpa" tag="li">票据市场</router-link>
       <li>我要贴现</li>
       <li>我要买票</li>
@@ -36,6 +36,7 @@ export default {
   background: black;
   padding-left:15%;
   position: relative;
+  z-index: 5000;
   .logo{
     width: 250px;
     height:50px;
