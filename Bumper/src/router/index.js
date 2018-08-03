@@ -25,9 +25,34 @@ const router = new Router({
           component:resolve=>require(['@/subpage/person_data'],resolve)
         },
         {
-          path:'/trad',//平台担保交易
+          path:'/release/trad',//平台担保交易
           name:'Trad',
           component:resolve=>require(['@/subpage/platform_trading'],resolve)
+        },
+        {
+          path:'/release/sell',//用户出售的票据
+          name:'Sell',
+          component:resolve=>require(['@/subpage/person_sell'],resolve)
+        },
+        {
+          path:'/release/audit',//用户审核中的票据
+          name:'Audit',
+          component:resolve=>require(['@/subpage/person_audit'],resolve)
+        },
+        {
+          path:'/release/offer',//用户发布的报价
+          name:'ReOffer',
+          component:resolve=>require(['@/subpage/person_offer'],resolve)
+        },
+        {
+          path:'/release/mes',//用户消息
+          name:'Mes',
+          component:resolve=>require(['@/subpage/person_mes'],resolve)
+        },
+        {
+          path:'/release/pass',//用户修改密码
+          name:'Pass',
+          component:resolve=>require(['@/subpage/person_pass'],resolve)
         }
       ],
       redirect:'/release/data'
@@ -51,6 +76,16 @@ const router = new Router({
       path:'/details',//票据详情
       name:'Details',
       component:resolve=>require(['@/subpage/paper_details'],resolve)
+    },
+    {
+      path:'/offer',//通知买家已报价
+      name:'Offer',
+      component:resolve=>require(['@/subpage/already_offer'],resolve)
+    },
+    {
+      path:'/nooffer',//通知买家未报价
+      name:'NoOffer',
+      component:resolve=>require(['@/subpage/no_offer'],resolve)
     }
   ]
 });

@@ -31,7 +31,7 @@ export default {
 .header_all{
   width: 100%;
   height:8%;
-  min-height: 64px;
+  min-height: 75px;
   min-width: 1376px;
   background: black;
   padding-left:15%;
