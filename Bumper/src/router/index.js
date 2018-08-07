@@ -35,6 +35,11 @@ const router = new Router({
           component:resolve=>require(['@/subpage/person_sell'],resolve)
         },
         {
+          path:'/release/buy',//用户买入的票据
+          name:'Buy',
+          component:resolve=>require(['@/subpage/person_buy'],resolve)
+        },
+        {
           path:'/release/audit',//用户审核中的票据
           name:'Audit',
           component:resolve=>require(['@/subpage/person_audit'],resolve)
@@ -53,6 +58,16 @@ const router = new Router({
           path:'/release/pass',//用户修改密码
           name:'Pass',
           component:resolve=>require(['@/subpage/person_pass'],resolve)
+        },
+        {
+          path:'/release/detailed',//买家购买票据详情
+          name:'Detailed',
+          component:resolve=>require(['@/subpage/person_detailed'],resolve)
+        },
+        {
+          path:'/release/repid',//急速发票
+          name:'Repid',
+          component:resolve=>require(['@/subpage/release_paper_rapid'],resolve)
         }
       ],
       redirect:'/release/data'
@@ -86,6 +101,11 @@ const router = new Router({
       path:'/nooffer',//通知买家未报价
       name:'NoOffer',
       component:resolve=>require(['@/subpage/no_offer'],resolve)
+    },
+    {
+      path:'/resources',//资源市场
+      name:'Resources',
+      component:resolve=>require(['@/subpage/market_resources'],resolve)
     }
   ]
 });

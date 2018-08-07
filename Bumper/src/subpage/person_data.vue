@@ -7,8 +7,8 @@
       <span>企业信息</span>
     </p>
     <div class="company_mes">
-      <p style="padding-left:1.5%;">
-        <span>公司名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+      <p style="">
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;公司名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
       </p>
       <p class="">
         <span>联系人姓名&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
@@ -147,27 +147,31 @@ export default {
   .company_license{
     width: 82%;
     margin-left: 18%;
-    height:30%;
+    height:40%;
     text-align: center;
     position: relative;
     .reprod{
       width: 60%;
       height:75%;
+      min-width: 390px;
       position: absolute;
       left:50%;
       margin-left: -30%;
-      top:50%;
+      top:55%;
       margin-top:-18%;
-      border:1px solid #979797;
+      border:1px solid #ccc;
       line-height: 210px;
       img{
         width: 20%;
         height:25%;
+        position: absolute;
+        top:25%;
+        left:40%;
       }
       p{
         position: absolute;
-        top:15%;
-        left:31.5%;
+        top:30%;
+        left:36%;
         color:#999;
       }
       input{

@@ -35,7 +35,7 @@ export default {
 .trans-view{
   position: absolute;
   left: 0;
-  top: 0;
+  top: -1px;
   width:100%;
   height:100%;
   transition: all .8s cubic-bezier(.55,0,.5,1);
