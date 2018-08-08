@@ -68,6 +68,21 @@ const router = new Router({
           path:'/release/repid',//急速发票
           name:'Repid',
           component:resolve=>require(['@/subpage/release_paper_rapid'],resolve)
+        },
+        {
+          path:'/release/prise',//用户个人企业资料
+          name:'Prise',
+          component:resolve=>require(['@/subpage/person_prise'],resolve)
+        },
+        {
+          path:'/release/order',//买家资源池
+          name:'Order',
+          component:resolve=>require(['@/subpage/person_order'],resolve)
+        },
+        {
+          path:'/release/template',//报价模板
+          name:'Template',
+          component:resolve=>require(['@/subpage/offer_template'],resolve)
         }
       ],
       redirect:'/release/data'

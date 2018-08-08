@@ -64,6 +64,7 @@
             <option value ="saab">派大星</option>
             <option value="opel">章鱼哥</option>
             <option value="audi">蟹老板</option>
+            <option value="audi">苏珊</option>
           </select>
         </span>
       </p>

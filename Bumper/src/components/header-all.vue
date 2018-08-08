@@ -36,7 +36,7 @@ export default {
   background: black;
   padding-left:15%;
   position: relative;
-  z-index: 5000;
+  z-index: 500;
   .logo{
     width: 250px;
     height:50px;
