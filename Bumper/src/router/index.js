@@ -15,7 +15,7 @@ const router = new Router({
       component:resolve=>require(['@/subpage/page'],resolve)
     },
     {
-      path:'/release',
+      path:'/release',//急速发票
       name:'Release',
       component:resolve=>require(['@/subpage/release'],resolve),
       children:[
@@ -88,9 +88,27 @@ const router = new Router({
       redirect:'/release/data'
     },
     {
-      path:'/sginIn',
-      name:'SginIn',
+      path:'/signIn',//注册
+      name:'SignIn',
       component:resolve=>require(['@/subpage/signIn'],resolve)
+    },
+    {
+      path:'/signUp',//登录
+      name:'SignUp',
+      component:resolve=>require(['@/subpage/signUp'],resolve),
+      children:[
+        {
+          path:'/signUp/password',//密码登录
+          name:'Password',
+          component:resolve=>require(['@/components/password_signup'],resolve)
+        },
+        {
+          path:'/signUp/auth',//验证码登录
+          name:'Auth',
+          component:resolve=>require(['@/components/auth_signup'],resolve)
+        }
+      ],
+      redirect:'/signUp/auth'
     },
     {
       path:'/releasepa',//发布票据

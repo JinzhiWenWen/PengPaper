@@ -20,6 +20,9 @@
                 </template>
                 <el-menu-item index="1-1"  @click="data()" text-color="#ffd04b">我的数据</el-menu-item>
                 <el-menu-item index="1-2">我的报价</el-menu-item>
+                <el-menu-item index="1-2">资源池票据</el-menu-item>
+                <el-menu-item index="1-2">资源池报价</el-menu-item>
+                <el-menu-item index="1-2">发布/修改资源池报价</el-menu-item>
               </el-submenu>
               <el-submenu index="2">
                 <template slot="title">

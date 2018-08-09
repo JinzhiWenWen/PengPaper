@@ -38,7 +38,7 @@ export default {
   top: -1px;
   width:100%;
   height:100%;
-  transition: all .8s cubic-bezier(.55,0,.5,1);
+  transition: all .4s cubic-bezier(.55,0,.5,1);
   padding-top:4%;
 }
 .slide-left-enter,.slide-right-leave-active{

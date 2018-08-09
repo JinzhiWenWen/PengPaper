@@ -163,7 +163,7 @@ export default {
     margin-left: -270px;
     z-index: 601;
     padding-top:1.5%;
-    transition: all 1s;
+    transition: all .5s;
     opacity: 0;
     display: none;
     .message_box{

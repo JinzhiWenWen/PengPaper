@@ -6,12 +6,13 @@
     <ul class="header_title">
       <router-link to="/page" tag="li">首页</router-link>
       <router-link to="/marketpa" tag="li">票据市场</router-link>
+      <li>资源市场</li>
       <li>我要贴现</li>
       <li>我要买票</li>
     </ul>
     <div class="header_oper">
-      <router-link to="/sginIn" tag="span" class="signIn">注册</router-link>
-      <span class="signUp">登录</span>
+      <router-link to="/signIn" tag="span" class="signIn">注册</router-link>
+      <router-link to="/signUp" tag="span" class="signUp">登录</router-link>
       <span class="user_icon"><img src="../../static/img/user.png" alt="" title="" /></span>
       <span class="mes_icon"><img src="../../static/img/mes.png" alt="" title="" /></span>
     </div>
@@ -44,12 +45,12 @@ export default {
     cursor:pointer;
   }
   .header_title{
-    width: 22%;
+    width: 24%;
     height:100%;
     display: flex;
     // justify-content: space-between;
     position: absolute;
-    left:49%;
+    left:45%;
     top:0;
     li{
       color:white;
