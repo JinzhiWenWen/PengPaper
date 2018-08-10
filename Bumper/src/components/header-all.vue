@@ -6,7 +6,7 @@
     <ul class="header_title">
       <router-link to="/page" tag="li">首页</router-link>
       <router-link to="/marketpa" tag="li">票据市场</router-link>
-      <li>资源市场</li>
+      <router-link to="/resources" tag="li">资源市场</router-link>
       <li>我要贴现</li>
       <li>我要买票</li>
     </ul>
@@ -33,7 +33,7 @@ export default {
   width: 100%;
   height:8%;
   min-height: 75px;
-  min-width: 1376px;
+  min-width: 1631px;
   background: black;
   padding-left:15%;
   position: relative;

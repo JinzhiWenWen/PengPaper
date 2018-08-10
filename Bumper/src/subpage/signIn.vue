@@ -3,14 +3,24 @@
     <!-- <Header/> -->
     <div class="sgin_in_con">
       <p class="sgin_in_title">用户信息</p>
-      <p><span style="color:red;">*</span>用户名<input type="text" title="" palceholder="" alt="" value=""/></p>
-      <p><span style="color:red;">*</span>手机号码<input type="text" title="" palceholder="" alt="" value=""/></p>
-      <p class="code"><span style="color:red;">*</span>验证码<input type="text" title="" palceholder="" alt="" value=""/></p>
-      <p class="phoneCode"><span style="color:red;">*</span>手机验证码<input type="text" title="" palceholder="" alt="" value=""/>
-        <span class="optian">获取短信验证码</span>
-      </p>
-      <p><span style="color:red;">*</span>登录密码<input type="password" title="" palceholder="" alt="" value=""/></p>
-      <p><span style="color:red;">*</span>再次输入密码<input type="password" title="" palceholder="" alt="" value=""/></p>
+      <div class="signIn_mes">
+        <ul class="signIn_title">
+          <li><span style="color:red;">*</span>用户名</li>
+          <li><span style="color:red;">*</span>手机号码</li>
+          <li><span style="color:red;">*</span>验证码</li>
+          <li><span style="color:red;">*</span>手机验证码</li>
+          <li><span style="color:red;">*</span>登录密码</li>
+          <li><span style="color:red;">*</span>再次输入密码</li>
+        </ul>
+        <ul class="signIn_message">
+          <li><input type="text" value=""/></li>
+          <li><input type="text" value=""/></li>
+          <li><input type="text" value=""/></li>
+          <li><input type="text" value=""/><span>获取短信验证码</span></li>
+          <li><input type="text" value=""/></li>
+          <li><input type="text" value=""/></li>
+        </ul>
+      </div>
       <p class="ment"><input type="checkbox" name="vehicle" value="Bike">我已阅读<span style="color:red;">《碰碰票协议》</span></p>
       <p class="turnSignin"><button>同意协议并注册</button></p>
     </div>
@@ -33,57 +43,80 @@ export default {
   height:100%;
   min-width: 1378px;
   .sgin_in_con{
-    width: 100%;
-    height:100%;
-    padding-top:10%;
-    p{
-      width: 61%;
-      min-width:400px;
-      text-align: right;
-      margin-top: 1%;
-      input{
-        border:1px solid black;
-        margin-left:2%;
-        height:22px;
-        width: 200px;
-        font-size: 16px;
-      }
-    }
+    width: 26%;
+    height:52%;
+    margin:0 auto;
+    margin-top:10%!important;
+    border:1px solid  red;
+    border-radius: 12px;
+    min-height: 437px;
+    min-width: 442px;
     .sgin_in_title{
       width: 100%;
       text-align: center;
       font-size: 20px;
       margin-top: 0;
-      margin-bottom: 5%;
+      margin-bottom: 2%;
+      background: linear-gradient(180deg,rgba(0,165,255,1),rgba(0,108,253,1));;
+      height:70px;
+      line-height: 70px;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+      color:white;
     }
-    .code{
-      padding-right:5.3%;
-      box-sizing: border-box;
-      input{
-        width: 120px;
+    .signIn_mes{
+      width: 100%;
+      height:56%;
+      margin:0 auto;
+      display: flex;
+      padding-top:4%;
+      .signIn_title{
+        width: 50%;
+        height:100%;
+        text-align: right;
+        li{
+          padding-right:18%;
+          margin-bottom: 7.2%;
+        }
       }
-    }
-    .phoneCode{
-      // padding-right:6.85%;
-      box-sizing: border-box;
-      input{
-        width: 100px;
-      }
-      .optian{
-        width: 96px;
-        background: #ff462c;
-        font-size: 13px;
-        height:26px;
-        line-height: 27px;
-        border-radius: 3px;
-        color:white;
-        cursor:pointer;
+      .signIn_message{
+        width: 50%;
+        text-align:left;
+        margin-left:-6%;
+        li{
+          margin-bottom:4%;
+          input{
+            min-height: 24px;
+            font-size: 14px;
+            border:1px solid #ccc;
+            width: 80%;
+          }
+        }
+        li:nth-child(3){
+          input{
+            width: 50%;
+          }
+        }
+        li:nth-child(4){
+          input{
+            width: 44%;
+          }
+          span{
+            background: #FF452C;
+            padding:.5%;
+            font-size: 12px;
+            border-radius:3px;
+            color:white;
+            margin-left:.5%;
+            cursor:pointer;
+          }
+        }
       }
     }
     .ment{
       width: 100%;
       text-align: center;
-      margin-top: 2%;
+      margin-top: 1%;
       input{
         width: 12px;
         height:12px;
@@ -92,7 +125,7 @@ export default {
     .turnSignin{
       width: 100%;
       text-align: center;
-      margin-top: 2%;
+      margin-top: 4%;
       button{
         width: 310px;
         height:38px;

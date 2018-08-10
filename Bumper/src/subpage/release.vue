@@ -12,15 +12,15 @@
               @close="handleClose"
               background-color="#545c64"
               text-color="#fff"
-              active-text-color="#ffd04b">
+              active-text-color="#fff">
               <el-submenu index="1">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>报价管理</span>
                 </template>
                 <el-menu-item index="1-1"  @click="data()" text-color="#ffd04b">我的数据</el-menu-item>
-                <el-menu-item index="1-2">我的报价</el-menu-item>
-                <el-menu-item index="1-2">资源池票据</el-menu-item>
+                <el-menu-item index="1-2" @click="offer()">我的报价</el-menu-item>
+                <el-menu-item index="1-2" @click="order()">资源池票据</el-menu-item>
                 <el-menu-item index="1-2">资源池报价</el-menu-item>
                 <el-menu-item index="1-2">发布/修改资源池报价</el-menu-item>
               </el-submenu>
@@ -29,17 +29,17 @@
                   <i class="el-icon-location"></i>
                   <span>我的订单</span>
                 </template>
-                <el-menu-item index="1-1">我卖出的</el-menu-item>
-                <el-menu-item index="1-2">我买入的</el-menu-item>
+                <el-menu-item index="1-1" @click="sell()">我卖出的</el-menu-item>
+                <el-menu-item index="1-2" @click="buy()">我买入的</el-menu-item>
               </el-submenu>
               <el-submenu index="3">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>设置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </template>
-                <el-menu-item index="1-1">企业认证信息</el-menu-item>
+                <el-menu-item index="1-1" @click="prise()">企业认证信息</el-menu-item>
                 <el-menu-item index="1-2">账户信息</el-menu-item>
-                <el-menu-item index="1-3">我的消息</el-menu-item>
+                <el-menu-item index="1-3" @click="message()">我的消息</el-menu-item>
               </el-submenu>
             </el-menu>
           </el-col>
@@ -67,9 +67,26 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    data(){
-      let _this=this;
-      _this.$router.push('/release/data')
+    data(){//我的数据
+      this.$router.push('/release/data')
+    },
+    message(){//我的消息
+      this.$router.push('/release/mes')
+    },
+    sell(){//用户卖出的票据
+        this.$router.push('/release/sell')
+    },
+    buy(){//用户买入的票据
+      this.$router.push('/release/buy')
+    },
+    offer(){//用户发布的报价
+      this.$router.push('/release/offer')
+    },
+    prise(){//用户企业认证信息
+      this.$router.push('/release/prise')
+    },
+    order(){//买家资源池票据
+      this.$router.push('/release/order')
     }
 	},
   components:{

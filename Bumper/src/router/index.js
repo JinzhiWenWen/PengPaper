@@ -20,7 +20,7 @@ const router = new Router({
       component:resolve=>require(['@/subpage/release'],resolve),
       children:[
         {
-          path:'/release/data',
+          path:'/release/data',//我的数据
           name:'Data',
           component:resolve=>require(['@/subpage/person_data'],resolve)
         },
