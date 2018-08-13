@@ -17,7 +17,7 @@
             <p>报价金额:<input type="text" value="" alt=""/>&nbsp;&nbsp;&nbsp;&nbsp;</p>
             <p>报价利率:<input type="text" value="" alt=""/>%</p>
             <p>每10万加:<input type="text" value=""/>元</p>
-            <p><button type="button">确认报价</button></p>
+            <p><button type="button" @click="detailSprompt()">确认报价</button></p>
           </div>
         </div>
       </div>
@@ -28,6 +28,16 @@
         <p>Pic</p>
       </div>
     </div>
+    <div class="success_mes" ref="success_mes">
+      <p class="success_mes_title">您已成功报价</p>
+      <p class="success_mes_oper">
+        <button type="button" name="button" @click="closeSprompt()">继续报价</button>
+        <button type="button" name="button">查看我的票据</button>
+      </p>
+    </div>
+    <div class="paper_details_mask" v-show="detailsMaskShow">
+
+    </div>
     <Footer :height="minHeight"/>
   </div>
 </template>
@@ -36,12 +46,31 @@
 export default {
   data(){
     return{
-      minHeight:'10%'
+      minHeight:'10%',
+      detailsMaskShow:false
     }
   },
   components:{
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
+    }
+  },
+  methods:{
+    detailSprompt(){
+      this.detailsMaskShow=true;
+      this.$refs.success_mes.style.display="block";
+      setTimeout(()=>{
+        this.$refs.success_mes.style.top="30%";
+        this.$refs.success_mes.style.opacity="1";
+      })
+    },
+    closeSprompt(){
+      this.$refs.success_mes.style.top="15%";
+      this.$refs.success_mes.style.opacity="0";
+      setTimeout(()=>{
+        this.$refs.success_mes.style.display="none";
+        this.detailsMaskShow=false;
+      },200)
     }
   }
 }
@@ -50,6 +79,7 @@ export default {
 <style lang="scss" scoped>
 .paper_details{
   width: 100%;
+  min-width: 1631px;
   height:100%;
   .paper_details_con{
     width: 70%;
@@ -147,6 +177,51 @@ export default {
       }
     }
   }
-
+  .success_mes{
+    width: 30%;
+    height:30%;
+    position: absolute;
+    background: white;
+    top:15%;
+    left:50%;
+    margin-left:-250px;
+    z-index: 502;
+    transition: all .5s;
+    display: none;
+    opacity:0;
+    .success_mes_title{
+      width: 100%;
+      height: 60%;
+      line-height: 230px;
+      font-size: 16px;
+      font-weight: bold;
+      color:#FF0000;
+    }
+    .success_mes_oper{
+      width: 100%;
+      padding-top:5%;
+      button{
+        padding:1%;
+        border-radius:5px;
+        background: linear-gradient(180deg,rgba(254,126,89,1),rgba(252,72,45,1));
+        color:white;
+      }
+      button:nth-child(1){
+        margin-right:10px;
+      }
+      button:nth-child(2){
+        margin-left: 20px;
+      }
+    }
+  }
+  .paper_details_mask{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 501;
+  }
 }
 </style>

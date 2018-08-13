@@ -11,25 +11,30 @@
     </p>
     <div class="order_mes">
       <el-row>
-        <el-col :span="4"><div class="mes_title">票据类型</div></el-col>
-        <el-col :span="4"><div class="mes_title bank">承兑银行</div></el-col>
+        <el-col :span="3"><div class="mes_title">票据类型</div></el-col>
+        <el-col :span="3"><div class="mes_title bank">承兑银行</div></el-col>
         <el-col :span="3"><div class="mes_title">金额</div></el-col>
         <el-col :span="3"><div class="mes_title date">到期日</div></el-col>
         <el-col :span="3"><div class="mes_title">剩余天数</div></el-col>
-        <el-col :span="4"><div class="mes_title off">报价</div></el-col>
+        <el-col :span="3"><div class="mes_title off">报价</div></el-col>
         <el-col :span="3"><div class="mes_title">状态</div></el-col>
+        <el-col :span="3"><div class="mes_title oper">操作</div></el-col>
       </el-row>
       <el-row>
-        <el-col :span="4"><div class="mes_details">电银</div></el-col>
-        <el-col :span="4"><div class="mes_details bank">中国银行</div></el-col>
+        <el-col :span="3"><div class="mes_details">电银</div></el-col>
+        <el-col :span="3"><div class="mes_details bank">中国银行</div></el-col>
         <el-col :span="3"><div class="mes_details">100W</div></el-col>
         <el-col :span="3"><div class="mes_details date">2018-07-30</div></el-col>
         <el-col :span="3"><div class="mes_details">7天</div></el-col>
-        <el-col :span="4"><div class="mes_details offMes">
+        <el-col :span="3"><div class="mes_details offMes">
           <span class="limit">年化:10%</span>
           <span class="premium">每10w加:</span>
         </div></el-col>
         <el-col :span="3"><div class="mes_details">状态</div></el-col>
+        <el-col :span="3"><div class="mes_details operMes">
+          <p><button type="button" name="button">确认交易</button></p>
+          <p><button type="button" name="button">我要毁约</button></p>
+        </div></el-col>
       </el-row>
       <p class="contact">
         <span class="bankId">张家湾****贸易有限公司</span>
@@ -39,6 +44,9 @@
       </p>
     </div>
     <div class="mes_box" ref="mes_box">
+      <span>
+        <img src="../../static/img/Logo.png" alt="">
+      </span>
       <p>毁约将影响您在平台的信用，超过5次毁约降</p>
       <p>平台信用评级，交易手续费将相应调整，恶意毁</p>
       <p>约多次，经工作人员查实将封号</p>
@@ -130,6 +138,9 @@ export default {
       border-left:1px solid #ccc;
       border-right:1px solid #ccc;
     }
+    .oper{
+      border-left:1px solid #ccc;
+    }
     .mes_details{
       min-height: 70px;
       line-height: 70px;
@@ -178,26 +189,39 @@ export default {
         border-bottom:1px solid #ccc;
       }
     }
+    .operMes{
+      border-left:1px solid #ccc;
+      line-height: 0;
+    }
   }
   .mes_box{
     width: 500px;
-    height:400px;
+    height:300px;
     background: white;
     position: absolute;
     z-index: 601;
     top:15%;
     left:50%;
     margin-left:-250px;
-    padding-top:5%;
-    transition: all 1s;
+    padding-top:2%;
+    transition: all .5s;
     opacity: 0;
+    span{
+      width: 150px;
+      height:70px;
+      margin-bottom:4%;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
     p{
       width: 100%;
       text-align: center;
     }
     .order_oper{
       width: 100%;
-      margin-top: 15%;
+      margin-top: 10%;
       button{
         min-height: 40px;
         width: 20%;

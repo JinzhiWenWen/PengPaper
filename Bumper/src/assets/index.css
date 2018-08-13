@@ -30,6 +30,7 @@ button{
   outline: none;
   border:0;
   cursor:pointer;
+  font-family: "微软雅黑";
 }
 .el-submenu__title{
   padding-right: 100px;

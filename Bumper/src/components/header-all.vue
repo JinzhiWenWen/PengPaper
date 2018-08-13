@@ -34,15 +34,18 @@ export default {
   height:8%;
   min-height: 75px;
   min-width: 1631px;
-  background: black;
   padding-left:15%;
   position: relative;
   z-index: 500;
+  box-shadow:0px 0px 30px 0px rgba(188,188,188,0.5);
   .logo{
-    width: 250px;
-    height:50px;
+    width: 150px;
+    height:70px;
     padding-top: 1%;
-    cursor:pointer;
+    cursor:pointer;img{
+      width: 100%;
+      height:100%;
+    }
   }
   .header_title{
     width: 24%;
@@ -53,7 +56,6 @@ export default {
     left:45%;
     top:0;
     li{
-      color:white;
       cursor:pointer;
       font-size: 16px;
       height:100%;
@@ -67,7 +69,6 @@ export default {
   .header_oper{
     width: 10%;
     height:50%;
-    color:white;
     position: absolute;
     right:15%;
     top:30%;

@@ -7,20 +7,16 @@
         <div class="mes_left">
           <p>票据号码<input type="text" vlaue="" placehoder=""/></p>
           <p>票据金额<input type="text" vlaue="" placehoder=""/></p>
-          <p>票据到期日
+          <p class="release_paper_date">票据到期日
             <el-date-picker
               v-model="value1"
               type="date"
               placeholder="选择日期">
             </el-date-picker>
+            <span class="time">剩余期限？天</span>
             </p>
           <p>承兑人全称<input type="text" vlaue="" placehoder=""/></p>
           <p>是否可签转<input type="text" vlaue="" placehoder=""/></p>
-          <p class="amount">期望价格<input type="text" vlaue="" placeholder="年化利率"/>&nbsp;%</p>
-          <p class="obtain">
-            <button type="button" name="button">保存</button>
-            <button type="button" name="button">发布</button>
-          </p>
         </div>
         <div class="mes_right">
           <div class="paper_is">
@@ -35,6 +31,28 @@
           </div>
         </div>
       </div>
+      <p class="release_paper_statement" style="color:#FF0000;">*平台担保手续费：担保费万分之5，比如每10万收费50元，每100万收费500元，5000元封顶</p>
+      <p class="service">
+        <input type="radio" style="width:20px;height:20px;" value="" :checked="checked" v-show="radioT" @click="radioTC($event)" ref="b"/>
+        <input type="radio" style="width:20px;height:20px;"value="" checked="checked" v-show="radioB" @click="radioBC()" />
+        同意平台担保交易协议</p>
+        <p class="submit">
+          <button type="button" name="button" @click="submitMes()">提交意向</button>
+        </p>
+    </div>
+    <div class="release_paper_mask" v-show="PaperMaskShow" @click="closeMes()">
+
+    </div>
+    <div class="release_paper_prompt" ref="release_paper_prompt">
+      <span class="logo">
+        <img src="../../static/img/Logo.png" alt="">
+      </span>
+      <p class="release_paper_title">您的票据审核通过后会发送至买家请等待确认</p>
+      <p class="release_paper_opera">
+        <button type="button" name="button" @click="closeMes()">继续去资源市场</button>
+        <button type="button" name="button">查看审核状态</button>
+        <button type="button" name="button">查看意向</button>
+      </p>
     </div>
     <Footer :height="minHeight"/>
   </div>
@@ -44,8 +62,12 @@
 export default {
   data(){
     return{
-      minHeight:'10%',
-      value1:null
+      minHeight:'20%',
+      value1:null,
+      radioT:true,
+      radioB:false,
+      checked:false,
+      PaperMaskShow:false
     }
   },
   components:{
@@ -54,6 +76,38 @@ export default {
     },
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
+    }
+  },
+  methods:{
+    radioTC($event){
+      this.radioT=false;
+      this.radioB=true;
+      $event.target.checked=false
+    },
+    radioBC(){
+      // console.log(this.$refs.b.target)
+      this.radioT=true;
+      this.radioB=false;
+    },
+    submitMes(){
+      if(!this.radioB){
+        alert('请选择同意担保交易协议！')
+      }else{
+        this.PaperMaskShow=true;
+        this.$refs.release_paper_prompt.style.display="block";
+        setTimeout(()=>{
+          this.$refs.release_paper_prompt.style.top="30%";
+          this.$refs.release_paper_prompt.style.opacity="1"
+        },0)
+      }
+    },
+    closeMes(){
+      this.$refs.release_paper_prompt.style.top="15%";
+      this.$refs.release_paper_prompt.style.opacity="0";
+      setTimeout(()=>{
+        this.PaperMaskShow=false;
+        this.$refs.release_paper_prompt.style.display="none";
+      },200)
     }
   }
 }
@@ -100,6 +154,16 @@ export default {
       .mes_left{
         width: 70%;
         height:100%;
+        .release_paper_date{
+          position: relative;
+          .time{
+            position: absolute;
+            right:-100px;
+            font-size: 15px;
+            top:15%;
+            color:red;
+          }
+        }
         p{
           width: 65%;
           text-align: right;
@@ -181,6 +245,82 @@ export default {
             opacity: 0;
           }
         }
+      }
+    }
+    .service{
+      position: relative;
+      // background: red;
+      margin-top:3%;
+      position: relative;
+      input{
+        position: absolute;
+        top:-6%;
+        left:42%;
+        min-height: 21px;
+      }
+    }
+    .submit{
+      width:100%;
+      height:40px;
+      margin-top:3%;
+      button{
+        width: 26%;
+        height:100%;
+        background: linear-gradient(180deg,rgba(254,116,79,1),rgba(252,64,39,1));
+        color:white;
+        font-size: 16px;
+        border-radius:8px;
+      }
+    }
+  }
+  .release_paper_mask{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 500;
+  }
+  .release_paper_prompt{
+    width: 30%;
+    height:30%;
+    background: white;
+    position: absolute;
+    top:15%;
+    left:50%;
+    margin-left:-15%;
+    z-index: 501;
+    transition: all .5s;
+    opacity: 0;
+    display: none;
+    .logo{
+      width: 150px;
+      height:70px;
+      position: absolute;
+      left:2%;
+      top:5%;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
+    .release_paper_title{
+      width: 100%;
+      height:60%;
+      line-height: 300px;
+      color:#666666;
+    }
+    .release_paper_opera{
+      width: 100%;
+      padding-top:8%;
+      button{
+        min-height: 36px;
+        min-width: 141px;
+        border-radius:5px;
+        color:white;
+        background: linear-gradient(180deg,rgba(254,126,89,1),rgba(252,72,45,1));
+        margin-right: 20px;
       }
     }
   }

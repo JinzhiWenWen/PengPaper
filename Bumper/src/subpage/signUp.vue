@@ -2,8 +2,8 @@
   <div class="signUp">
     <div class="signup_con">
       <ul class="signup_way">
-        <router-link to="/signUp/password" @click.native="pass()" :class="{active:color==1}" tag="li">密码登录</router-link>
-        <router-link to="/signUp/auth" @click.native="auth()" :class="{active:color==2}" tag="li">验证码登录</router-link>
+        <router-link to="/signUp/password" @click.native="pass()" :class="{active:color==1}" tag="li">密码登入</router-link>
+        <router-link to="/signUp/auth" @click.native="auth()" :class="{active:color==2}" tag="li">手机登入</router-link>
       </ul>
       <div class="way_mes">
         <router-view></router-view>
