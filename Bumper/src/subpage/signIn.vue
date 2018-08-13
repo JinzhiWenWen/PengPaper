@@ -13,25 +13,44 @@
           <li><span style="color:red;">*</span>再次输入密码</li>
         </ul>
         <ul class="signIn_message">
+          <li><input type="text" value="" ref="UserName"/></li>
+          <li><input type="text" value="" ref="Phone"/></li>
+          <li><input type="text" value="" ref="Code"/></li>
+          <li><input type="text" value="" ref="PhoneCode"/><span>获取短信验证码</span></li>
           <li><input type="text" value=""/></li>
-          <li><input type="text" value=""/></li>
-          <li><input type="text" value=""/></li>
-          <li><input type="text" value=""/><span>获取短信验证码</span></li>
-          <li><input type="text" value=""/></li>
-          <li><input type="text" value=""/></li>
+          <li><input type="text" value="" ref="pass"/></li>
         </ul>
       </div>
       <p class="ment"><input type="checkbox" name="vehicle" value="Bike">我已阅读<span style="color:red;">《碰碰票协议》</span></p>
-      <p class="turnSignin"><button>同意协议并注册</button></p>
+      <p class="turnSignin"><button @click="sginIn()">同意协议并注册</button></p>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  components:{
-    Header:resolve=>{
-      require(['@/components/header-all'],resolve)
+  methods:{
+    sginIn(){
+      let _this=this;
+      let name=_this.$refs.UserName.value;//用户名
+      let phone=_this.$refs.Phone.value;//手机号码
+      let code=_this.$refs.Code.value;//图形验证码
+      let phoneCode=_this.$refs.PhoneCode.value;//手机验证码
+      let pass=_this.$refs.pass.value;//密码
+      if(name==''||phone==''||phone==''||phoneCode==''||pass==''){
+        alert('请先完善您的个人信息！')
+      }else{
+          _this.$axios.post('地址',{
+            // 参数
+          },response=>{
+            if(response.status==200){
+              console.log(response.data)
+            }else{
+              console.log(response.message)
+            }
+          }
+        )
+      }
     }
   }
 }

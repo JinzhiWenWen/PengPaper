@@ -108,7 +108,7 @@ const router = new Router({
           component:resolve=>require(['@/components/auth_signup'],resolve)
         }
       ],
-      redirect:'/signUp/auth'
+      redirect:'/signUp/password'//默认密码登录
     },
     {
       path:'/releasepa',//发布票据
