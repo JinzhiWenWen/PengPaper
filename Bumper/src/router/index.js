@@ -83,6 +83,29 @@ const router = new Router({
           path:'/release/template',//报价模板
           name:'Template',
           component:resolve=>require(['@/subpage/offer_template'],resolve)
+        },
+        {
+          path:'/release/offerde',//买家报价详情
+          name:'OfferDe',
+          component:resolve=>require(['@/subpage/person_offerDe'],resolve)
+        },
+        {
+          path:'/release/paper',//用户发布的票据
+          name:'Paper',
+          component:resolve=>require(['@/subpage/person_paper'],resolve),
+          children:[
+            {
+              path:'/release/paper/offerIn',//用户报价中的票据
+              name:'OfferIn',
+              component:resolve=>require(['@/subpage/person_offerIn'],resolve)
+            },
+            {
+              path:'/release/paper/offerBe',//用户审核中的票据
+              name:'OfferBe',
+              component:resolve=>require(['@/subpage/person_offerBe'],resolve)
+            }
+          ],
+          redirect:'/release/paper/offerIn'
         }
       ],
       redirect:'/release/data'

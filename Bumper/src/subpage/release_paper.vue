@@ -85,7 +85,6 @@ export default {
       $event.target.checked=false
     },
     radioBC(){
-      // console.log(this.$refs.b.target)
       this.radioT=true;
       this.radioB=false;
     },

@@ -1,3 +1,4 @@
+<!-- 买家资源池 -->
 <template lang="html">
   <div class="person_order">
     <p  class="order_title_chsoe">
@@ -33,14 +34,14 @@
         <el-col :span="3"><div class="mes_details">状态</div></el-col>
         <el-col :span="3"><div class="mes_details operMes">
           <p><button type="button" name="button">确认交易</button></p>
-          <p><button type="button" name="button">我要毁约</button></p>
+          <p><button type="button" name="button" @click="showOper()">我要毁约</button></p>
         </div></el-col>
       </el-row>
       <p class="contact">
         <span class="bankId">张家湾****贸易有限公司</span>
         <span class="bankId" style="margin-left:6%;">赵总</span>
         <span class="bankId" style="margin-left:6%;">13900323434</span>
-        <button type="button" name="button" @click="showOper()">详情</button>
+        <button type="button" name="button">详情</button>
       </p>
     </div>
     <div class="mes_box" ref="mes_box">
@@ -192,6 +193,25 @@ export default {
     .operMes{
       border-left:1px solid #ccc;
       line-height: 0;
+      display: flex;
+      flex-direction: column;
+      p{
+        width: 100%;
+        height:35px;
+        line-height: 35px;
+      }
+      button{
+        background: linear-gradient(180deg,rgba(255,121,86,1),rgba(254,68,43,1));
+        border-radius:5px;
+        color:white;
+      }
+      p:nth-child(2){
+        button{
+          background: white;
+          color:#FE452C;
+          border:1px solid #FE452C;
+        }
+      }
     }
   }
   .mes_box{

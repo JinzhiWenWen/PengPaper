@@ -4,9 +4,9 @@
       <img src="../../static/img/Logo.png" alt="" @click="page()">
     </div>
     <ul class="header_title">
-      <router-link to="/page" tag="li">首页</router-link>
-      <router-link to="/marketpa" tag="li">票据市场</router-link>
-      <router-link to="/resources" tag="li">资源市场</router-link>
+      <router-link to="/page" tag="li" @click.native="pageAc()" :class="{active:color==1}">首页</router-link>
+      <router-link to="/marketpa" tag="li" @click.native="market()" :class="{active:color==2}">票据市场</router-link>
+      <router-link to="/resources" tag="li" @click.native="resources()" :class="{active:color==3}">资源市场</router-link>
       <li>我要贴现</li>
       <li>我要买票</li>
     </ul>
@@ -21,14 +21,32 @@
 
 <script>
 export default {
+  data(){
+    return{
+      color:1
+    }
+  },
   methods:{
     page(){
       this.$router.push('/page')
+    },
+    pageAc(){
+      this.color=1;
+    },
+    market(){
+      this.color=2;
+    },
+    resources(){
+      this.color=3;
     }
   }
 }
 </script>
 <style lang="scss" scoped>
+.active{
+  background: #FF452C;
+  color:white;
+}
 .header_all{
   width: 100%;
   height:8%;
@@ -51,7 +69,6 @@ export default {
     width: 24%;
     height:100%;
     display: flex;
-    // justify-content: space-between;
     position: absolute;
     left:45%;
     top:0;
@@ -59,11 +76,8 @@ export default {
       cursor:pointer;
       font-size: 16px;
       height:100%;
-      line-height: 68px;
+      line-height: 75px;
       width: 25%;
-    }
-    li:hover{
-      background: red;
     }
   }
   .header_oper{

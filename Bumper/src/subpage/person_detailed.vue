@@ -22,16 +22,56 @@
           <span class="Is"></span>
           <span class="The"></span>
         </li>
+        <li>
+          <input type="radio" style="width:15px;height:15px;" name="" value="">同意平台担保支付协议
+        </li>
       </ul>
     </div>
     <p class="havelook">
+      <button type="button" name="button" @click="showWarning()">开始支付</button>
       <button type="button" name="button">查看交易进度</button>
     </p>
+    <div class="person_detailed_prompt" ref="detailedPrompt">
+      <img src="../../static/img/warning.png" alt="">
+      <p class="warning_title">温馨提示</p>
+      <p class="warning_alt top">平台不参与担保，风险巨大！</p>
+      <p class="warning_alt">强烈建议选择平台担保交易</p>
+      <i class="el-icon-close" @click="closeWarning()"></i>
+    </div>
+    <div class="person_detailed_mask" v-show="detailedMaskShow" @click="closeWarning()">
+
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      detailedMaskShow:false
+    }
+  },
+  methods:{
+    showWarning(){
+      let _this=this;
+      _this.detailedMaskShow=true;
+      _this.$refs.detailedPrompt.style.display='block';
+      setTimeout(()=>{
+        _this.$refs.detailedPrompt.style.opacity='1';
+        _this.$refs.detailedPrompt.style.top='30%'
+      })
+    },
+    closeWarning(){
+      let _this=this;
+      _this.$refs.detailedPrompt.style.opacity='0';
+      _this.$refs.detailedPrompt.style.top='15%'
+
+      setTimeout(()=>{
+        _this.detailedMaskShow=false;
+        _this.$refs.detailedPrompt.style.display='none';
+      },200)
+    }
+  }
 }
 </script>
 
@@ -80,7 +120,7 @@ export default {
       li:nth-child(5){
         margin-top:-3.5%;
       }
-      li:last-child{
+      li:nth-child(6){
         background-color: red;
         margin-top: -1%;
         position: relative;
@@ -94,19 +134,85 @@ export default {
           left:70%;
         }
       }
+      li:last-child{
+        margin-top:75%;
+        position:relative;
+        padding-left:10%;
+        input{
+          position: absolute;
+          left:0;
+        }
+      }
     }
   }
   .havelook{
-    width: 80%;
-    margin-top: 20%;
+    width: 72%;
     text-align: center;
     margin-left: 5%;
     button{
-      min-width: 40%;
-      min-height: 34px;
+      min-width: 25%;
+      min-height: 40px;
       background:linear-gradient(180deg,rgba(255,121,86,1),rgba(254,68,43,1));
       color:white;
-      border-radius: 8px;
+      border-radius: 3px;
+      font-size: 15px;
+    }
+    button:nth-child(1){
+      background: white;
+      border:1px solid #FE5035;
+      color:#FE5035;
+      margin-right:20px;
+    }
+  }
+  .person_detailed_mask{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 500;
+  }
+  .person_detailed_prompt{
+    width: 300px;
+    height:200px;
+    background: white;
+    position: absolute;
+    top:15%;
+    left:50%;
+    opacity: 0;
+    display: none;
+    margin-left:-150px;
+    z-index: 501;
+    padding-top:1%;
+    transition: all .5s;
+    img{
+      width: 60px;
+      height:60px;
+    }
+    p{
+      color:#ff2200;
+    }
+    .warning_title{
+      width: 100%;
+      color:#FF2200;
+      font-weight: bold;
+      font-size: 16px;
+      margin-top:2%;
+    }
+    .warning_alt{
+      width: 100%;
+      font-size: 14px;
+      color:#FF2200;
+    }
+    .top{
+      margin-top: 5%;
+    }
+    i{
+      position: absolute;
+      right:2%;
+      top:2%;
+      cursor:pointer;
     }
   }
 }

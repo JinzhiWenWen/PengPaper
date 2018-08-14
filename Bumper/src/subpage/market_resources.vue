@@ -27,6 +27,17 @@
           </div></el-col>
         </el-row>
       </div>
+      <div class="market_resources_listB">
+          <el-row>
+            <el-col :span="4"><div class="resourcesListB">国股</div></el-col>
+            <el-col :span="5"><div class="resourcesListB much">10W-49.9W</div></el-col>
+            <el-col :span="5"><div class="resourcesListB">12.28后到期加0.10</div></el-col>
+            <el-col :span="5"><div class="resourcesListB unknow">4.25+40</div></el-col>
+            <el-col :span="5"><div class="resourcesListB opera">
+              <button type="button" name="button">找TA贴现</button>
+            </div></el-col>
+          </el-row>
+      </div>
     </div>
   </div>
 </template>
@@ -90,9 +101,38 @@ export default {
         button{
           min-width:74px;
           min-height: 30px;
-          background: white;
+          background: linear-gradient(180deg,rgba(255,125,91,1),rgba(255,71,46,1));;
           border-radius:5px;
-          border:1px solid #666;
+          color:white;
+        }
+      }
+    }
+    .market_resources_listB{
+      width: 75%;
+      margin:0 auto;
+      border:1px solid #ccc;
+      border-bottom:0;
+      margin-top: 10%;
+      .resourcesListB{
+        min-height: 40px;
+        line-height: 40px;
+        border-bottom:1px solid #ccc;
+      }
+      .much{
+        border-left:1px solid #ccc;
+        border-right:1px solid #ccc;
+      }
+      .unknow{
+        border-left:1px solid #ccc;
+        border-right:1px solid #ccc;
+      }
+      .opera{
+        button{
+          width: 80px;
+          height:28px;
+          border-radius:5px;
+          background: linear-gradient(180deg,rgba(255,125,91,1),rgba(255,71,46,1));
+          color:white;
         }
       }
     }

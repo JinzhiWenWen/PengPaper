@@ -15,20 +15,21 @@
     <div class="offer_mes">
       <el-row>
         <el-col :span="3"><div class="mes_title">票据类型</div></el-col>
-        <el-col :span="4"><div class="mes_title bank">承兑银行</div></el-col>
+        <el-col :span="3"><div class="mes_title bank">承兑银行</div></el-col>
         <el-col :span="3"><div class="mes_title">金额</div></el-col>
         <el-col :span="3"><div class="mes_title date">到期日</div></el-col>
         <el-col :span="3"><div class="mes_title">剩余天数</div></el-col>
-        <el-col :span="4"><div class="mes_title amount">报价</div></el-col>
-        <el-col :span="4"><div class="mes_title">状态</div></el-col>
+        <el-col :span="3"><div class="mes_title amount">报价</div></el-col>
+        <el-col :span="3"><div class="mes_title">状态</div></el-col>
+        <el-col :span="3"><div class="mes_title opera">操作</div></el-col>
       </el-row>
       <el-row>
         <el-col :span="3"><div class="mes">票据类型</div></el-col>
-        <el-col :span="4"><div class="mes bank">承兑银行</div></el-col>
+        <el-col :span="3"><div class="mes bank">承兑银行</div></el-col>
         <el-col :span="3"><div class="mes">金额</div></el-col>
         <el-col :span="3"><div class="mes date">到期日</div></el-col>
         <el-col :span="3"><div class="mes">剩余天数</div></el-col>
-        <el-col :span="4"><div class="mes amount mes_chose">
+        <el-col :span="3"><div class="mes amount mes_chose">
           <div class="rate">
             <p>利率：</p>
           </div>
@@ -36,9 +37,12 @@
             <p>每10w加：</p>
           </div>
         </div></el-col>
-        <el-col :span="4"><div class="mes pula">
+        <el-col :span="3"><div class="mes pula">
           <span>已被卖家接受</span>
-          <button type="button" name="button">交易</button>
+        </div></el-col>
+        <el-col :span="3"><div class="mes operaMes">
+          <p><button type="button" name="button">交易</button></p>
+          <p><button type="button" name="button">放弃</button></p>
         </div></el-col>
       </el-row>
       <div class="mes_bot">
@@ -46,6 +50,7 @@
           <span>张家湾****贸易有限公司</span>
           <span>赵总</span>
           <span>13240891337</span>
+          <button type="button" name="button">查看详情</button>
         </p>
       </div>
     </div>
@@ -113,6 +118,9 @@ export default {
       line-height: 100px;
       font-size: 14px;
     }
+    .opera{
+      border-left:1px solid #ccc;
+    }
     .mes_chose{
       display: flex;
       flex-direction: column;
@@ -139,27 +147,30 @@ export default {
         }
       }
     }
-    .pula{
-      position: relative;
-      margin-top: 1px;
-      span{
-        position: absolute;
-        font-size:12px;
-        top:-15%;
-        left:25%;
+    .operaMes{
+      border-left:1px solid #ccc;
+      line-height: 0;
+      display: flex;
+      flex-direction: column;
+      p{
+        width: 100%;
+        height:50px;
+        line-height: 50px;
+
+        button{
+          min-width: 60px;
+          height:30px;
+          border-radius: 3px;
+          background: linear-gradient(180deg,rgba(255,121,86,1),rgba(254,68,43,1));
+          color:white;
+        }
       }
-      button{
-        width:105px;
-        height:30px;
-        border-radius:3px;
-        background:linear-gradient(180deg,rgba(255,121,86,1),rgba(254,68,43,1));
-        color:white;
-        margin-top: 10%;
-        position: absolute;
-        left:0;
-        top:35%;
-        left:50%;
-        margin-left:-52.5px;
+      p:nth-child(2){
+        button{
+          background: white;
+          border:1px solid #FE452C;
+          color:#FE452C;
+        }
       }
     }
     .mes_bot{
@@ -167,13 +178,25 @@ export default {
       line-height: 40px;
       border-bottom:1px solid #ccc;
       font-size: 14px;
+      position: relative;
       p{
         width: 60%;
         margin: 0 auto;
         display: flex;
         justify-content: space-around;
+        button{
+          width:105px;
+          height:30px;
+          border-radius:3px;
+          background:linear-gradient(180deg,rgba(255,121,86,1),rgba(254,68,43,1));
+          color:white;
+          position: absolute;
+          right:2%;
+          top:12%;
+        }
       }
     }
+
   }
 }
 </style>

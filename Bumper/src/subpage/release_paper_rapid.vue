@@ -31,13 +31,48 @@
       </ul>
     </div>
     <p class="release_rapid">
-      <button type="button" name="button">发布</button>
+      <button type="button" name="button" @click="rapidRelease()">发布</button>
     </p>
+    <div class="release_rapid_mask" v-show="rapidMask" @click="closeRele()" >
+
+    </div>
+    <div class="release_rapid_prompt" ref="release_rapid_prompt">
+      <img src="../../static/img/Logo.png" alt="">
+      <p class="srapid_prompt_uccess">发布成功</p>
+      <p>客服将尽快与您联系</p>
+      <p class="srapid_prompt_chose">
+        <button type="button" name="button" @click="closeRele()">确定</button>
+        <button type="button" name="button">发布票据给更多买家</button>
+      </p>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      rapidMask:false
+    }
+  },
+  methods:{
+    rapidRelease(){
+      this.rapidMask=true;
+      this.$refs.release_rapid_prompt.style.display='block';
+      setTimeout(()=>{
+        this.$refs.release_rapid_prompt.style.opacity='1';
+        this.$refs.release_rapid_prompt.style.top='30%';
+      })
+    },
+    closeRele(){
+      this.$refs.release_rapid_prompt.style.opacity='0';
+      this.$refs.release_rapid_prompt.style.top='15%';
+      setTimeout(()=>{
+        this.rapidMask=false;
+        this.$refs.release_rapid_prompt.style.display='none';
+      },200)
+    }
+  }
 }
 </script>
 
@@ -137,6 +172,60 @@ export default {
       color:white;
       border-radius: 8px;
       margin-left: 5%;
+    }
+  }
+  .release_rapid_mask{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 500;
+  }
+  .release_rapid_prompt{
+    width: 500px;
+    height:250px;
+    position: absolute;
+    top:15%;
+    margin-left: -250px;
+    left:50%;
+    background: white;
+    z-index: 501;
+    opacity: 0;
+    display: none;
+    transition: all .5s;
+    img{
+      width: 150px;
+      height:60px;
+      position: absolute;
+      left:2%;
+      top:5%;
+    }
+    p{
+      color:#FF0000;
+    }
+    .srapid_prompt_uccess{
+      margin-top:20%;
+      font-size: 20px;
+    }
+    .srapid_prompt_chose{
+      width: 100%;
+      margin-top:6%;
+      padding-left:5%;
+      button{
+        min-height: 30px;
+        border-radius:5px;
+        background: linear-gradient(180deg,rgba(254,126,89,1),rgba(252,72,45,1));;
+        color:white;
+      }
+      button:nth-child(1){
+        width: 80px;
+        margin-right: 40px;
+      }
+      button:nth-child(2){
+        margin-left: 10px;
+      }
     }
   }
 }
