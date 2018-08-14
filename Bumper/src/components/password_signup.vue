@@ -2,17 +2,35 @@
 <template lang="html">
   <div class="password_signup">
     <p class="phone">
-      <span style="color:red;">*</span>手机号：&nbsp;&nbsp;<input type="text" value="" placeholder=""/>
+      <span style="color:red;">*</span>手机号：&nbsp;&nbsp;<input type="text" value="" placeholder="" ref="phoneNumber"/>
     </p>
-    <p class="code"><span style="color:red;">*</span>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" value="" placeholder="" /></p>
+    <p class="code"><span style="color:red;">*</span>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" value="" placeholder="" ref="pass" /></p>
     <p class="turn">
-      <button type="button" name="button">登录</button>
+      <button type="button" name="button" @click="sginIn()">登录</button>
     </p>
   </div>
 </template>
 
 <script>
 export default {
+  methods:{
+    sginIn(){
+      let _this=this;
+      let phone=_this.$refs.phoneNumber.value;
+      let pass=_this.$refs.pass.value;
+      _this.axios.post(_this.oUrl+'/login',
+      {header:{
+        'Content-Type':'application/json'
+      }},
+      {
+        "user_phone":phone,
+        "user_passwd":pass
+      }
+    ).then((res)=>{
+      console.log(res)
+    })
+    }
+  }
 }
 </script>
 

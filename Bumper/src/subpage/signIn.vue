@@ -40,16 +40,19 @@ export default {
       if(name==''||phone==''||phone==''||phoneCode==''||pass==''){
         alert('请先完善您的个人信息！')
       }else{
-          _this.$axios.post('地址',{
-            // 参数
-          },response=>{
-            if(response.status==200){
-              console.log(response.data)
-            }else{
-              console.log(response.message)
-            }
+          _this.axios.post(_this.oUrl+'/register',
+          {header:{
+            'Content-Type':'application/json'
+          }},
+          {
+            "login_name":name,
+            "user_phone":phone,
+            "user_passwd":pass,
+            "code":phoneCode
           }
-        )
+        ).then((res)=>{
+          console.log(res)
+        })
       }
     }
   }
