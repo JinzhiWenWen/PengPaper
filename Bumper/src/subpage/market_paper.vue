@@ -38,16 +38,15 @@
       </el-row>
     </div>
     <div class="market_paper_table">
-      <el-row>
-        <el-col :span="4"><div class="table time"></div></el-col>
-        <el-col :span="3"><div class="table type"></div></el-col>
-        <el-col :span="3"><div class="table acce"></div></el-col>
-        <el-col :span="3"><div class="table amount"></div></el-col>
+      <el-row v-for="(item,index) in noteList" :key="index">
+        <el-col :span="4"><div class="table time">{{item.billType}}</div></el-col>
+        <el-col :span="3"><div class="table type">{{item.acceptor}}</div></el-col>
+        <el-col :span="3"><div class="table acce">{{item.amount}}</div></el-col>
+        <el-col :span="3"><div class="table amount">{{item.maturity}}</div></el-col>
         <el-col :span="2"><div class="table data"></div></el-col>
-        <el-col :span="2"><div class="table status"></div></el-col>
-        <el-col :span="4"><div class="table status"></div></el-col>
-
-        <el-col :span="3"><div class="table status"><router-link to="/details" tag="span" style="color:#089e0b;">查看>></router-link></div></el-col>
+        <el-col :span="2"><div class="table status">{{item.status}}</div></el-col>
+        <el-col :span="4"><div class="table status">0</div></el-col>
+        <el-col :span="3"><div class="table status"><router-link to="/details" tag="span" style="color:#089e0b;cursor:pointer;">查看>></router-link></div></el-col>
       </el-row>
     </div>
   </div>
@@ -57,6 +56,11 @@
 
 <script>
 export default {
+  data(){
+    return{
+      noteList:[]
+    }
+  },
   components:{
     Header:resolve=>{
       require(['@/components/header-all'],resolve)
@@ -64,6 +68,19 @@ export default {
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
     }
+  },
+  methods:{
+    getList(){
+      let _this=this;
+      _this.axios.get(_this.oUrl+'/bills/getAllBills').then((res)=>{
+        console.log(res)
+        _this.noteList=res.data;
+        console.log(_this.noteList)
+      })
+    }
+  },
+  created(){
+    this.getList()
   }
 }
 </script>
@@ -135,7 +152,6 @@ export default {
         min-height: 42px;
         line-height: 40px;
         border:1px solid #cad2df;
-        cursor:pointer;
       }
     }
   }

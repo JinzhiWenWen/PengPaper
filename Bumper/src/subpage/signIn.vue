@@ -24,11 +24,23 @@
       <p class="ment"><input type="checkbox" name="vehicle" value="Bike">我已阅读<span style="color:red;">《碰碰票协议》</span></p>
       <p class="turnSignin"><button @click="sginIn()">同意协议并注册</button></p>
     </div>
+    <div class="signIn_mask" v-show="signInMaskShow">
+
+    </div>
+    <div class="signIn_prompt" ref="signIn_prompt">
+      <img src="../../static/img/feedback.png" alt="">
+      <router-link to="/signUp/password" tag="button">立即登录</router-link>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data(){
+    return{
+      signInMaskShow:false
+    }
+  },
   methods:{
     sginIn(){
       let _this=this;
@@ -41,17 +53,23 @@ export default {
         alert('请先完善您的个人信息！')
       }else{
           _this.axios.post(_this.oUrl+'/register',
-          {header:{
-            'Content-Type':'application/json'
-          }},
           {
             "login_name":name,
             "user_phone":phone,
             "user_passwd":pass,
             "code":phoneCode
-          }
+          },
+          {header:{
+            'Content-Type':'application/json'
+          }},
         ).then((res)=>{
           console.log(res)
+          _this.signInMaskShow=true;
+          _this.$refs.signIn_prompt.style.display='block';
+          setTimeout(()=>{
+            _this.$refs.signIn_prompt.style.opacity='1';
+            _this.$refs.signIn_prompt.style.top='15%';
+          })
         })
       }
     }
@@ -155,6 +173,42 @@ export default {
         background: #ff462c;
         color:white;
       }
+    }
+  }
+  .signIn_mask{
+    width: 100%;
+    height:100%;
+    background: rgba(0,0,0,.5);
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 500;
+  }
+  .signIn_prompt{
+    width: 580px;
+    height:500px;
+    position: absolute;
+    top:5%;
+    left:50%;
+    margin-left:-290px;
+    z-index: 501;
+    display: none;
+    opacity: 1;
+    transition: all .5s;
+    img{
+      width: 100%;
+      height:100%;
+    }
+    button{
+      position: absolute;
+      width: 100px;
+      height:30px;
+      border-radius:5px;
+      top:75%;
+      left:50%;
+      margin-left:-50px;
+      background: linear-gradient(180deg,rgba(254,116,79,1),rgba(252,64,39,1));
+      color:white;
     }
   }
 }

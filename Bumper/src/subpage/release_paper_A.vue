@@ -1,3 +1,4 @@
+<!-- 正常发布票据 -->
 <template lang="html">
   <div class="release_paper">
     <!-- <Header/> -->
@@ -122,7 +123,6 @@ export default {
           'Content-Type':'application/json'
         }}
       ).then((res)=>{
-        console.log(res)
         this.PaperMaskShow=true;
         this.$refs.release_paper_prompt.style.display="block";
         setTimeout(()=>{

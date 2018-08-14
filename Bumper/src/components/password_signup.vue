@@ -19,15 +19,19 @@ export default {
       let phone=_this.$refs.phoneNumber.value;
       let pass=_this.$refs.pass.value;
       _this.axios.post(_this.oUrl+'/login',
-      {header:{
-        'Content-Type':'application/json'
-      }},
       {
         "user_phone":phone,
         "user_passwd":pass
-      }
+      },
+      {header:{
+        'Content-Type':'application/json'
+      }}
     ).then((res)=>{
       console.log(res)
+      window.history.back()
+      setTimeout(()=>{
+        window.history.back()
+      },0)
     })
     }
   }
