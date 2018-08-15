@@ -4,7 +4,7 @@
       <p class="paper_details_title">海绵海绵我是大星科技有限公司</p>
       <div class="paper_mes">
         <div class="mes">
-          <p>票据类型:<span>{{billType}}</span></p>
+          <p>票据编号:<span>{{billType}}</span></p>
           <p>汇票到期日:<span>{{billDate}}</span></p>
           <p>票据金额:<span>{{amount}}</span></p>
           <p>出票日期:<span>{{billTime}}</span></p>
@@ -14,9 +14,9 @@
         <div class="place">
           <p class="num">已有23家机构报价</p>
           <div class="table">
-            <p>报价金额:<input type="text" value="" alt=""/>&nbsp;&nbsp;&nbsp;&nbsp;</p>
-            <p>报价利率:<input type="text" value="" alt=""/>%</p>
-            <p>每10万加:<input type="text" value=""/>元</p>
+            <p>报价金额:<input type="text" value="" alt="" ref="amount"/>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+            <p>报价利率:<input type="text" value="" alt="" ref="interest"/>%</p>
+            <p>每10万加:<input type="text" value="" ref="xPerLakh"/>元</p>
             <p><button type="button" @click="detailSprompt()">确认报价</button></p>
           </div>
         </div>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -63,12 +64,32 @@ export default {
   },
   methods:{
     detailSprompt(){
-      this.detailsMaskShow=true;
-      this.$refs.success_mes.style.display="block";
-      setTimeout(()=>{
-        this.$refs.success_mes.style.top="30%";
-        this.$refs.success_mes.style.opacity="1";
-      })
+      let _this=this;
+      let amount=this.$refs.amount.value;
+      let interest=this.$refs.interest.value;
+      let xPerLakh=this.$refs.xPerLakh.value;
+      let Id=getCookie('')
+      if(amount==''||interest==''||xPerLakh==''){
+        alert('请完善报价信息')
+      }else{
+        _this.axios.post(_this.oUrl+'/quote/addQuote',{
+          "billNumber":_this.bill,//票号
+        	"quoterId":"b7138b09c85b4bf6a9da174cb165085e",//用户Id
+        	"quoteAmount":amount,
+        	"interest":interest,//利率
+        	"xPerLakh":xPerLakh,//每10w加
+        	"status":"ok",
+        	"quoteDate":"2018-08-09"//报价时间
+        }).then((res)=>{
+          console.log(res)
+        })
+      }
+      // this.detailsMaskShow=true;
+      // this.$refs.success_mes.style.display="block";
+      // setTimeout(()=>{
+      //   this.$refs.success_mes.style.top="30%";
+      //   this.$refs.success_mes.style.opacity="1";
+      // })
     },
     closeSprompt(){
       this.$refs.success_mes.style.top="15%";

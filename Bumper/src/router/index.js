@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
+import offerIn from '@/subpage/person_offerIn'
 Vue.use(Router)
 
 const router = new Router({
@@ -92,23 +92,25 @@ const router = new Router({
         {
           path:'/release/paper',//用户发布的票据
           name:'Paper',
-          component:resolve=>require(['@/subpage/person_paper'],resolve),
-          children:[
-            {
-              path:'/release/paper/offerIn',//用户报价中的票据
-              name:'OfferIn',
-              component:resolve=>require(['@/subpage/person_offerIn'],resolve)
-            },
-            {
-              path:'/release/paper/offerBe',//用户审核中的票据
-              name:'OfferBe',
-              component:resolve=>require(['@/subpage/person_offerBe'],resolve)
-            }
-          ],
-          redirect:'/release/paper/offerIn'
+          components:{
+            default:resolve=>require(['@/subpage/person_paper'],resolve)
+          }
+          // children:[
+          //   {
+          //     path:'/release/paper/offerIn',//用户报价中的票据
+          //     name:'OfferIn',
+          //     component:resolve=>require(['@/subpage/person_offerIn'],resolve)
+          //   },
+          //   {
+          //     path:'/release/paper/offerBe',//用户审核中的票据
+          //     name:'OfferBe',
+          //     component:resolve=>require(['@/subpage/person_offerBe'],resolve)
+          //   }
+          // ],
+          // redirect:'/release/paper/offerIn'
         }
       ],
-      redirect:'/release/data'
+      redirect:'/release/paper'
     },
     {
       path:'/signIn',//注册

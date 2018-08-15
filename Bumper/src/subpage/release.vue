@@ -18,9 +18,9 @@
                   <i class="el-icon-location"></i>
                   <span>报价管理</span>
                 </template>
-                <el-menu-item index="1-1"  @click="data()" text-color="#ffd04b">我的数据</el-menu-item>
-                <el-menu-item index="1-2" @click="offer()">我的报价</el-menu-item>
-                <el-menu-item index="1-2" @click="order()">资源池票据</el-menu-item>
+                <el-menu-item index="1-1"  @click="data()" text-color="#ffd04b">我的求贴</el-menu-item>
+                <el-menu-item index="1-2" @click="offer()">求贴意向</el-menu-item>
+                <el-menu-item index="1-2" @click="order()">我的报价</el-menu-item>
                 <el-menu-item index="1-2">资源池报价</el-menu-item>
                 <el-menu-item index="1-2">发布/修改资源池报价</el-menu-item>
               </el-submenu>
@@ -38,7 +38,7 @@
                   <span>设置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                 </template>
                 <el-menu-item index="1-1" @click="prise()">企业认证信息</el-menu-item>
-                <el-menu-item index="1-2">账户信息</el-menu-item>
+                <el-menu-item index="1-2">账户安全</el-menu-item>
                 <el-menu-item index="1-3" @click="message()">我的消息</el-menu-item>
               </el-submenu>
             </el-menu>
