@@ -66,7 +66,8 @@
 export default {
   data(){
     return{
-      orderShow:false
+      orderShow:false,
+      noteList:[]
     }
   },
   methods:{
@@ -83,7 +84,16 @@ export default {
       },500)
       _this.$refs.mes_box.style.top="15%";
       _this.$refs.mes_box.style.opacity="0";
+    },
+    getOrder(){
+      let _this=this;
+      _this.axios.get(this.oUrl+'/quote/getByQuoterId?quoterId=b7138b09c85b4bf6a9da174cb165085e').then((res)=>{
+        console.log(res)
+      })
     }
+  },
+  created(){
+    this.getOrder()
   }
 }
 </script>
