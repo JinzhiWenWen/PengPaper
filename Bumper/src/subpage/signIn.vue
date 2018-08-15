@@ -22,14 +22,19 @@
         </ul>
       </div>
       <p class="ment"><input type="checkbox" name="vehicle" value="Bike">我已阅读<span style="color:red;">《碰碰票协议》</span></p>
-      <p class="turnSignin"><button @click="sginIn()">同意协议并注册</button></p>
+      <p class="turnSignin"><button @click="sginIn()"
+        v-loading="loadingSginIn"
+        element-loading-text=""
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(0,0,0,0.1)"
+        >{{siginInText}}</button></p>
     </div>
     <div class="signIn_mask" v-show="signInMaskShow">
 
     </div>
     <div class="signIn_prompt" ref="signIn_prompt">
       <img src="../../static/img/feedback.png" alt="">
-      <router-link to="/signUp/password" tag="button">立即登录</router-link>
+      <button type="button" name="button" @click="sginUp()">立即登录</button>
     </div>
   </div>
 </template>
@@ -38,7 +43,9 @@
 export default {
   data(){
     return{
-      signInMaskShow:false
+      signInMaskShow:false,
+      loadingSginIn:false,
+      siginInText:'同意协议并注册'
     }
   },
   methods:{
@@ -52,6 +59,8 @@ export default {
       if(name==''||phone==''||phone==''||phoneCode==''||pass==''){
         alert('请先完善您的个人信息！')
       }else{
+        _this.siginInText='';
+        _this.loadingSginIn=true;
           _this.axios.post(_this.oUrl+'/register',
           {
             "login_name":name,
@@ -64,6 +73,9 @@ export default {
           }},
         ).then((res)=>{
           console.log(res)
+          _this.siginInText='同意协议并注册';
+          _this.loadingSginIn=false;
+          _this.loadingSginIn=false;
           _this.signInMaskShow=true;
           _this.$refs.signIn_prompt.style.display='block';
           setTimeout(()=>{
@@ -72,6 +84,14 @@ export default {
           })
         })
       }
+    },
+    sginUp(){
+      this.$router.push({
+        name:'Password',
+        query:{
+          back:true
+        }
+      })
     }
   }
 }

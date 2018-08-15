@@ -46,7 +46,9 @@
         <el-col :span="2"><div class="table data"></div></el-col>
         <el-col :span="2"><div class="table status">{{item.status}}</div></el-col>
         <el-col :span="4"><div class="table status">0</div></el-col>
-        <el-col :span="3"><div class="table status"><router-link to="/details" tag="span" style="color:#089e0b;cursor:pointer;">查看>></router-link></div></el-col>
+        <el-col :span="3"><div class="table status">
+          <span style="color:#089e0b;cursor:pointer;" @click="SeeDetails(index)">查看>></span>
+          </div></el-col>
       </el-row>
     </div>
   </div>
@@ -58,7 +60,8 @@
 export default {
   data(){
     return{
-      noteList:[]
+      noteList:[],
+      bill:null
     }
   },
   components:{
@@ -75,7 +78,15 @@ export default {
       _this.axios.get(_this.oUrl+'/bills/getAllBills').then((res)=>{
         console.log(res)
         _this.noteList=res.data;
-        console.log(_this.noteList)
+      })
+    },
+    SeeDetails(index){
+      let bill=this.noteList[index].billNumber;
+      this.$router.push({
+        name:'Details',
+        query:{
+          bills:bill
+        }
       })
     }
   },

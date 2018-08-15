@@ -1,7 +1,6 @@
 <!-- 正常发布票据 -->
 <template lang="html">
   <div class="release_paper">
-    <!-- <Header/> -->
     <div class="release_paper_con">
       <p class="release_paper_title"><span>票据信息</span></p>
       <div class="release_paper_mes">
@@ -18,41 +17,54 @@
             </p>
           <p>承兑人全称<input type="text" vlaue="" placehoder="" ref="acceptor"/></p>
           <p>是否可签转<input type="text" vlaue="" placehoder=""/></p>
+          <p class="obtain">
+            <button type="button" name="button" @click="PaperSave()">保存</button>
+            <button type="button" name="button" @click="submitMes()"
+            v-loading="loadingRele"
+            element-loading-text=""
+            element-loading-spinner="el-icon-loading"
+            element-loading-background="rgba(0,0,0,0.1)"
+            >{{releText}}</button>
+          </p>
         </div>
         <div class="mes_right">
           <div class="paper_is">
-            <span><img src="../../static/img/pic_icon.png" alt="" title="" /></span>
+            <span><img src="../../static/img/pic_icon.png" alt="" title="" ref="Is" /></span>
             <span>上传票据正面</span>
-            <input type="file" accept="image/jpg" name="" value="">
+            <input type="file" accept="image/jpeg" name="" value="" @change="upLoadIs">
           </div>
           <div class="paper_the">
-            <span><img src="../../static/img/pic_icon.png" alt="" title="" /></span>
+            <span><img src="../../static/img/pic_icon.png" alt="" title="" ref="The" /></span>
             <span>上传票据反面</span>
-            <input type="file" accept="image/jpg" name="" value="">
+            <input type="file" accept="image/jpeg" name="" value="" @change="upLoadThe">
           </div>
         </div>
       </div>
-      <p class="release_paper_statement" style="color:#FF0000;">*平台担保手续费：担保费万分之5，比如每10万收费50元，每100万收费500元，5000元封顶</p>
-      <p class="service">
+      <!-- <p class="service">
         <input type="radio" style="width:20px;height:20px;" value="" :checked="checked" v-show="radioT" @click="radioTC($event)" ref="b"/>
         <input type="radio" style="width:20px;height:20px;"value="" checked="checked" v-show="radioB" @click="radioBC()" />
-        同意平台担保交易协议</p>
-        <p class="submit">
-          <button type="button" name="button" @click="submitMes()">提交意向</button>
-        </p>
+        同意平台担保交易协议
+      </p> -->
     </div>
-    <div class="release_paper_mask" v-show="PaperMaskShow" @click="closeMes()">
+    <div class="release_paper_mask" v-show="PaperMaskShow" @click="closeSave()">
 
     </div>
-    <div class="release_paper_prompt" ref="release_paper_prompt">
-      <span class="logo">
-        <img src="../../static/img/Logo.png" alt="">
-      </span>
-      <p class="release_paper_title">您的票据审核通过后会发送至买家请等待确认</p>
-      <p class="release_paper_opera">
-        <button type="button" name="button" @click="closeMes()">继续去资源市场</button>
-        <button type="button" name="button">查看审核状态</button>
-        <button type="button" name="button">查看意向</button>
+    <div class="save_paompt" ref="save_paompt">
+      <img src="../../static/img/save_icon.png" alt="">
+      <p class="save_title">保存成功</p>
+      <p class="save_alt">您可以在我的票据-草稿里对该票据编辑发布</p>
+      <p>
+        <button type="button" name="button">查看我的票据</button>
+      </p>
+    </div>
+    <div class="release_prompt" ref="release_prompt">
+      <img src="../../static/img/rele_icon.png" alt="">
+      <p class="release_title">发布成功</p>
+      <p class="release_alt">您的票据发布成功，请等待审核通过</p>
+      <p>
+        <button type="button" name="button" @click="closeSave()">继续发布票据</button>
+        <button type="button" name="button">查看我的票据</button>
+        <button type="button" name="button">查看已发布的票据</button>
       </p>
     </div>
     <Footer :height="minHeight"/>
@@ -68,7 +80,9 @@ export default {
       radioT:true,
       radioB:false,
       checked:false,
-      PaperMaskShow:false
+      PaperMaskShow:false,
+      loadingRele:false,
+      releText:'发布'
     }
   },
   components:{
@@ -80,25 +94,109 @@ export default {
     }
   },
   methods:{
-    radioTC($event){
-      this.radioT=false;
-      this.radioB=true;
-      $event.target.checked=false
+    PaperSave(){
+      this.PaperMaskShow=true;
+      this.$refs.save_paompt.style.display="block";
+      setTimeout(()=>{
+        this.$refs.save_paompt.style.opacity='1';
+        this.$refs.save_paompt.style.top='30%'
+      })
     },
-    radioBC(){
-      this.radioT=true;
-      this.radioB=false;
+    closeSave(){
+      this.$refs.save_paompt.style.opacity='0';
+      this.$refs.save_paompt.style.top='15%'
+      setTimeout(()=>{
+        this.PaperMaskShow=false;
+        this.$refs.save_paompt.style.display="none";
+      },200)
+      this.$refs.release_prompt.style.opacity='0';
+      this.$refs.release_prompt.style.top='15%'
+      setTimeout(()=>{
+        this.PaperMaskShow=false;
+        this.$refs.release_prompt.style.display="none";
+      },200)
     },
+    PaperRele(){
+      this.PaperMaskShow=true;
+      this.$refs.release_prompt.style.display="block";
+      setTimeout(()=>{
+        this.$refs.release_prompt.style.opacity='1';
+        this.$refs.release_prompt.style.top='30%'
+      })
+    },
+    upLoadIs(e){
+      let _this=this;
+      if (e.target.files[0]) {
+      let file = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function() {
+        img.src = this.result
+      }
+      let img = new Image,
+        width = 1024, //image resize   压缩后的宽
+        quality = 0.8, //image quality  压缩质量
+        canvas = document.createElement("canvas"),
+        drawer = canvas.getContext("2d");
+        img.onload = function() {
+          canvas.width = width;
+          canvas.height = width * (img.height / img.width);
+          drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
+          let base64 = canvas.toDataURL("image/jpeg", quality); //压缩后的base64图片
+          _this.$refs.Is.src=base64;
+          window.localStorage.setItem('Is',base64)
+        }
+      }
+    },
+    upLoadThe(e){
+      let _this=this;
+      if (e.target.files[0]) {
+      let file = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function() {
+        img.src = this.result
+      }
+      let img = new Image,
+        width = 1024, //image resize   压缩后的宽
+        quality = 0.8, //image quality  压缩质量
+        canvas = document.createElement("canvas"),
+        drawer = canvas.getContext("2d");
+        img.onload = function() {
+          canvas.width = width;
+          canvas.height = width * (img.height / img.width);
+          drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
+          let base64 = canvas.toDataURL("image/jpeg", quality); //压缩后的base64图片
+          _this.$refs.The.src=base64;
+          window.localStorage.setItem('The',base64)
+        }
+      }
+    },
+    // radioTC($event){
+    //   this.radioT=false;
+    //   this.radioB=true;
+    //   $event.target.checked=false
+    // },
+    // radioBC(){
+    //   this.radioT=true;
+    //   this.radioB=false;
+    // },
     submitMes(){
       let _this=this;
       let paperNumber=_this.$refs.paperNumber.value;
       let amount=_this.$refs.amount.value;
       let acceptor=_this.$refs.acceptor.value;
+      let Is=window.localStorage.getItem('Is');//票据正面图片
+      let The=window.localStorage.getItem('The');//票据反面图片
       if(paperNumber==''||amount==''||acceptor==''){
         alert('请先完善票面信息！')
-      }else if(!this.radioB){
-        alert('请选择同意担保交易协议！')
+      }else if(!Is){
+        alert('请先上传票据正面图片！')
+      }else if(!The){
+        alert('请先上传票据反面图片！')
       }else{
+        _this.loadingRele=true;
+        _this.releText=''
         _this.axios.post(this.oUrl+'/bills/addbill',{
           "billInfo":{
         		"billNumber":paperNumber,
@@ -114,8 +212,8 @@ export default {
       	 },
          "billPics":{
         		"billNumber":paperNumber,
-        		"pic1":"dasdasdasdasd",
-        		"pic2":"rthfghfghfg",
+        		"pic1":Is,
+        		"pic2":The,
         		"updateDate":"2018-08-08"
         	}
         },
@@ -123,22 +221,12 @@ export default {
           'Content-Type':'application/json'
         }}
       ).then((res)=>{
-        this.PaperMaskShow=true;
-        this.$refs.release_paper_prompt.style.display="block";
-        setTimeout(()=>{
-          this.$refs.release_paper_prompt.style.top="30%";
-          this.$refs.release_paper_prompt.style.opacity="1"
-        },0)
+        _this.loadingRele=false;
+        _this.releText='发布'
+        _this.loadingRele=false;
+        this.PaperRele()
         })
       }
-    },
-    closeMes(){
-      this.$refs.release_paper_prompt.style.top="15%";
-      this.$refs.release_paper_prompt.style.opacity="0";
-      setTimeout(()=>{
-        this.PaperMaskShow=false;
-        this.$refs.release_paper_prompt.style.display="none";
-      },200)
     }
   }
 }
@@ -148,6 +236,7 @@ export default {
 .el-date-editor.el-input, .el-date-editor.el-input__inner{
   width: 205px;
 }
+
 .el-input__inner{
   width: 200px;
   height:28px!important;
@@ -160,6 +249,7 @@ export default {
   width: 100%;
   height:100%;
   min-width: 1920px;
+  min-height: 900px;
   .release_paper_con{
     width: 70%;
     height:60%;
@@ -221,14 +311,20 @@ export default {
         .obtain{
           width: 100%;
           text-align: center;
-          margin-top: 10%;
+          margin-top: 15%;
           button{
-            width:150px;
+            width:120px;
             height:40px;
             background: #fc4027;
             color:white;
             font-size: 16px;
             border-radius: 5px;
+          }
+          button:nth-child(1){
+            margin-right:20px;
+          }
+          button:nth-child(2){
+            margin-left: 20px;
           }
         }
       }
@@ -242,8 +338,11 @@ export default {
           padding-top:13%;
           position: relative;
           img{
-            width: 30%;
-            height:40%;
+            width: 100%;
+            height:100%;
+            position: absolute;
+            top:0;
+            left:0;
           }
           input{
             width: 100%;
@@ -263,8 +362,11 @@ export default {
           margin-top: 10%;
           position: relative;
           img{
-            width: 30%;
-            height:40%;
+            width: 100%;
+            height:100%;
+            position: absolute;
+            top:0;
+            left:0;
           }
           input{
             width: 100%;
@@ -290,19 +392,6 @@ export default {
         min-height: 21px;
       }
     }
-    .submit{
-      width:100%;
-      height:40px;
-      margin-top:3%;
-      button{
-        width: 26%;
-        height:100%;
-        background: linear-gradient(180deg,rgba(254,116,79,1),rgba(252,64,39,1));
-        color:white;
-        font-size: 16px;
-        border-radius:8px;
-      }
-    }
   }
   .release_paper_mask{
     width: 100%;
@@ -313,45 +402,91 @@ export default {
     left:0;
     z-index: 500;
   }
-  .release_paper_prompt{
-    width: 30%;
-    height:30%;
-    background: white;
+  .save_paompt{
+    width:22%;
+    height:24%;
+    min-width: 362px;
+    min-height: 190px;
     position: absolute;
     top:15%;
+    background: white;
     left:50%;
-    margin-left:-15%;
+    margin-left:-11%;
+    border:1px solid #FC4228;
     z-index: 501;
-    transition: all .5s;
-    opacity: 0;
+    padding-top:.5%;
     display: none;
-    .logo{
-      width: 150px;
-      height:70px;
-      position: absolute;
-      left:2%;
-      top:5%;
-      img{
-        width: 100%;
-        height:100%;
-      }
+    opacity: 0;
+    transition: all .5s;
+    img{
+      width: 51px;
+      height:51px;
     }
-    .release_paper_title{
+    .save_title{
       width: 100%;
-      height:60%;
-      line-height: 300px;
-      color:#666666;
+      color:#FF0000;
+      font-size: 20px;
+      margin-top: 2%;
     }
-    .release_paper_opera{
+    .save_alt{
       width: 100%;
-      padding-top:8%;
+      font-size: 14px;
+      margin-top:5%;
+      margin-bottom:5%;
+    }
+    p{
       button{
-        min-height: 36px;
-        min-width: 141px;
+        width: 120px;
+        height:35px;
+        background: linear-gradient(180deg,rgba(254,126,89,1),rgba(252,72,45,1));
         border-radius:5px;
         color:white;
+      }
+    }
+  }
+  .release_prompt{
+    width:22%;
+    height:24%;
+    min-width: 396px;
+    min-height: 200px;
+    position: absolute;
+    top:15%;
+    background: white;
+    left:50%;
+    margin-left:-11%;
+    border:1px solid #FC4228;
+    z-index: 501;
+    padding-top:.5%;
+    display: none;
+    opacity: 0;
+    transition: all .5s;
+    img{
+      width: 51px;
+      height:51px;
+    }
+    .release_title{
+      width: 100%;
+      color:#FF0000;
+      font-size: 20px;
+      margin-top: 2%;
+    }
+    .release_alt{
+      width: 100%;
+      font-size: 14px;
+      margin-top:5%;
+      margin-bottom:5%;
+    }
+    p{
+      button{
+        width: 120px;
+        height:35px;
         background: linear-gradient(180deg,rgba(254,126,89,1),rgba(252,72,45,1));
-        margin-right: 20px;
+        border-radius:5px;
+        color:white;
+      }
+      button:nth-child(2){
+        margin-left: 10px;
+        margin-right: 10px;
       }
     }
   }

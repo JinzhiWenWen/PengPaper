@@ -136,7 +136,7 @@ const router = new Router({
     {
       path:'/releasepa',//发布票据
       name:'ReleasePa',
-      component:resolve=>require(['@/subpage/release_paper'],resolve)
+      component:resolve=>require(['@/subpage/release_paper_A'],resolve)
     },
     {
       path:'/marketpa',//票据市场

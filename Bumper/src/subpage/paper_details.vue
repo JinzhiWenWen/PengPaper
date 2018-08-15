@@ -4,10 +4,10 @@
       <p class="paper_details_title">海绵海绵我是大星科技有限公司</p>
       <div class="paper_mes">
         <div class="mes">
-          <p>票据类型:<span></span></p>
-          <p>汇票到期日:<span></span></p>
-          <p>票据金额:<span></span></p>
-          <p>出票日期:<span></span></p>
+          <p>票据类型:<span>{{billType}}</span></p>
+          <p>汇票到期日:<span>{{billDate}}</span></p>
+          <p>票据金额:<span>{{amount}}</span></p>
+          <p>出票日期:<span>{{billTime}}</span></p>
           <p>剩余天数:<span></span></p>
           <p>期望利率:<span></span></p>
         </div>
@@ -25,7 +25,7 @@
         <span>汇票图片</span>
       </p>
       <div class="paper_pic">
-        <p>Pic</p>
+        <img src="../../static/img/banner2.jpg" alt="" ref="billPic">
       </div>
     </div>
     <div class="success_mes" ref="success_mes">
@@ -46,8 +46,14 @@
 export default {
   data(){
     return{
-      minHeight:'10%',
-      detailsMaskShow:false
+      minHeight:'5%',
+      detailsMaskShow:false,
+      bill:null,
+      billType:'',
+      billDate:'',
+      amount:'',
+      billTime:'',
+      day:''
     }
   },
   components:{
@@ -71,7 +77,28 @@ export default {
         this.$refs.success_mes.style.display="none";
         this.detailsMaskShow=false;
       },200)
+    },
+    getBill(){//获取票号
+      this.bill=this.$route.query.bills;
+      this.axios.get(this.oUrl+'/bills/getbill?billNumber='+this.bill).then((res)=>{
+        this.billType=res.data[0].billNumber;
+        this.billDate=res.data[0].maturity;
+        this.amount=res.data[0].amount;
+        this.billTime=res.data[0].releaseDate;
+      })
+    },
+    getPics(){
+      let _this=this;
+      _this.axios.get(_this.oUrl+'/bills/getBillPics?billNumber='+_this.bill).then((res)=>{
+        _this.$refs.billPic.src=res.data[0].pic1;
+      })
     }
+  },
+  created(){
+    this.getBill()
+  },
+  mounted(){
+     this.getPics()
   }
 }
 </script>
@@ -81,6 +108,7 @@ export default {
   width: 100%;
   min-width: 1631px;
   height:100%;
+  min-height: 900px;
   .paper_details_con{
     width: 70%;
     height:100%;
@@ -108,11 +136,15 @@ export default {
           text-align: left;
           font-size: 14px;
           padding-left:2%;
+          span{
+            margin-left:4%;
+          }
         }
       }
       .place{
         width: 50%;
         height:100%;
+        min-height: 300px;
         position: relative;
         background: #ff540c;
         padding-left:10%;
@@ -126,6 +158,7 @@ export default {
         .table{
           width: 60%;
           height:60%;
+          min-height: 170px;
           position: absolute;
           background: white;
           top:25%;
@@ -166,14 +199,15 @@ export default {
       }
     }
     .paper_pic{
-      width: 100%;
-      height:55%;
-      margin-top: 2%;
+      width: 70%;
+      height:45%;
+      margin:0 auto;
+      margin-top: 4%;
       margin-bottom:5%;
       border:1px solid #979797;
-      P{
-        color:#999;
-        margin-top:16%;
+      img{
+        width: 100%;
+        height:100%;
       }
     }
   }

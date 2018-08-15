@@ -41,6 +41,12 @@ button{
   height:80px;
   line-height: 80px;
 }
+.el-loading-spinner i{
+    color:white;
+}
+.el-loading-spinner{
+  margin-top:-10px;
+}
 input{
   outline: none;
   border:0;

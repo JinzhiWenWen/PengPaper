@@ -6,35 +6,68 @@
     </p>
     <p class="code"><span style="color:red;">*</span>密码：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" value="" placeholder="" ref="pass" /></p>
     <p class="turn">
-      <button type="button" name="button" @click="sginIn()">登录</button>
+      <button type="button" name="button" @click="sginIn()"
+      v-loading="loadingSginUp"
+      element-loading-text=""
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0,0,0,0.1)"
+      >{{sginUpText}}</button>
     </p>
   </div>
 </template>
 
 <script>
+import {setCookie} from '@/assets/util'
 export default {
+  data(){
+    return{
+      back:false,
+      loadingSginUp:false,
+      sginUpText:'登录'
+    }
+  },
   methods:{
     sginIn(){
       let _this=this;
       let phone=_this.$refs.phoneNumber.value;
       let pass=_this.$refs.pass.value;
-      _this.axios.post(_this.oUrl+'/login',
-      {
-        "user_phone":phone,
-        "user_passwd":pass
-      },
-      {header:{
-        'Content-Type':'application/json'
-      }}
-    ).then((res)=>{
-      console.log(res)
-      window.history.back()
-      setTimeout(()=>{
-        window.history.back()
-      },0)
-    })
-    }
+      if(phone==''||pass==''){
+        alert('请输入手机号或密码')
+      }else{
+        _this.sginUpText='';
+        _this.loadingSginUp=true;
+        _this.axios.post(_this.oUrl+'/login',
+        {
+          "user_phone":phone,
+          "user_passwd":pass
+        },
+        {header:{
+          'Content-Type':'application/json'
+        }}
+      ).then((res)=>{
+        console.log(res)
+        _this.sginUpText='登录';
+        _this.loadingSginUp=false;
+        let token=res.data.ticket;
+        setCookie('too',token)
+        if(_this.back){
+          window.history.back()
+          setTimeout(()=>{
+          window.history.back()
+          },0)
+        }else{
+          window.history.back()
+          }
+        })
+      }
+  },
+  getQuery(){
+    this.back=this.$route.query.back;
   }
+},
+created(){
+  this.getQuery()
+}
 }
 </script>
 
