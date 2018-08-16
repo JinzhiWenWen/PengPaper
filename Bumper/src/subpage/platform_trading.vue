@@ -2,19 +2,42 @@
   <div class="platform_trading">
     <p class="platform_trading_title">平台担保交易流程</p>
     <div class="pic_trad">
-      <img src="../../static/img/process.png" alt="">
+      <img src="../../static/img/trading_top.png" alt="">
     </div>
-    <p class="pay pay_way">支付方式：买卖双方协商，银行转账</p>
-    <p class="pay pay_alt">交易方式：平台担保交易</p>
-    <p class="trad_mes">买卖联系人：<input type="text" vlaue="" placeholder="海绵宝宝"/></p>
-    <p class="trad_mes">&nbsp;&nbsp;&nbsp;&nbsp;联系方式：<input type="text" vlaue="" placeholder="1324891337"/></p>
-    <p class="trad_mes">&nbsp;&nbsp;&nbsp;&nbsp;年化利率：<input type="text" vlaue="" placeholder=""/></p>
-    <p class="trad_mes">&nbsp;&nbsp;&nbsp;&nbsp;每10万加：<input type="text" vlaue="" placeholder=""/></p>
-    <p class="trad_mes">
-      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-      总额：<input type="text" vlaue="" placeholder=""/></p>
-      <p class="pay" style="margin-top:2%;">担保交易专席客服联系方式 010-43435454/13400994433</p>
-      <p class="have_look"><button type="button">查看订单进度</button></p>
+    <div class="platform_trading_mes">
+      <div class="mes_left">
+        <ul>
+          <li>支付方式：</li>
+          <li>交易方式：</li>
+          <li>买卖联系人：</li>
+          <li>联系方式：</li>
+          <li>年化利率：</li>
+          <li>每10w加：</li>
+          <li>总额：</li>
+        </ul>
+      </div>
+      <div class="mes_right">
+        <ul>
+          <li>买卖双方协商，银行转账</li>
+          <li>平台担保交易</li>
+          <li><input type="text" value="" placeholder="派大星" /></li>
+          <li><input type="text" value="" placeholder="13240891337" style="margin-top:-50%!important;" /></li>
+          <li style="margin-top:-1.5%;">9%</li>
+          <li style="margin-top:7%!important;">2000</li>
+          <li style="margin-top:7.3%;">94.34w</li>
+        </ul>
+      </div>
+    </div>
+    <p class="pay">担保交易专席客服联系方式 010-43435454/13400994433</p>
+    <p style="width:70%;margin-left:10%;font-size:14px;color:red;margin-top:2%;">平台担保手续费：担保费万分之5，比如每10万收费50元，每100万收费500元，5000封顶</p>
+    <div class="pic_trad_bot">
+      <img src="../../static/img/trading_bot.png" alt="">
+    </div>
+    <p class="have_look"><button type="button">查看订单进度</button></p>
+    <p class="have_look"><button type="button">查看交易进度</button></p>
+    <p class="have_look"><button type="button">去提醒买家确认</button></p>
+    <p class="have_look"><button type="button">重新挑选买家</button></p>
+    <p class="have_look"><button type="button">刷新进度</button></p>
   </div>
 </template>
 
@@ -38,40 +61,79 @@ export default {
   }
   .pic_trad{
     width: 100%;
-    height:23%;
+    height:10%;
     text-align: left;
+    padding-left:8%;
+    margin-top:3%;
     img{
-      width: 85%;
+      width: 75%;
+      height:80%;
+    }
+  }
+  .platform_trading_mes{
+    width: 70%;
+    height:300px;
+    margin-left:8%;
+    display: flex;
+    margin-top:4%;
+    min-height:274px;
+    .mes_left{
+      width: 50%;
       height:100%;
+      ul{
+        width: 100%;
+        padding-top:7%;
+        li{
+          text-align: right;
+          font-size: 14px;
+          margin-bottom: 6%;
+        }
+      }
+    }
+    .mes_right{
+      width: 50%;
+      height:100%;
+      ul{
+        width: 100%;
+        padding-top:7%;
+        li{
+          text-align: left;
+          font-size: 14px;
+          margin-bottom: 6%;
+          input{
+            height:22px;
+            border:1px solid #ccc;
+          }
+          input:nth-child(1){
+            margin-top:-1%;
+          }
+        }
+      }
     }
   }
   .pay{
-    width: 40%;
+    width: 70%;
+    margin-left: 8%;
+  }
+  .pic_trad_bot{
+    width: 100%;
+    height:10%;
     text-align: left;
-    padding-left:9.8%;
-    font-size: 14px;
-  }
-  .pay_alt{
-    margin-top: 1.5%;
-  }
-  .trad_mes{
-    width: 40%;
-    text-align: center;
-    margin-top:2%;
-    font-size: 14px;
-    padding-left:3.3%;
-    input{
-      border:1px solid #979797;
-      min-height: 26px;
-      font-size: 15px;
+    padding-left:8%;
+    margin-top:3%;
+    img{
+      width: 80%;
+      height:80%;
     }
   }
   .have_look{
-    width: 30%;
+    width: 70%;
     height:4%;
-    margin-left: 10%;
+    text-align: center;
+    margin-left: 8%;
+    margin-top:2%;
     button{
-      width: 100%;
+      width: 40%;
       height:100%;
       background:linear-gradient(180deg,rgba(255,121,86,1),rgba(254,68,43,1));
       border-radius: 8px;

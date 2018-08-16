@@ -12,7 +12,10 @@ const router = new Router({
     {
       path:'/page',
       name:'Page',
-      component:resolve=>require(['@/subpage/page'],resolve)
+      components:{
+        default:resolve=>require(['@/subpage/page'],resolve),
+        a:offerIn
+      }
     },
     {
       path:'/release',//急速发票
@@ -48,6 +51,11 @@ const router = new Router({
           path:'/release/offer',//用户发布的报价
           name:'ReOffer',
           component:resolve=>require(['@/subpage/person_offer'],resolve)
+        },
+        {
+          path:'/release/intention',//求贴意向
+          name:'Intention',
+          component:resolve=>require(['@/subpage/person_intention'],resolve)
         },
         {
           path:'/release/mes',//用户消息
@@ -90,11 +98,30 @@ const router = new Router({
           component:resolve=>require(['@/subpage/person_offerDe'],resolve)
         },
         {
+          path:'/release/sellerorder',//卖家订单
+          name:'SellerOrder',
+          component:resolve=>require(['@/subpage/seller_order'],resolve),
+          children:[
+            {
+              path:'/release/sellerorder/haddeal',//已成交订单
+              name:'SellerHadDeal',
+              component:resolve=>require(['@/subpage/seller_order_haddeal'],resolve)
+            },
+            {
+              path:'/release/sellerorder/cancel',//卖家未成交的订单
+              name:'SellerCancelOrder',
+              component:resolve=>require(['@/subpage/seller_order_cancel'],resolve)
+            }
+          ],
+          redirect:'/release/sellerorder/haddeal'
+        },
+        {
           path:'/release/paper',//用户发布的票据
           name:'Paper',
           components:{
-            default:resolve=>require(['@/subpage/person_paper'],resolve)
+            default:resolve=>require(['@/subpage/person_paper'],resolve),
           }
+
           // children:[
           //   {
           //     path:'/release/paper/offerIn',//用户报价中的票据
@@ -108,6 +135,11 @@ const router = new Router({
           //   }
           // ],
           // redirect:'/release/paper/offerIn'
+        },
+        {
+          path:'/release/choseType',//选择交易
+          name:'choseType',
+          component:resolve=>require(['@/subpage/person_choseType'],resolve)
         }
       ],
       redirect:'/release/paper'

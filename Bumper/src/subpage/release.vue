@@ -80,13 +80,13 @@ export default {
       this.$router.push('/release/buy')
     },
     offer(){//用户发布的报价
-      this.$router.push('/release/offer')
+      this.$router.push('/release/intention')
     },
     prise(){//用户企业认证信息
       this.$router.push('/release/prise')
     },
     order(){//买家资源池票据
-      this.$router.push('/release/order')
+      this.$router.push('/release/offer')
     }
 	},
   components:{
