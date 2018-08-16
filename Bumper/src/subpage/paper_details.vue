@@ -32,7 +32,7 @@
       <p class="success_mes_title">您已成功报价</p>
       <p class="success_mes_oper">
         <button type="button" name="button" @click="closeSprompt()">继续报价</button>
-        <button type="button" name="button">查看我的票据</button>
+        <router-link to="/release/offer" tag="button">查看我的报价</router-link>
       </p>
     </div>
     <div class="paper_details_mask" v-show="detailsMaskShow">
@@ -68,13 +68,13 @@ export default {
       let amount=this.$refs.amount.value;
       let interest=this.$refs.interest.value;
       let xPerLakh=this.$refs.xPerLakh.value;
-      let Id=getCookie('')
+      let Id=getCookie('Iud')
       if(amount==''||interest==''||xPerLakh==''){
         alert('请完善报价信息')
       }else{
         _this.axios.post(_this.oUrl+'/quote/addQuote',{
           "billNumber":_this.bill,//票号
-        	"quoterId":"b7138b09c85b4bf6a9da174cb165085e",//用户Id
+        	"quoterId":Id,//用户Id
         	"quoteAmount":amount,
         	"interest":interest,//利率
         	"xPerLakh":xPerLakh,//每10w加
@@ -82,14 +82,15 @@ export default {
         	"quoteDate":"2018-08-09"//报价时间
         }).then((res)=>{
           console.log(res)
+          this.detailsMaskShow=true;
+          this.$refs.success_mes.style.display="block";
+          setTimeout(()=>{
+            this.$refs.success_mes.style.top="30%";
+            this.$refs.success_mes.style.opacity="1";
+          })
         })
       }
-      // this.detailsMaskShow=true;
-      // this.$refs.success_mes.style.display="block";
-      // setTimeout(()=>{
-      //   this.$refs.success_mes.style.top="30%";
-      //   this.$refs.success_mes.style.opacity="1";
-      // })
+
     },
     closeSprompt(){
       this.$refs.success_mes.style.top="15%";

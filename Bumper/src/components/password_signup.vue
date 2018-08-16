@@ -49,7 +49,9 @@ export default {
         _this.sginUpText='登录';
         _this.loadingSginUp=false;
         let token=res.data.ticket;
-        setCookie('too',token)
+        let uid=res.data.uuid;
+        setCookie('Too',token)
+        setCookie('Iud',uid)
         if(_this.back){
           window.history.back()
           setTimeout(()=>{

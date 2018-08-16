@@ -75,7 +75,17 @@ export default {
   methods:{
     getList(){
       let _this=this;
-      _this.axios.get(_this.oUrl+'/bills/getAllBills').then((res)=>{
+      _this.axios.post(_this.oUrl+'/bills/filterbill',{
+        "billType":"0",
+      	"amountType":"0",
+      	"maturityType":"0",
+      	"starter":0,
+      	"number":10
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+    ).then((res)=>{
         console.log(res)
         _this.noteList=res.data;
       })

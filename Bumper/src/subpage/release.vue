@@ -74,7 +74,7 @@ export default {
       this.$router.push('/release/mes')
     },
     sell(){//用户卖出的票据
-        this.$router.push('/release/sell')
+        this.$router.push('/release/sellerorder')
     },
     buy(){//用户买入的票据
       this.$router.push('/release/buy')

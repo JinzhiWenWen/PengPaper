@@ -50,7 +50,30 @@ const router = new Router({
         {
           path:'/release/offer',//用户发布的报价
           name:'ReOffer',
-          component:resolve=>require(['@/subpage/person_offer'],resolve)
+          component:resolve=>require(['@/subpage/person_offer'],resolve),
+          children:[
+            {
+              path:'/release/offer/offerAll',//用户全部报价
+              name:'OfferAll',
+              component:resolve=>require(['@/subpage/person_offer_all'],resolve)
+            },
+            {
+              path:'/release/offer/offerAccepted',//已被卖家接受的报价
+              name:'Accepted',
+              component:resolve=>require(['@/subpage/person_offer_accepted'],resolve)
+            },
+            {
+              path:'/release/offer/offerPrices',//报价中
+              name:'Prrices',
+              component:resolve=>require(['@/subpage/person_offer_prices'],resolve)
+            },
+            {
+              path:'/release/offer/offerCancel',//已失效的报价
+              name:'Cancel',
+              component:resolve=>require(['@/subpage/person_offer_cancel'],resolve)
+            }
+          ],
+          redirect:'/release/offer/offerAll'
         },
         {
           path:'/release/intention',//求贴意向

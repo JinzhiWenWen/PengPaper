@@ -59,6 +59,7 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -93,6 +94,7 @@ export default {
       let paperNumber=_this.$refs.paperNumber.value;
       let amount=_this.$refs.amount.value;
       let acceptor=_this.$refs.acceptor.value;
+      let Id=getCookie('Iud')
       if(paperNumber==''||amount==''||acceptor==''){
         alert('请先完善票面信息！')
       }else if(!this.radioB){
@@ -105,7 +107,7 @@ export default {
         		"acceptor":acceptor,
         		"amount":amount,
         		"maturity":"2018-12-12",
-        		"status":"1",
+        		"status":"审核中",
         		"releaseDate":"2018-08-08",
         		"releaserId":88888888,
         		"billPicsId":11111,
@@ -116,7 +118,10 @@ export default {
         		"pic1":"dasdasdasdasd",
         		"pic2":"rthfghfghfg",
         		"updateDate":"2018-08-08"
-        	}
+        	},
+          "userData":{
+            "uuid":Id
+          }
         },
         {headers:{
           'Content-Type':'application/json'

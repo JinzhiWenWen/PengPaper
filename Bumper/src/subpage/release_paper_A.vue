@@ -64,7 +64,7 @@
       <p>
         <button type="button" name="button" @click="closeSave()">继续发布票据</button>
         <button type="button" name="button">查看我的票据</button>
-        <button type="button" name="button">查看已发布的票据</button>
+        <router-link to="/release/paper" tag="button">查看已发布的票据</router-link>
       </p>
     </div>
     <Footer :height="minHeight"/>
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -188,6 +189,7 @@ export default {
       let acceptor=_this.$refs.acceptor.value;
       let Is=window.localStorage.getItem('Is');//票据正面图片
       let The=window.localStorage.getItem('The');//票据反面图片
+      let Id=getCookie('Iud')
       if(paperNumber==''||amount==''||acceptor==''){
         alert('请先完善票面信息！')
       }else if(!Is){
@@ -204,7 +206,7 @@ export default {
         		"acceptor":acceptor,
         		"amount":amount,
         		"maturity":"2018-12-12",
-        		"status":"1",
+        		"status":"审核中",
         		"releaseDate":"2018-08-08",
         		"releaserId":88888888,
         		"billPicsId":11111,
@@ -215,7 +217,10 @@ export default {
         		"pic1":Is,
         		"pic2":The,
         		"updateDate":"2018-08-08"
-        	}
+        	},
+          "userData":{
+            "uuid":Id
+          }
         },
         {headers:{
           'Content-Type':'application/json'
