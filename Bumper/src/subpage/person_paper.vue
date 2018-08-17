@@ -6,50 +6,73 @@
     </div>
     <p class="person_paper_num">该票据已通知<span>13</span>个票据买家，请耐心等待买家报价</p>
     <p class="person_paper_table">
-      <span>报价中</span>
-      <span>审核中</span>
+      <router-link
+      to="/release/paper/offerIn" tag="span"
+      @click.native="offerIn()"
+      :class="{paperAc:color==1}"
+      >报价中</router-link>
+      <router-link
+      to="/release/paper/offerBe" tag="span"
+      @click.native="offerBe()"
+      :class="{paperAc:color==2}"
+      >审核中</router-link>
     </p>
     <div class="hadRelease">
-      <el-row>
-        <el-col :span="5"><div class="person_offerIn_title">公司名称</div></el-col>
-        <el-col :span="4"><div class="person_offerIn_title limit">成交额</div></el-col>
-        <el-col :span="5"><div class="person_offerIn_title">剩余天数</div></el-col>
-        <el-col :span="5"><div class="person_offerIn_title time">到期日</div></el-col>
-        <el-col :span="5"><div class="person_offerIn_title">交易时间</div></el-col>
-      </el-row>
-      <el-row v-for="(item,index) in noteList" :key="index">
-        <el-col :span="5"><div class="person_offerIn_mes">{{item.acceptor}}</div></el-col>
-        <el-col :span="4"><div class="person_offerIn_mes limit">{{item.amount}}</div></el-col>
-        <el-col :span="5"><div class="person_offerIn_mes">{{item.releaseDate}}</div></el-col>
-        <el-col :span="5"><div class="person_offerIn_mes time">{{item.maturity}}</div></el-col>
-        <el-col :span="5"><div class="person_offerIn_mes tradTime">
-          <span>2018-07-22</span>
-          <span>00:00:00</span>
-        </div></el-col>
-      </el-row>
+      <router-view></router-view>
     </div>
     <p class="person_paper_tableB">
-      <span>已报价（<span></span>）</span>
-      <span>未报价（<span></span>）</span>
+      <span :class="{HadAc:colorB==3}" @click="havOffer()">已报价（<span></span>）</span>
+      <span :class="{HadAc:colorB==4}" @click="notOffer()">未报价（<span></span>）</span>
     </p>
-    <div class="hadOffer">
+    <div class="hadOffer" v-show="hadOffer">
       <el-row>
-        <el-col :span="10"><div class="hadOffer_title company">****实业有限公司</div></el-col>
-        <el-col :span="7"><div class="hadOffer_title">陆经理</div></el-col>
-        <el-col :span="7"><div class="hadOffer_title">13243435446</div></el-col>
+        <el-col :span="4"><div class="hadOffer_title">票据类型</div></el-col>
+        <el-col :span="4"><div class="hadOffer_title">承兑银行</div></el-col>
+        <el-col :span="4"><div class="hadOffer_title">金额</div></el-col>
+        <el-col :span="4"><div class="hadOffer_title">到期日</div></el-col>
+        <el-col :span="4"><div class="hadOffer_title">剩余天数</div></el-col>
+        <el-col :span="4"><div class="hadOffer_title">报价</div></el-col>
+      </el-row>
+      <div class="">
+        <el-row class="oferMes">
+          <el-col :span="4"><div class="hadOffer_mes">票据类型</div></el-col>
+          <el-col :span="4"><div class="hadOffer_mes">承兑银行</div></el-col>
+          <el-col :span="4"><div class="hadOffer_mes">金额</div></el-col>
+          <el-col :span="4"><div class="hadOffer_mes">到期日</div></el-col>
+          <el-col :span="4"><div class="hadOffer_mes">剩余天数</div></el-col>
+          <el-col :span="4"><div class="hadOffer_mes limit">
+            <span>年化：</span>
+            <span>每10w加：</span>
+          </div></el-col>
+        </el-row>
+        <p class="hadOffer_opera">
+          <span>北京海世界有限公司</span>
+          <span>赵总</span>
+          <span>13240891337</span>
+          <button type="button" name="button" @click="paperMesper()">查看</button>
+        </p>
+      </div>
+    </div>
+    <div class="didOffer" v-show="didOffer">
+      <el-row>
+        <el-col :span="10"><div class="didOffer_title company">北京憧憬实业有限公司</div></el-col>
+        <el-col :span="7"><div class="didOffer_title">尧经理</div></el-col>
+        <el-col :span="7"><div class="didOffer_title">19895425446</div></el-col>
       </el-row>
     </div>
   </div>
 </template>
 
 <script>
-import offerInA from '@/subpage/person_offerIn'
 import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
       color:1,
-      noteList:[]
+      colorB:3,
+      hadOffer:true,
+      didOffer:false,
+      billN:null
     }
   },
   methods:{
@@ -59,30 +82,51 @@ export default {
     offerBe(){
       this.color=2;
     },
-    getPaper(){
+    havOffer(){
+      this.colorB=3;
+      this.hadOffer=true;
+      this.didOffer=false;
+    },
+    notOffer(){
+      this.colorB=4;
+      this.hadOffer=false;
+      this.didOffer=true
+    },
+    getBills(){
+      let _this=this;
       let Id=getCookie('Iud');
-      this.axios.post(this.oUrl+'/bills/getMyBillsQuoted',{
+      _this.axios.post(this.oUrl+'/bills/getMyBillsQuoted',{
         "uuid":Id,
-        "filter":4
+        "filter":1
       },
       {headers:{
         'Content-Type':'application/json'
       }}
     ).then((res)=>{
       console.log(res)
-      this.noteList=res.data
-      console.log(this.noteList)
+      _this.billN=res.data[0].billNumber;
     })
+  },
+    paperMesper(){//查看票据详情
+      this.$router.push({
+        name:'choseType',
+        query:{
+          bills:this.billN
+        }
+      })
     }
   },
   created(){
-    this.getPaper()
+    this.getBills()
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.avtive{
+.paperAc{
+  border-bottom:4px solid #FF452C;
+}
+.HadAc{
   border-bottom:4px solid #FF452C;
 }
 .person_paper{
@@ -135,52 +179,67 @@ export default {
       margin-left:20px;
     }
   }
-  .hadRelease{
-    width: 80%;
-    margin-left: 4%;
+  .hadOffer{
+    width: 90%;
+    margin-left:4%;
     margin-top:4%;
-    border:1px solid #ccc;
-    border-bottom:0;
-    .person_offerIn_title{
-      min-height: 36px;
-      line-height: 36px;
+    .hadOffer_title{
+      min-height: 34px;
+      line-height: 34px;
+      font-size: 16px;
       background: #ebebeb;
-      border-bottom:1px solid #ccc;
     }
-    .limit{
-      border-left:1px solid #ccc;
-      border-right:1px solid #ccc;
+    .oferMes:nth-of-type(even){
+      background: #f7f7f7;
     }
-    .time{
-      border-left:1px solid #ccc;
-      border-right:1px solid #ccc;
-    }
-    .person_offerIn_mes{
+    .hadOffer_mes{
+      height:70px;
       min-height: 70px;
       line-height: 70px;
-      border-bottom:1px solid #ccc;
       font-size: 14px;
     }
-    .tradTime{
+    .limit{
       line-height: 0;
       display: flex;
       flex-direction: column;
       span{
         width: 100%;
         height:35px;
-        line-height: 45px;
-        font-size: 12px;
+        line-height: 35px;
+      }
+    }
+    .hadOffer_opera{
+      width: 100%;
+      height:34px;
+      line-height: 34px;
+      font-size: 14px;
+      text-align: center;
+      background: #f7f7f7;
+      position: relative;
+      span:nth-child(1){
+        margin-left:-150px;
       }
       span:nth-child(2){
-        line-height: 25px;
+        margin-left:50px;
+        margin-right: 50px;
+      }
+      button{
+        width: 70px;
+        min-height: 26px;
+        position: absolute;
+        right:2%;
+        top:10%;
+        background: #FF452C;
+        border-radius: 5px;
+        color:white;
       }
     }
   }
-  .hadOffer{
+  .didOffer{
     width: 90%;
     margin-left:4%;
     margin-top:4%;
-    .hadOffer_title{
+    .didOffer_title{
       min-height: 30px;
       line-height: 30px;
       font-size: 16px;

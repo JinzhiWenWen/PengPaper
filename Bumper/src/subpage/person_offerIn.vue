@@ -8,11 +8,11 @@
       <el-col :span="5"><div class="person_offerIn_title time">到期日</div></el-col>
       <el-col :span="5"><div class="person_offerIn_title">交易时间</div></el-col>
     </el-row>
-    <el-row>
-      <el-col :span="5"><div class="person_offerIn_mes">恒大广州集团</div></el-col>
-      <el-col :span="4"><div class="person_offerIn_mes limit">100W</div></el-col>
-      <el-col :span="5"><div class="person_offerIn_mes">5天</div></el-col>
-      <el-col :span="5"><div class="person_offerIn_mes time">2018-07-30</div></el-col>
+    <el-row v-for="(item,index) in noteList" :key="index">
+      <el-col :span="5"><div class="person_offerIn_mes">{{item.acceptor}}</div></el-col>
+      <el-col :span="4"><div class="person_offerIn_mes limit">{{item.amount}}</div></el-col>
+      <el-col :span="5"><div class="person_offerIn_mes">{{item.releaseDate}}</div></el-col>
+      <el-col :span="5"><div class="person_offerIn_mes time">{{item.maturity}}</div></el-col>
       <el-col :span="5"><div class="person_offerIn_mes tradTime">
         <span>2018-07-22</span>
         <span>00:00:00</span>
@@ -22,17 +22,44 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
+  data(){
+    return{
+      noteList:[]
+    }
+  },
+  methods:{
+    getPaper(){
+      let Id=getCookie('Iud');
+      this.axios.post(this.oUrl+'/bills/getMyBillsQuoted',{
+        "uuid":Id,
+        "filter":1
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+    ).then((res)=>{
+      console.log(res)
+      this.noteList=res.data
+      console.log(this.noteList)
+    })
+    }
+  },
+  created(){
+    this.getPaper()
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .person_offerIn{
-  width: 100%;
+  width: 80%;
   height:100%;
   border:1px solid #ccc;
   border-bottom:0;
   margin-top: 4%;
+  margin-left: 4%;
   .person_offerIn_title{
     min-height: 36px;
     line-height: 36px;

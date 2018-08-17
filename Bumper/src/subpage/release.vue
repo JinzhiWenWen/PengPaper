@@ -67,8 +67,8 @@ export default {
     handleClose(key, keyPath) {
       console.log(key, keyPath);
     },
-    data(){//我的数据
-      this.$router.push('/release/data')
+    data(){//我的求贴
+      this.$router.push('/release/paper')
     },
     message(){//我的消息
       this.$router.push('/release/mes')

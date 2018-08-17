@@ -4,26 +4,25 @@
   <div class="market_paper_con">
     <p>
       <span>票据类型:</span>
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check1" checked="checked"><label for="check1"></label></span>不限
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check2"><label for="check2"></label></span>纸银
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check3"><label for="check3"></label></span>电银
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check4"><label for="check4"></label></span>纸商
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check5"><label for="check5"></label></span>电商
-    </p>
+      <span class="option" :class="{markAc:color==1}" @click="infinite()">不限</span>
+      <span class="option" :class="{markAc:color==2}" @click="silver()">纸银</span>
+      <span class="option" :class="{markAc:color==3}" @click="electric()">电银</span>
+      <span class="option" :class="{markAc:color==4}" @click="makers()">纸商</span>
+      <span class="option" :class="{markAc:color==5}" @click="electricity()">电商</span>
     <p>
       <span>票据金额:</span>
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check6" checked="checked"><label for="check6"></label></span>不限
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check7"><label for="check7"></label></span>小于100万
-      <span class="checkbox" style="margin-left:1.9%;"><input type="checkbox"class="input_check" id="check8"><label for="check8"></label></span>100万-500万
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check9"><label for="check9"></label></span>500万以上
+      <span class="option" :class="{markAc:colorTwo==1}" @click="infiniteAmount()">不限</span>
+      <span class="option" :class="{markAc:colorTwo==2}" @click="thanOne()">小于100万</span>
+      <span class="option" :class="{markAc:colorTwo==3}" @click="thanFive()">100万-500万</span>
+      <span class="option" :class="{markAc:colorTwo==4}" @click="aboveFive()">500万以上</span>
     </p>
     <p>
       <span>到期期限:</span>
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check10" checked="checked"><label for="check10"></label></span>不限
-      <span class="checkbox"><input type="checkbox"class="input_check" id="check11"><label for="check11"></label></span>小于30天
-      <span class="checkbox" style="margin-left:2.6%;"><input type="checkbox"class="input_check" id="check12"><label for="check12"></label></span>1-3个月
-      <span class="checkbox" style="margin-left:3.3%;"><input type="checkbox"class="input_check" id="check13"><label for="check13"></label></span>3-6个月
-      <span class="checkbox" style="margin-left:3.2%;"><input type="checkbox"class="input_check" id="check14"><label for="check14"></label></span>6个月以上
+      <span class="option" :class="{markAc:colorThr==1}" @click="infiniteDate()">不限</span>
+      <span class="option" :class="{markAc:colorThr==2}" @click="silverDay()">小于30天</span>
+      <span class="option" :class="{markAc:colorThr==3}" @click="thanDay()">1-3个月</span>
+      <span class="option" :class="{markAc:colorThr==4}" @click="thanThe()">3-6个月</span>
+      <span class="option" :class="{markAc:colorThr==5}" @click="thanSix()">6个月以上</span>
     </p>
     <div class="market_paper_table_title">
       <el-row>
@@ -38,7 +37,7 @@
       </el-row>
     </div>
     <div class="market_paper_table">
-      <el-row v-for="(item,index) in noteList" :key="index">
+      <el-row v-for="(item,index) in noteList" :key="index" class="aa">
         <el-col :span="4"><div class="table time">{{item.billType}}</div></el-col>
         <el-col :span="3"><div class="table type">{{item.acceptor}}</div></el-col>
         <el-col :span="3"><div class="table acce">{{item.amount}}</div></el-col>
@@ -61,7 +60,13 @@ export default {
   data(){
     return{
       noteList:[],
-      bill:null
+      bill:null,
+      color:1,
+      colorTwo:1,
+      colorThr:1,
+      billType:'',
+      amount:'',
+      date:''
     }
   },
   components:{
@@ -73,12 +78,99 @@ export default {
     }
   },
   methods:{
+    infinite(){//类型不限
+      this.color=1;
+      this.billType=0;
+      this.screening();
+    },
+    silver(){//纸银
+      this.color=2;
+      this.billType=1;
+      this.screening();
+    },
+    electric(){//电银
+      this.color=3;
+      this.billType=2;
+      this.screening();
+    },
+    makers(){//纸商
+      this.color=4;
+      this.billType=3;
+      this.screening();
+    },
+    electricity(){//电银
+      this.color=5;
+      this.billType=4;
+      this.screening();
+    },
+    infiniteAmount(){//价格不限
+      this.colorTwo=1;
+      this.amount=0;
+      this.screening();
+    },
+    thanOne(){//小于100万
+      this.colorTwo=2;
+      this.amount=1;
+      this.screening();
+    },
+    thanFive(){//小于500万
+      this.colorTwo=3;
+      this.amount=2;
+      this.screening();
+    },
+    aboveFive(){//500万以上
+      this.colorTwo=4;
+      this.amount=3;
+      this.screening();
+    },
+    infiniteDate(){//不限日期
+      this.colorThr=1;
+      this.date=0;
+      this.screening();
+    },
+    silverDay(){//小于30天
+      this.colorThr=2;
+      this.date=1;
+      this.screening();
+    },
+    thanDay(){//1-3个月
+      this.colorThr=3;
+      this.date=2;
+      this.screening();
+    },
+    thanThe(){//3-6个月
+      this.colorThr=4;
+      this.date=3;
+      this.screening();
+    },
+    thanSix(){//6个月以上
+      this.colorThr=5;
+      this.date=4;
+      this.screening();
+    },
+    screening(){
+      let _this=this;
+      _this.axios.post(_this.oUrl+'/bills/filterbill',{
+        "billType":_this.billType,
+      	"amountType":_this.amount,
+      	"maturityType":_this.date,
+      	"starter":0,
+      	"number":10
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+    ).then((res)=>{
+      console.log(res)
+      _this.noteList=res.data;
+    })
+    },
     getList(){
       let _this=this;
       _this.axios.post(_this.oUrl+'/bills/filterbill',{
-        "billType":"0",
-      	"amountType":"0",
-      	"maturityType":"0",
+        "billType":_this.billType,
+      	"amountType":_this.amount,
+      	"maturityType":_this.date,
       	"starter":0,
       	"number":10
       },
@@ -107,6 +199,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.markAc{
+  background: #f15749;
+  color:white;
+}
 .market_paper{
   width: 100%;
   height:100%;
@@ -121,59 +217,35 @@ export default {
       padding-left:20%;
       margin-bottom: 2%;
       min-width: 1166px;
-      position: relative;
-      input{
+      .option{
+        font-size: 15px;
         margin-left: 5%;
-      }
-      .checkbox{
-        position: relative;
-        top:2px;
-        margin-right: .5%;
-        margin-left:5%;
-        .input_check{
-          position: absolute;
-          visibility: hidden;
-        }
-        .input_check+label{
-          display: inline-block;
-          width: 13px;
-          height: 13px;
-          border: 1px solid black;
-        }
-        .input_check:checked+label:after{
-           content: "";
-           position: absolute;
-           left: 2px;
-           bottom: 10px;
-           width: 9px;
-           height: 4px;
-           border: 2px solid black;
-           border-top-color: transparent;
-           border-right-color: transparent;
-           -ms-transform: rotate(-60deg);
-           -moz-transform: rotate(-60deg);
-           -webkit-transform: rotate(-60deg);
-           transform: rotate(-45deg);
-        }
+        cursor:pointer;
+        padding:.3% 1.1% .3% 1.1%;
+        border-radius: 5px;
       }
     }
     .market_paper_table_title{
       width: 100%;
       height:40px;
+      background: #f2f6f9;
+      font-weight: bold;
       .table{
         min-height: 40px;
         line-height: 40px;
-        border:1px solid #cad2df;
       }
     }
     .market_paper_table{
       width: 100%;
       height:42px;
+      font-size: 14px;
       .table{
         min-height: 42px;
         line-height: 40px;
-        border:1px solid #cad2df;
       }
+      .aa:nth-of-type(even){
+         background:#f7f7f7;
+       }
     }
   }
 }

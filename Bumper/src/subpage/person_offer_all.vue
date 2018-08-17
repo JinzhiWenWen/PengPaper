@@ -31,7 +31,7 @@
             <span>已被卖家接受</span>
           </div></el-col>
           <el-col :span="3"><div class="mes operaMes">
-            <p><button type="button" name="button">交易</button></p>
+            <p><button type="button" name="button" @click="turnPlace(index)">交易</button></p>
             <p><button type="button" name="button">放弃</button></p>
           </div></el-col>
         </el-row>
@@ -70,7 +70,17 @@ export default {
       console.log(res)
       this.noteList=res.data
     })
-    }
+  },
+  turnPlace(index){
+    let _this=this;
+    let billNum=_this.noteList[index].billNumber;
+    _this.$router.push({
+      name:'Detailed',
+      query:{
+        bills:billNum
+      }
+    })
+  }
   },
   created(){
     this.getOfferAll()

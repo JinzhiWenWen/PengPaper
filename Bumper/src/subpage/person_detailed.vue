@@ -48,18 +48,29 @@
 export default {
   data(){
     return{
-      detailedMaskShow:false
+      detailedMaskShow:false,
+      bills:null
     }
   },
   methods:{
     showWarning(){
       let _this=this;
+      _this.axios.post(this.oUrl+'/transaction/payViaPlatform',{
+        "transacStatus":"成功",
+	       "billNumber":_this.bills
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+    ).then((res)=>{
+      console.log(res)
       _this.detailedMaskShow=true;
       _this.$refs.detailedPrompt.style.display='block';
       setTimeout(()=>{
         _this.$refs.detailedPrompt.style.opacity='1';
         _this.$refs.detailedPrompt.style.top='30%'
       })
+    })
     },
     closeWarning(){
       let _this=this;
@@ -70,7 +81,13 @@ export default {
         _this.detailedMaskShow=false;
         _this.$refs.detailedPrompt.style.display='none';
       },200)
+    },
+    getBill(){
+      this.bills=this.$route.query.bills;
     }
+  },
+  created(){
+    this.getBill()
   }
 }
 </script>

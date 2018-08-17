@@ -2,17 +2,17 @@
 <template lang="html">
   <div class="person_choseType">
     <p class="choseType_company">恒大地产集团广东房地产开发有限公司</p>
-    <p>票据类型：&nbsp;&nbsp;&nbsp;<span>电银</span></p>
-    <p>汇票到期日：&nbsp;&nbsp;&nbsp;<span>2018-09-08</span></p>
-    <p>票据金额：&nbsp;&nbsp;&nbsp;<span>100</span>w</p>
-    <p>出票日期：&nbsp;&nbsp;&nbsp;<span>2018-03-08</span></p>
+    <p>票据类型：&nbsp;&nbsp;&nbsp;<span>{{billType}}</span></p>
+    <p>汇票到期日：&nbsp;&nbsp;&nbsp;<span>{{releaseDate}}</span></p>
+    <p>票据金额：&nbsp;&nbsp;&nbsp;<span>{{billAmount/10000}}w</span>w</p>
+    <p>出票日期：&nbsp;&nbsp;&nbsp;<span>{{maturityDay}}</span></p>
     <p>剩余天数：&nbsp;&nbsp;&nbsp;<span>113</span>天</p>
     <p>期望利率：&nbsp;&nbsp;&nbsp;<span>10</span>%</p>
     <p class="pic_title">
       <span>汇票图片</span>
     </p>
     <div class="paper_pic">
-      <img src="../../static/img/banner2.jpg" alt="">
+      <img src="../../static/img/banner2.jpg" alt="" ref="choseTypePic">
     </div>
     <div class="choseType_payMes">
       <div class="mes_left">
@@ -52,7 +52,12 @@ export default {
     return{
       TypeAgShowT:false,
       TypeAgShowB:true,
-      checkedB:false
+      checkedB:false,
+      billType:null,
+      releaseDate:null,
+      billAmount:null,
+      maturityDay:null,
+      billN:null
     }
   },
   methods:{
@@ -67,10 +72,42 @@ export default {
       this.TypeAgShowB=false;
     },
     palceThink(){
+      let _this=this;
       if(!this.TypeAgShowT){
         alert('请先接收担保交易条款')
+      }else{
+        _this.axios.post(this.oUrl+'/quote/submitIntention',{
+          "billNumber":_this.billN,
+          "quoteStatus":'卖家确认'
+        },
+        {headers:{
+          'Content-Type':'application/json'
+        }}
+      ).then((res)=>{
+        console.log(res)
+        window.history.back()
+      })
       }
+    },
+    receiveBills(){
+      let _this=this;
+      let bill=this.$route.query.bills
+      _this.billN=this.$route.query.bills;
+      _this.axios.get(_this.oUrl+'/bills/getbill?billNumber='+bill).then((res)=>{
+        console.log(res)
+        _this.billType=res.data[0].billType;
+        _this.releaseDate=res.data[0].releaseDate;
+        _this.billAmount=res.data[0].amount;
+        _this.maturityDay=res.data[0].maturity;
+        _this.axios.get(this.oUrl+'/bills/getBillPics?billNumber='+bill).then((res)=>{
+          console.log(res)
+          _this.$refs.choseTypePic.src=res.data[0].pic1;
+        })
+      })
     }
+  },
+  mounted(){
+    this.receiveBills()
   }
 }
 </script>

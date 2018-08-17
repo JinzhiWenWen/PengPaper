@@ -78,7 +78,35 @@ const router = new Router({
         {
           path:'/release/intention',//求贴意向
           name:'Intention',
-          component:resolve=>require(['@/subpage/person_intention'],resolve)
+          component:resolve=>require(['@/subpage/person_intention'],resolve),
+          children:[
+            {
+              path:'/release/intention/all',//全部报价
+              name:'IntentionAll',
+              component:resolve=>require(['@/subpage/person_intention_all'],resolve)
+            },
+            {
+              path:'/release/intention/confirmed',//待确认的报价
+              name:'IntentionConfirmed',
+              component:resolve=>require(['@/subpage/person_intention_confirmed'],resolve)
+            },
+            {
+              path:'/release/intention/haveBeen',//已确认的报价
+              name:'IntentionHaveBeen',
+              component:resolve=>require(['@/subpage/person_intention_haveBeen'],resolve)
+            },
+            {
+              path:'/release/intention/refused',//被拒绝的订单
+              name:'IntentionRefused',
+              component:resolve=>require(['@/subpage/person_intention_refused'],resolve)
+            },
+            {
+              path:'/release/intention/audit',//审核中订单
+              name:'IntentionAudit',
+              component:resolve=>require(['@/subpage/person_intention_audit'],resolve)
+            }
+          ],
+          redirect:'/release/intention/all'
         },
         {
           path:'/release/mes',//用户消息
@@ -141,23 +169,20 @@ const router = new Router({
         {
           path:'/release/paper',//用户发布的票据
           name:'Paper',
-          components:{
-            default:resolve=>require(['@/subpage/person_paper'],resolve),
-          }
-
-          // children:[
-          //   {
-          //     path:'/release/paper/offerIn',//用户报价中的票据
-          //     name:'OfferIn',
-          //     component:resolve=>require(['@/subpage/person_offerIn'],resolve)
-          //   },
-          //   {
-          //     path:'/release/paper/offerBe',//用户审核中的票据
-          //     name:'OfferBe',
-          //     component:resolve=>require(['@/subpage/person_offerBe'],resolve)
-          //   }
-          // ],
-          // redirect:'/release/paper/offerIn'
+          component:resolve=>require(['@/subpage/person_paper'],resolve),
+          children:[
+            {
+              path:'/release/paper/offerIn',//用户报价中的票据
+              name:'OfferIn',
+              component:resolve=>require(['@/subpage/person_offerIn'],resolve)
+            },
+            {
+              path:'/release/paper/offerBe',//用户审核中的票据
+              name:'OfferBe',
+              component:resolve=>require(['@/subpage/person_offerBe'],resolve)
+            }
+          ],
+          redirect:'/release/paper/offerIn'
         },
         {
           path:'/release/choseType',//选择交易
