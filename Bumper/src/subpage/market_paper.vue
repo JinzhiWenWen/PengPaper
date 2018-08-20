@@ -160,10 +160,10 @@ export default {
       {headers:{
         'Content-Type':'application/json'
       }}
-    ).then((res)=>{
-      console.log(res)
-      _this.noteList=res.data;
-    })
+      ).then((res)=>{
+        console.log(res)
+        _this.noteList=res.data;
+      })
     },
     getList(){
       let _this=this;
@@ -177,10 +177,10 @@ export default {
       {headers:{
         'Content-Type':'application/json'
       }}
-    ).then((res)=>{
-        console.log(res)
-        _this.noteList=res.data;
-      })
+      ).then((res)=>{
+          console.log(res)
+          _this.noteList=res.data;
+        })
     },
     SeeDetails(index){
       let bill=this.noteList[index].billNumber;

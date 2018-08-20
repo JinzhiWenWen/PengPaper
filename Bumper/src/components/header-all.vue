@@ -11,8 +11,10 @@
       <li>我要买票</li>
     </ul>
     <div class="header_oper">
-      <router-link to="/signIn" tag="span" class="signIn">注册</router-link>
-      <router-link to="/signUp" tag="span" class="signUp">登录</router-link>
+      <p class="enter">
+        <router-link to="/signIn" tag="span" class="signIn">注册</router-link>
+        <router-link to="/signUp" tag="span" class="signUp">登录</router-link>
+      </p>
       <span class="user_icon"><img src="../../static/img/user.png" alt="" title="" /></span>
       <span class="mes_icon"><img src="../../static/img/mes.png" alt="" title="" /></span>
     </div>
@@ -94,7 +96,38 @@ export default {
     span{
       cursor:pointer;
       font-size: 14px;
-      line-height: 32px;
+      line-height: 22px;
+      height:22px;
+      width: 36px;
+    }
+    .enter{
+      width: 100px;
+      height:24px;
+      background: white;
+      display: flex;
+      border-radius:10px;
+      margin-top:4px;
+      span{
+        width: 50%;
+        height:100%;
+        line-height: 24px;
+        text-align: center;
+        box-sizing: border-box;
+        color:white;
+        font-size: 12px;
+      }
+      .signIn{
+        border:1px solid #ff512c;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-right:0;
+        color:black;
+      }
+      .signUp{
+        background: #ff512c;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+      }
     }
     .user_icon{
       img{

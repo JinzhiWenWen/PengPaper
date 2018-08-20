@@ -3,7 +3,9 @@
     <Swiper/>
     <div class="page_con">
       <router-link to="/release" tag="p" class="page_release">急速发票</router-link>
-      <p class="page_title_f">实时<span>票据</span>行情</p>
+      <div class="page_title_f">          <!--票据行情标题 -->
+        <img src="../../static/img/page_title1.png" alt="">
+      </div>
       <div class="page_options">
         <ul class="list">
           <li><img src="../../static/img/calculator.png" title="" alt="" style="width:50%;height:50%;" /></li>
@@ -22,7 +24,7 @@
         </el-row>
       </div>
       <div class="page_table_mes">
-        <el-row v-for="(item,index) in roteList" :key="index">
+        <el-row v-for="(item,index) in roteList" :key="index" class="page_mark_title">
           <el-col :span="4"><div class="tableMes time">{{item.time}}</div></el-col>
           <el-col :span="3"><div class="tableMes type">
             <span style="color:#ff823f;" v-show="item.type=='1'">银票</span>
@@ -34,8 +36,57 @@
           <el-col :span="2"><div class="tableMes status">{{item.status}}</div></el-col>
         </el-row>
       </div>
+      <p class="page_opera_one">
+        <button type="button" name="button">查看更多>></button>
+      </p>
+      <div class="page_title_l">      <!--实时利率标题 -->
+        <img src="../../static/img/page_title2.png" alt="">
+      </div>
+      <div class="page_table">
+        <el-row>
+          <el-col :span="4"><div class="table time">票据类型</div></el-col>
+          <el-col :span="4"><div class="table type">承兑方</div></el-col>
+          <el-col :span="4"><div class="table acce">金额</div></el-col>
+          <el-col :span="4"><div class="table amount">利率</div></el-col>
+          <el-col :span="4"><div class="table data">联系人</div></el-col>
+          <el-col :span="4"><div class="table status">状态</div></el-col>
+        </el-row>
+      </div>
+      <div class="page_table_mes">
+        <el-row v-for="(item,index) in roteListLimit" :key="index" class="page_mark_title">
+          <el-col :span="4"><div class="tableMes time">
+            <span style="color:#ff823f;" v-show="item.type=='1'">银票</span>
+            <span style="color:#3d83c8;" v-show="item.type=='2'">商票</span>
+          </div></el-col>
+          <el-col :span="4"><div class="tableMes type">
+            <span v-show="item.other=='1'">国有</span>
+            <span v-show="item.other=='2'">私有</span>
+          </div></el-col>
+          <el-col :span="4"><div class="tableMes acce">{{item.amount}}</div></el-col>
+          <el-col :span="4"><div class="tableMes amount">{{item.amount}}</div></el-col>
+          <el-col :span="4"><div class="tableMes data">{{item.limit}}%</div></el-col>
+          <el-col :span="4"><div class="tableMes status">
+            <button type="button" name="button">收票中</button>
+          </div></el-col>
+        </el-row>
+      </div>
+      <p class="page_opera_one">
+        <button type="button" name="button">查看更多>></button>
+      </p>
+       <div class="page_title_In"> <!--流程介绍标题 -->
+        <img src="../../static/img/page_title3.png" alt="">
+      </div>
+      <div class="page_alt_In"> <!--流程介绍详情 -->
+       <img src="../../static/img/page_alt1.png" alt="">
+     </div>
+     <div class="page_alt_Ad"> <!--平台优势 -->
+      <img src="../../static/img/page_alt2.png" alt="">
     </div>
-    <Footer/>
+      <div class="page_alt_De"> <!--优势详情 -->
+       <img src="../../static/img/page_alt3.png" alt="">
+     </div>
+    </div>
+    <Footer :height="minHeight"/>
   </div>
 </template>
 
@@ -43,6 +94,7 @@
 export default {
   data(){
     return{
+      minHeight:'147.8%',
       roteList:[
         {
           time:'2018-07-23',
@@ -84,6 +136,127 @@ export default {
           data:'2019-05-16',
           status:'已成交'
         },
+        {
+          time:'2018-07-23',
+          type:1,     //1为银票，2为商票
+          acce:'中国电建集团财务有限责任公司',
+          amount:'1,000,000.25',
+          data:'2018-10-20',
+          status:'已成交'
+        },
+        {
+          time:'2018-06-12',
+          type:1,     //1为银票，2为商票
+          acce:'中交财务有限公司',
+          amount:'200,000.00',
+          data:'2019-02-11',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:2,     //1为银票，2为商票
+          acce:'中铁财务有限责任公司',
+          amount:'500,000.00',
+          data:'2018-12-11',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:1,     //1为银票，2为商票
+          acce:'中华工程财务集团有限责任公司',
+          amount:'2300,000.00',
+          data:'2020-10-19',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:2,     //1为银票，2为商票
+          acce:'华润置地（重庆）有限公司',
+          amount:'1,518,2332.75',
+          data:'2019-05-16',
+          status:'已成交'
+        },
+      ],
+      roteListLimit:[
+        {
+          type:1,     //1为银票，2为商票
+          other:1,   //1为国有，2为私有
+          amount:'100-500万',
+          limit:'1.98',
+          status:'已成交'
+        },
+        {
+          time:'2018-06-12',
+          type:1,     //1为银票，2为商票
+          other:2,
+          amount:'100-500万',
+          limit:'9.66',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:2,     //1为银票，2为商票
+          other:2,
+          amount:'100-500万',
+          limit:'6.64',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:1,     //1为银票，2为商票
+          other:1,
+          amount:'100-500万',
+          limit:'7.01',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:2,     //1为银票，2为商票
+          other:2,
+          amount:'100-500万',
+          limit:'6.22',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:1,     //1为银票，2为商票
+          other:2,
+          amount:'100-500万',
+          limit:'5.65',
+          status:'已成交'
+        },
+        {
+          time:'2018-06-12',
+          type:1,     //1为银票，2为商票
+          other:2,
+          amount:'100-500万',
+          limit:'6.12',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:2,     //1为银票，2为商票
+          other:2,
+          amount:'100-500万',
+          limit:'8.06',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:1,     //1为银票，2为商票
+          other:1,
+          amount:'100-500万',
+          limit:'5.5',
+          status:'已成交'
+        },
+        {
+          time:'2018-07-23',
+          type:2,     //1为银票，2为商票
+          other:1,
+          amount:'100-500万',
+          limit:'4.05',
+          status:'已成交'
+        },
       ]
     }
   },
@@ -116,7 +289,7 @@ export default {
       width: 15%;
       height:10%;
       min-height: 86px;
-      background: #140079;
+      background: #f45643;
       text-align: center;
       line-height: 95px;
       position: absolute;
@@ -129,56 +302,100 @@ export default {
     .page_title_f{
       font-size: 30px;
       width: 100%;
-      height:30%;
-      line-height: 285px;
-      min-height: 285px;
-      span{
-        font-size: 38px;
+      height:28%;
+      min-height: 276px;
+      img{
+        width: 100%;
+        height:100%;
       }
     }
     .page_table{
       width: 100%;
       .table{
         min-height: 40px;
-        background: #43609c;
+        background: #f45643;
         text-align: center;
         line-height: 40px;
         color:white;
-      }
-      .type{
-        border-left: 1px solid #8b9bbd;
-        border-right: 1px solid #8b9bbd;
-      }
-      .amount{
-        border-left: 1px solid #8b9bbd;
-        border-right: 1px solid #8b9bbd;
-      }
-      .status{
-        border-left: 1px solid #cad2df;
       }
     }
     .page_table_mes{
       width: 100%;
       font-size: 14px;
+      .page_mark_title:nth-of-type(even){
+        background:#f7f7f7;
+      }
       .tableMes{
         min-height: 40px;
         line-height: 40px;
-        border-bottom:1px solid #cad2df;
-      }
-      .time{
-        border-left: 1px solid #cad2df;
-        border-right: 1px solid #cad2df;
-      }
-      .acce{
-        border-left: 1px solid #cad2df;
-        border-right: 1px solid #cad2df;
-      }
-      .data{
-        border-left: 1px solid #cad2df;
-        border-right: 1px solid #cad2df;
       }
       .status{
-        border-right: 1px solid #cad2df;
+        button{
+          width: 40%;
+          min-height: 28px;
+          border-radius:8px;
+          background: #ff6600;
+          color:white;
+        }
+      }
+    }
+    .page_opera_one{
+      width: 100%;
+      height:3.5%;
+      margin-top:28px;
+      min-height: 33px;
+      button{
+        width: 11%;
+        height:100%;
+        background: #ff6600;
+        border-radius: 18px;
+        color:white;
+      }
+    }
+    .page_title_l{
+      width: 100%;
+      height:220px;
+      min-height: 220px;
+      margin-top:10px;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
+    .page_title_In{
+      width: 100%;
+      height:300px;
+      min-height: 300px;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
+    .page_alt_In{
+      width: 150%;
+      height:688px;
+      margin-left:-22%;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
+    .page_alt_Ad{
+      width: 150%;
+      height:740px;
+      margin-left:-22%;
+      img{
+        width: 100%;
+        height:100%;
+      }
+    }
+    .page_alt_De{
+      width: 150%;
+      margin-left: -22%;
+      height:540px;
+      img{
+        width: 100%;
+        height:100%;
       }
     }
     .page_options{
@@ -187,11 +404,11 @@ export default {
       background: #120076;
       position: fixed;
       right:5vh;
-      top:65vh;
+      top:40vh;
       min-height: 208px;
       min-width: 70px;
       border-radius: 5px;
-      z-index: 500;
+      z-index:20;
       .list{
         width: 100%;
         height:100%;

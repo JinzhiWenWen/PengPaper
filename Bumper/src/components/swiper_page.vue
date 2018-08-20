@@ -26,10 +26,6 @@ export default {
       delay: 2000,
       stopOnLastSlide: false,
       disableOnInteraction: true,
-      },
-      pagination: {
-      el: '.swiper-pagination',
-      type: 'progressbar',
     },
       navigation: {
       nextEl: '.swiper-button-next',

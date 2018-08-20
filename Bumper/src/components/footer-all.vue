@@ -55,6 +55,7 @@ export default {
     box-sizing: border-box;
     position: relative;
     background: #e5e5e5;
+    z-index: 10;
     .contact_us_left{
       width: 26%;
       height:100%;
