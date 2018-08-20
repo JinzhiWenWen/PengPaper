@@ -8,9 +8,12 @@
       </div>
       <div class="page_options">
         <ul class="list">
-          <li><img src="../../static/img/calculator.png" title="" alt="" style="width:50%;height:50%;" /></li>
+          <li @mouseenter="Be()" @mouseleave="Af()">
+            <img src="../../static/img/calculatorBe.png" ref="CaBe" class="Be" alt="" style="width:50%;height:50%;" >
+            <img src="../../static/img/calculator.png" ref="CaAf" title="" class="Af" alt="" style="width:50%;height:50%;display:none;" />
+          </li>
           <li><p>法&nbsp;务</p><p>咨&nbsp;询</p></li>
-          <li></li>
+          <li><p>回&nbsp;到</p><p>顶&nbsp;部</p></li>
         </ul>
       </div>
       <div class="page_table">
@@ -38,10 +41,10 @@
       </div>
       <p class="page_opera_one">
         <button type="button" name="button">查看更多>></button>
-      </p>
+        </p>
       <div class="page_title_l">      <!--实时利率标题 -->
         <img src="../../static/img/page_title2.png" alt="">
-      </div>
+        </div>
       <div class="page_table">
         <el-row>
           <el-col :span="4"><div class="table time">票据类型</div></el-col>
@@ -72,16 +75,16 @@
       </div>
       <p class="page_opera_one">
         <button type="button" name="button">查看更多>></button>
-      </p>
+        </p>
        <div class="page_title_In"> <!--流程介绍标题 -->
         <img src="../../static/img/page_title3.png" alt="">
       </div>
       <div class="page_alt_In"> <!--流程介绍详情 -->
        <img src="../../static/img/page_alt1.png" alt="">
-     </div>
+      </div>
      <div class="page_alt_Ad"> <!--平台优势 -->
       <img src="../../static/img/page_alt2.png" alt="">
-    </div>
+        </div>
       <div class="page_alt_De"> <!--优势详情 -->
        <img src="../../static/img/page_alt3.png" alt="">
      </div>
@@ -270,6 +273,18 @@ export default {
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
     }
+  },
+  methods:{
+    Be(){
+      let _this=this;
+      _this.$refs.CaBe.style.display='none';
+      _this.$refs.CaAf.style.display='block';
+    },
+    Af(){
+      let _this=this;
+      _this.$refs.CaBe.style.display='block';
+      _this.$refs.CaAf.style.display='none';
+    }
   }
 }
 </script>
@@ -401,13 +416,12 @@ export default {
     .page_options{
       width: 4%;
       height:25%;
-      background: #120076;
+      background: #f7f7f7;
       position: fixed;
       right:5vh;
       top:40vh;
       min-height: 208px;
       min-width: 70px;
-      border-radius: 5px;
       z-index:20;
       .list{
         width: 100%;
@@ -424,17 +438,21 @@ export default {
           overflow: hidden;
           p{
             height:50%;
-            color:white;
+            color:#ff4200;
             font-weight: bold;
             font-size: 24px;
-            margin-top: -8%;
+            margin-top: -11%;
           }
           img{
             margin-top: 24%;
+            margin-left:25%;
           }
         }
         li:hover{
-          background: black;
+          background: #ff4200;
+          p{
+            color:white;
+          }
         }
       }
     }
