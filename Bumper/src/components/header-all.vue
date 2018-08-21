@@ -65,7 +65,11 @@ export default {
     width: 150px;
     height:70px;
     padding-top: 1%;
-    cursor:pointer;img{
+    cursor:pointer;
+    position: absolute;
+    left:15%;
+    top:-3%;
+    img{
       width: 100%;
       height:100%;
     }

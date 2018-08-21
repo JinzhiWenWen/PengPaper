@@ -164,12 +164,12 @@ export default {
 .release_paper{
   width: 100%;
   height:100%;
-  min-width: 1920px;
   .release_paper_con{
     width: 70%;
     height:60%;
     margin-left: 15%;
     padding-top:5%;
+    margin:0 auto;
     .release_paper_title{
       width: 100%;
       border-bottom: 1px solid #999;
