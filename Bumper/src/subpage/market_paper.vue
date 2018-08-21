@@ -207,7 +207,7 @@ export default {
   .market_paper_con{
     width: 70%;
     height:100%;
-    margin-left:15%;
+    margin:0 auto;
     padding-top:6%;
     p{
       width: 100%;

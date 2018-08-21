@@ -64,15 +64,6 @@ export default {
     min-height: 36px;
     line-height: 36px;
     background: #ebebeb;
-    border-bottom:1px solid #ccc;
-  }
-  .limit{
-    border-left:1px solid #ccc;
-    border-right:1px solid #ccc;
-  }
-  .time{
-    border-left:1px solid #ccc;
-    border-right:1px solid #ccc;
   }
   .person_offerIn_mes{
     min-height: 70px;

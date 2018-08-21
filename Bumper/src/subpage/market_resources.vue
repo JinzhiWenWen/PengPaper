@@ -134,16 +134,6 @@ export default {
   width: 100%;
   height:100%;
   min-width: 1376px;
-  .aas{
-    width: 50px;
-    height:50px;
-    background: red;
-    position: fixed;
-    top:20%;
-    left:10%;
-    transition: all .5s;
-    opacity: 0;
-  }
   .market_resources_con{
     width: 70%;
     margin:0 auto;

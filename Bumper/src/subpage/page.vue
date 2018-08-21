@@ -297,7 +297,7 @@ export default {
   .page_con{
     width: 70%;
     height:100%;
-    margin-left: 15%;
+    margin:0 auto;
     position:relative;
     z-index: 5;
     .page_release{
@@ -339,6 +339,9 @@ export default {
       font-size: 14px;
       .page_mark_title:nth-of-type(even){
         background:#f7f7f7;
+      }
+      .page_mark_title:hover{
+        background: #fffbee;
       }
       .tableMes{
         min-height: 40px;
