@@ -161,7 +161,6 @@ export default {
         'Content-Type':'application/json'
       }}
       ).then((res)=>{
-        console.log(res)
         _this.noteList=res.data;
       })
     },
@@ -178,7 +177,6 @@ export default {
         'Content-Type':'application/json'
       }}
       ).then((res)=>{
-          console.log(res)
           _this.noteList=res.data;
         })
     },
