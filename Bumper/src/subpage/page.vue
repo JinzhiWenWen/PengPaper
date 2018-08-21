@@ -40,7 +40,7 @@
         </el-row>
       </div>
       <p class="page_opera_one">
-        <button type="button" name="button">查看更多>></button>
+        <router-link to="/marketpa" tag="button">查看更多>></router-link>
         </p>
       <div class="page_title_l">      <!--实时利率标题 -->
         <img src="../../static/img/page_title2.png" alt="">
@@ -74,7 +74,7 @@
         </el-row>
       </div>
       <p class="page_opera_one">
-        <button type="button" name="button">查看更多>></button>
+        <router-link to="/resources" tag="button">查看更多>></router-link>
         </p>
        <div class="page_title_In"> <!--流程介绍标题 -->
         <img src="../../static/img/page_title3.png" alt="">
