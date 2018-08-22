@@ -96,12 +96,16 @@ export default {
   },
   methods:{
     PaperSave(){
-      this.PaperMaskShow=true;
-      this.$refs.save_paompt.style.display="block";
-      setTimeout(()=>{
-        this.$refs.save_paompt.style.opacity='1';
-        this.$refs.save_paompt.style.top='30%'
-      })
+      if(!getCookie('Iud')){
+        this.$router.push('//signUp/password');
+      }else{
+        this.PaperMaskShow=true;
+        this.$refs.save_paompt.style.display="block";
+        setTimeout(()=>{
+          this.$refs.save_paompt.style.opacity='1';
+          this.$refs.save_paompt.style.top='30%'
+        })
+      }
     },
     closeSave(){
       this.$refs.save_paompt.style.opacity='0';
@@ -184,53 +188,57 @@ export default {
     // },
     submitMes(){
       let _this=this;
-      let paperNumber=_this.$refs.paperNumber.value;
-      let amount=_this.$refs.amount.value;
-      let acceptor=_this.$refs.acceptor.value;
-      let Is=window.localStorage.getItem('Is');//票据正面图片
-      let The=window.localStorage.getItem('The');//票据反面图片
-      let Id=getCookie('Iud')
-      if(paperNumber==''||amount==''||acceptor==''){
-        alert('请先完善票面信息！')
-      }else if(!Is){
-        alert('请先上传票据正面图片！')
-      }else if(!The){
-        alert('请先上传票据反面图片！')
+      if(!getCookie('Iud')){
+        this.$router.push('/signUp/password')
       }else{
-        _this.loadingRele=true;
-        _this.releText=''
-        _this.axios.post(this.oUrl+'/bills/addbill',{
-          "billInfo":{
-        		"billNumber":paperNumber,
-        		"billType":"国票",
-        		"acceptor":acceptor,
-        		"amount":amount,
-        		"maturity":"2018-12-12",
-        		"status":"审核中",
-        		"releaseDate":"2018-08-08",
-        		"releaserId":88888888,
-        		"billPicsId":11111,
-        		"transferable":true
-      	 },
-         "billPics":{
-        		"billNumber":paperNumber,
-        		"pic1":Is,
-        		"pic2":The,
-        		"updateDate":"2018-08-08"
-        	},
-          "userData":{
-            "uuid":Id
-          }
-        },
-        {headers:{
-          'Content-Type':'application/json'
-        }}
-      ).then((res)=>{
-        _this.loadingRele=false;
-        _this.releText='发布'
-        _this.loadingRele=false;
-        this.PaperRele()
-        })
+        let paperNumber=_this.$refs.paperNumber.value;
+        let amount=_this.$refs.amount.value;
+        let acceptor=_this.$refs.acceptor.value;
+        let Is=window.localStorage.getItem('Is');//票据正面图片
+        let The=window.localStorage.getItem('The');//票据反面图片
+        let Id=getCookie('Iud')
+        if(paperNumber==''||amount==''||acceptor==''){
+          alert('请先完善票面信息！')
+        }else if(!Is){
+          alert('请先上传票据正面图片！')
+        }else if(!The){
+          alert('请先上传票据反面图片！')
+        }else{
+          _this.loadingRele=true;
+          _this.releText=''
+          _this.axios.post(this.oUrl+'/bills/addbill',{
+            "billInfo":{
+              "billNumber":paperNumber,
+              "billType":"国票",
+              "acceptor":acceptor,
+              "amount":amount,
+              "maturity":"2018-12-12",
+              "status":"审核中",
+              "releaseDate":"2018-08-08",
+              "releaserId":88888888,
+              "billPicsId":11111,
+              "transferable":true
+           },
+           "billPics":{
+              "billNumber":paperNumber,
+              "pic1":Is,
+              "pic2":The,
+              "updateDate":"2018-08-08"
+            },
+            "userData":{
+              "uuid":Id
+            }
+          },
+          {headers:{
+            'Content-Type':'application/json'
+          }}
+        ).then((res)=>{
+          _this.loadingRele=false;
+          _this.releText='发布'
+          _this.loadingRele=false;
+          this.PaperRele()
+          })
+        }
       }
     }
   }

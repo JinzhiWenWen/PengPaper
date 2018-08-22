@@ -22,7 +22,7 @@
                 <el-menu-item index="1-2" @click="offer()">求贴意向</el-menu-item>
                 <el-menu-item index="1-2" @click="order()">我的报价</el-menu-item>
                 <el-menu-item index="1-2">资源池报价</el-menu-item>
-                <el-menu-item index="1-2">发布/修改资源池报价</el-menu-item>
+                <el-menu-item index="1-2" @click="releaseOffer()">发布/修改资源池报价</el-menu-item>
               </el-submenu>
               <el-submenu index="2">
                 <template slot="title">
@@ -87,6 +87,9 @@ export default {
     },
     order(){//买家资源池票据
       this.$router.push('/release/offer')
+    },
+    releaseOffer(){  //发布/修改报价
+      this.$router.push('/release/template')
     }
 	},
   components:{

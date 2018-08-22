@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="page">
+  <div class="page" ref="page">
     <Swiper/>
     <div class="page_con">
       <router-link to="/release" tag="p" class="page_release">急速发票</router-link>
@@ -13,7 +13,7 @@
             <img src="../../static/img/calculator.png" ref="CaAf" title="" class="Af" alt="" style="width:50%;height:50%;display:none;" />
           </li>
           <li><p>法&nbsp;务</p><p>咨&nbsp;询</p></li>
-          <li><p>回&nbsp;到</p><p>顶&nbsp;部</p></li>
+          <li @click="backTop()"><p>回&nbsp;到</p><p>顶&nbsp;部</p></li>
         </ul>
       </div>
       <div class="page_table">
@@ -284,6 +284,14 @@ export default {
       let _this=this;
       _this.$refs.CaBe.style.display='block';
       _this.$refs.CaAf.style.display='none';
+    },
+    backTop(){
+      document.documentElement.scrollTop-=150;
+      if (document.documentElement.scrollTop>0) {
+        var c=setTimeout(()=>this.backTop(150),16);
+      }else {
+        clearTimeout(c);
+      }
     }
   }
 }
@@ -372,7 +380,7 @@ export default {
     }
     .page_title_l{
       width: 100%;
-      height:220px;
+      height:276px;
       min-height: 220px;
       margin-top:10px;
       img{

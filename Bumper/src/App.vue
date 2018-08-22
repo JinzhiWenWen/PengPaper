@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header/>
-    <router-view></router-view>
+    <router-view class="trans-view"></router-view>
     <!-- <Footer/> -->
   </div>
 </template>
@@ -35,5 +35,12 @@ export default {
   width: 100%;
   height:100%;
   /* min-width: 1631px; */
+}
+.trans-view{
+  position: absolute;
+  left: 0;
+  top: 75px;
+  width:100%;
+  height:100%;
 }
 </style>

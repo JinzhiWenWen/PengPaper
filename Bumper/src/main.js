@@ -14,6 +14,7 @@ Vue.use(ElementUI)
 // Vue.prototype.$axios=Api;
 Vue.prototype.axios=Axios;
 Vue.prototype.oUrl='http://39.104.140.40'
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

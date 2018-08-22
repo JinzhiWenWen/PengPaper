@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import offerIn from '@/subpage/person_offerIn'
+import {getCookie} from '@/assets/util'
 Vue.use(Router)
 
 const router = new Router({
@@ -13,8 +13,7 @@ const router = new Router({
       path:'/page',
       name:'Page',
       components:{
-        default:resolve=>require(['@/subpage/page'],resolve),
-        a:offerIn
+        default:resolve=>require(['@/subpage/page'],resolve)
       }
     },
     {
@@ -247,4 +246,24 @@ const router = new Router({
     }
   ]
 });
+router.beforeEach((to,from,next)=>{
+  //登录权限页面
+  const nextRoute=['OfferIn','OfferBe','choseType','SellerCancelOrder','SellerHadDeal','OfferDe','Template',
+  'Order','Prise','Repid','Detailed','Pass','Mes','IntentionAudit','IntentionRefused','IntentionHaveBeen',
+  'IntentionConfirmed','IntentionAll','Cancel','Prrices','Accepted','OfferAll','Buy','Audit','Sell','Trad',
+  'Data','Details','Offer','NoOffer'
+];
+  if(nextRoute.indexOf(to.name)>-1){
+    if(!getCookie('Iud')){
+      console.log('Surprise MontherFuck!')
+      next('/signUp/password')
+    }
+  };
+  next()
+});
+router.afterEach((to,from,next) => {
+  setTimeout(()=>{
+    window.scrollTo(0,0);
+  },100)
+})
 export default router;
