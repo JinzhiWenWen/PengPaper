@@ -50,8 +50,10 @@ export default {
         _this.loadingSginUp=false;
         let token=res.data.ticket;
         let uid=res.data.uuid;
-        setCookie('Too',token)
-        setCookie('Iud',uid)
+        let nick=res.data.user_phone;
+        setCookie('Too',token);
+        setCookie('Iud',uid);
+        setCookie('Nick',nick)
         if(_this.back){
           window.history.back()
           setTimeout(()=>{

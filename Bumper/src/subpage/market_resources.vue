@@ -38,7 +38,7 @@
             style="display:none;"
             >我要贴</button>
           </div></el-col>
-          <div class="led" ref="led">
+          <div class="led" ref="led"  v-loading="loading">
             <el-row v-for="(itemLed,index) in noteListLed" :key="index">
               <el-col :span="4"><div class="led_mes">{{itemLed.billType}}</div></el-col>
               <el-col :span="4"><div class="led_mes">{{itemLed.acceptor}}</div></el-col>
@@ -49,23 +49,26 @@
               <el-col :span="3"><div class="led_mes">
                 <button type="button" name="button">我要贴</button>
               </div></el-col>
-              <p>123</p>
             </el-row>
           </div>
+          <p class="paging">
+            <el-pagination
+              background
+              layout="prev, pager, next"
+              @next-click="next(index)"
+              @prev-click="prev(index)"
+              @current-change="current"
+              :current-page="pageN"
+              :total="pageNum">
+            </el-pagination>
+          </p>
         </el-row>
       </div>
-      <!-- <div class="market_resources_listB">
-          <el-row>
-            <el-col :span="4"><div class="resourcesListB">国股</div></el-col>
-            <el-col :span="5"><div class="resourcesListB much">10W-49.9W</div></el-col>
-            <el-col :span="5"><div class="resourcesListB">12.28后到期加0.10</div></el-col>
-            <el-col :span="5"><div class="resourcesListB unknow">4.25+40</div></el-col>
-            <el-col :span="5"><div class="resourcesListB opera">
-              <button type="button" name="button" @click="bb()">找TA贴现</button>
-            </div></el-col>
-          </el-row>
-      </div> -->
+      <div class="market_resources_loadig" v-loading="true" v-show="marketResourcesLoadig">
+
+      </div>
     </div>
+
   </div>
 </template>
 
@@ -77,35 +80,101 @@ export default {
       sy:'%',
       isLogin:false,
       noteList:[],
-      noteListLed:[]
+      noteListLed:[],
+      layout:0,
+      loading:false,
+      pageN:null,
+      pageNum:10,
+      marketResourcesLoadig:true
     }
   },
   methods:{
+    current(index){//页码跳转
+      let sta=index*4;
+      let Id=getCookie('Iud');
+      this.axios.post(this.oUrl+'/resourceMarket/getByBuyerIdOfResoucePool',{
+        "buyerId":Id,
+        "start":sta,
+        "page":4
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+      ).then((res)=>{
+        _this.noteListLed=res.data;
+      })
+    },
+    next(index){//下一页数据
+      let _this=this;
+      _this.loading=true;
+      _this.layout=_this.layout+4;
+      let Id=_this.noteList[index].buyerId;
+      _this.axios.post(this.oUrl+'/resourceMarket/getByBuyerIdOfResoucePool',{
+        "buyerId":Id,
+        "start":_this.layout,
+        "page":4
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+      ).then((res)=>{
+        _this.loading=false;
+        _this.noteListLed=res.data;
+      })
+    },
+    prev(index){//上一页数据
+      let _this=this;
+      _this.loading=true;
+      _this.layout=_this.layout-4;
+      let Id=_this.noteList[index].buyerId;
+      _this.axios.post(_this.oUrl+'/resourceMarket/getByBuyerIdOfResoucePool',{
+        "buyerId":Id,
+        "start":_this.layout,
+        "page":4
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+      ).then((res)=>{
+        _this.loading=false;
+        _this.noteListLed=res.data;
+      })
+    },
     showTurn(index){
       let _this=this;
       let Id=_this.noteList[index].buyerId;
       if(!getCookie('Iud')){
         _this.$router.push('/signUp/password')
       }else{
-        _this.axios.get(this.oUrl+'/resourceMarket/getByBuerId?buyerId='+Id).then((res)=>{
-          console.log(res.data)
-          _this.noteListLed=res.data;
-          for(let v in _this.$refs.market_resources_box){
-            if(_this.$refs.market_resources_box[v].$el.style.height=='240px'){
-              _this.$refs.market_resources_box[v].$el.style.height='40px';
+        _this.axios.post(this.oUrl+'/resourceMarket/getByBuyerIdOfResoucePool',{
+          "buyerId":Id,
+        	"start":_this.layout,
+        	"page":4
+        },
+        {headers:{
+          'Content-Type':'application/json'
+        }}
+        ).then((res)=>{
+          if(res.data.length>4){
+            _this.pageNum=res.data.length/4*10
+          }
+            _this.noteListLed=res.data;
+            for(let v in _this.$refs.market_resources_box){
+              if(_this.$refs.market_resources_box[v].$el.style.height=='240px'){
+                _this.$refs.market_resources_box[v].$el.style.height='40px';
+              }
             }
-          }
-          for(let x in _this.$refs.hideTurn){
-            _this.$refs.hideTurn[x].style.display='none';
-          }
-          for(let x in _this.$refs.showTurn){
-            _this.$refs.showTurn[x].style.display='block';
-          }
-          _this.$refs.market_resources_box[index].$el.style.height='240px';
-          _this.$refs.showTurn[index].style.display='none';
-          _this.$refs.hideTurn[index].style.display='block';
-          _this.$refs.led[index].style.display='block';
-        })
+            for(let x in _this.$refs.hideTurn){
+              _this.$refs.hideTurn[x].style.display='none';
+            }
+            for(let x in _this.$refs.showTurn){
+              _this.$refs.showTurn[x].style.display='block';
+            }
+            _this.$refs.market_resources_box[index].$el.style.height='240px';
+            _this.$refs.showTurn[index].style.display='none';
+            _this.$refs.hideTurn[index].style.display='block';
+            _this.$refs.led[index].style.display='block';
+          })
       }
     },
     hideTurn(index){
@@ -117,6 +186,7 @@ export default {
     getList(){
       this.axios.get(this.oUrl+'/resourceMarket/getPriorityItem').then((res)=>{
         this.noteList=res.data;
+        this.marketResourcesLoadig=false;
         if(!getCookie('Iud')){
           for(let v in this.noteList){
             this.noteList[v].interest='';
@@ -133,7 +203,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .market_resources{
   width: 100%;
   height:100%;
@@ -164,11 +234,23 @@ export default {
         transition: all .5s;
         position: relative;
         overflow: hidden;
-        p{
+        .paging{
+          width: 100%;
+          height:40px;
           position: absolute;
-          top:40px;
-          opacity: 0;
-          transition: all .5s;
+          top:200px;
+          line-height: 40px;
+          .el-pagination{
+            text-align: right;
+            padding-top:6px;
+          }
+          .el-pagination.is-background .el-pager li:not(.disabled).active{
+            background: #f45643;
+            color:white;
+          }
+          .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li:hover{
+            color:#f45643;
+          }
         }
       }
       .market_resources_box:nth-of-type(even){
@@ -185,6 +267,7 @@ export default {
         line-height: 40px;
         font-size: 14px;
         text-align: center;
+        position: relative;
         button{
           min-width:74px;
           min-height: 30px;
@@ -195,20 +278,11 @@ export default {
       }
       .led{
         width: 100%;
-        height:200px;
-        min-height: 200px;
+        height:160px;
+        min-height: 160px;
         display: none;
         background: #e4eff9;
         margin-top:40px;
-        position: relative;
-        p{
-          width: 100%;
-          height:40px;
-          background: red;
-          margin-top:160px;
-          position: absolute;
-          top:0px;
-        }
         .led_mes{
           min-height:40px;
           line-height: 40px;
@@ -231,36 +305,12 @@ export default {
           top:12%;
         }
       }
+
     }
-    .market_resources_listB{
-      width: 75%;
-      margin:0 auto;
-      border:1px solid #ccc;
-      border-bottom:0;
-      margin-top: 10%;
-      .resourcesListB{
-        min-height: 40px;
-        line-height: 40px;
-        border-bottom:1px solid #ccc;
-      }
-      .much{
-        border-left:1px solid #ccc;
-        border-right:1px solid #ccc;
-      }
-      .unknow{
-        border-left:1px solid #ccc;
-        border-right:1px solid #ccc;
-      }
-      .opera{
-        button{
-          width: 80px;
-          height:28px;
-          border-radius:5px;
-          background: linear-gradient(180deg,rgba(255,125,91,1),rgba(255,71,46,1));
-          color:white;
-        }
-      }
-    }
+  }
+  .market_resources_loadig{
+    width: 100%;
+    height:50%;
   }
 }
 </style>

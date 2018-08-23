@@ -47,6 +47,9 @@ button{
 .el-loading-spinner{
   margin-top:-10px;
 }
+.el-loading-spinner .path{
+  stroke: #f45643;
+}
 input{
   outline: none;
   border:0;

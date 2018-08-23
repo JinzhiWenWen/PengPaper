@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header/>
-    <router-view class="trans-view"></router-view>
+    <router-view class="app_view"></router-view>
     <!-- <Footer/> -->
   </div>
 </template>
@@ -32,15 +32,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.app_view{
   width: 100%;
   height:100%;
-  /* min-width: 1631px; */
-}
-.trans-view{
   position: absolute;
-  left: 0;
-  top: 75px;
-  width:100%;
-  height:100%;
+  top:75px;
+  left:0;
 }
 </style>

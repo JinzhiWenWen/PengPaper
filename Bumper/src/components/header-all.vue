@@ -11,10 +11,11 @@
       <li>我要买票</li>
     </ul>
     <div class="header_oper">
-      <p class="enter">
+      <p class="enter" v-show="enter">
         <router-link to="/signIn" tag="span" class="signIn">注册</router-link>
         <router-link to="/signUp" tag="span" class="signUp">登录</router-link>
       </p>
+      <p class="signSucc" v-show="signSucc">欢迎您，<span style="color:#f45643;">{{nick}}</span></p>
       <span class="user_icon"><img src="../../static/img/user.png" alt="" title="" /></span>
       <span class="mes_icon"><img src="../../static/img/mes.png" alt="" title="" /></span>
     </div>
@@ -22,10 +23,14 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      color:1
+      color:1,
+      enter:true,
+      signSucc:false,
+      nick:null
     }
   },
   methods:{
@@ -43,6 +48,15 @@ export default {
     },
     releasePa(){
       this.color=4;
+    },
+  },
+  watch:{
+    $route(to,from){
+      if(getCookie('Iud')){
+        this.nick=getCookie('Nick')
+        this.enter=false;
+        this.signSucc=true;
+      }
     }
   }
 }
@@ -132,6 +146,11 @@ export default {
         border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
       }
+
+    }
+    .signSucc{
+      font-size: 14px;
+      margin-top:3%;
     }
     .user_icon{
       img{

@@ -256,6 +256,7 @@ router.beforeEach((to,from,next)=>{
   if(nextRoute.indexOf(to.name)>-1){
     if(!getCookie('Iud')){
       console.log('Surprise MontherFuck!')
+      console.log(window.location.href)
       next('/signUp/password')
     }
   };
