@@ -2,7 +2,9 @@
   <div id="app">
     <Header/>
     <router-view class="app_view"></router-view>
-    <!-- <Footer/> -->
+    <!-- <div class="footer">
+      <Footer/>
+    </div> -->
   </div>
 </template>
 
@@ -32,12 +34,16 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-.app_view{
   width: 100%;
   height:100%;
+}
+.footer{
+  width: 100%;
+  height:32%;
+}
+.app_view{
   position: absolute;
-  top:75px;
   left:0;
+  top:75px;
 }
 </style>

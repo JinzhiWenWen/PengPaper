@@ -115,7 +115,7 @@ export default {
 <style lang="scss" scoped>
 .person_choseType{
   width: 100%;
-  height:100%;
+  height:auto;
   padding-left:10%;
   padding-top:6%;
   p{

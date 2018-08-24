@@ -9,11 +9,14 @@
           <p>票据金额<input type="text" vlaue="" placehoder="" ref="amount"/></p>
           <p class="release_paper_date">票据到期日
             <el-date-picker
-              v-model="value1"
+              v-model="time"
               type="date"
-              placeholder="选择日期">
+              placeholder="选择日期"
+              value-format="timestamp"
+              @change="choseDate()"
+              >
             </el-date-picker>
-            <span class="time">剩余期限？天</span>
+            <span class="time">剩余期限{{dayRe}}天</span>
             </p>
           <p>承兑人全称<input type="text" vlaue="" placehoder="" ref="acceptor"/></p>
           <p>是否可签转<input type="text" vlaue="" placehoder=""/></p>
@@ -25,7 +28,7 @@
             element-loading-spinner="el-icon-loading"
             element-loading-background="rgba(0,0,0,0.1)"
             >{{releText}}</button>
-          </p>
+            </p>
         </div>
         <div class="mes_right">
           <div class="paper_is">
@@ -76,14 +79,15 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      minHeight:'20%',
-      value1:null,
+      minHeight:'10%',
+      time:null,
       radioT:true,
       radioB:false,
       checked:false,
       PaperMaskShow:false,
       loadingRele:false,
-      releText:'发布'
+      releText:'发布',
+      dayRe:'？'
     }
   },
   components:{
@@ -95,17 +99,31 @@ export default {
     }
   },
   methods:{
+    choseDate(){
+      let date=new Date();
+      let year=date.getFullYear();
+      let month=date.getMonth()+1;
+      let day=date.getDate();
+      if(month>=1&&month<=9){
+        month='0'+month
+      };
+      let rele=year+'/'+month+'/'+day
+      let timeRe = new Date(rele).getTime();
+      let remaining=this.time-timeRe;
+      this.dayRe=Math.floor(remaining/86400000)
+
+    },
     PaperSave(){
       if(!getCookie('Iud')){
         this.$router.push('//signUp/password');
-      }else{
-        this.PaperMaskShow=true;
-        this.$refs.save_paompt.style.display="block";
-        setTimeout(()=>{
-          this.$refs.save_paompt.style.opacity='1';
-          this.$refs.save_paompt.style.top='30%'
-        })
-      }
+        }else{
+          this.PaperMaskShow=true;
+          this.$refs.save_paompt.style.display="block";
+          setTimeout(()=>{
+            this.$refs.save_paompt.style.opacity='1';
+            this.$refs.save_paompt.style.top='30%'
+          })
+        }
     },
     closeSave(){
       this.$refs.save_paompt.style.opacity='0';
@@ -196,8 +214,8 @@ export default {
         let acceptor=_this.$refs.acceptor.value;
         let Is=window.localStorage.getItem('Is');//票据正面图片
         let The=window.localStorage.getItem('The');//票据反面图片
-        let Id=getCookie('Iud')
-        if(paperNumber==''||amount==''||acceptor==''){
+        let Id=getCookie('Iud');
+        if(paperNumber==''||amount==''||acceptor==''||_this.time==null){
           alert('请先完善票面信息！')
         }else if(!Is){
           alert('请先上传票据正面图片！')
@@ -212,10 +230,10 @@ export default {
               "billType":"国票",
               "acceptor":acceptor,
               "amount":amount,
-              "maturity":"2018-12-12",
+              "maturity":_this.time,
               "status":"审核中",
               "releaseDate":"2018-08-08",
-              "releaserId":88888888,
+              "releaserId":Id,
               "billPicsId":11111,
               "transferable":true
            },
@@ -233,11 +251,20 @@ export default {
             'Content-Type':'application/json'
           }}
         ).then((res)=>{
-          _this.loadingRele=false;
-          _this.releText='发布'
-          _this.loadingRele=false;
-          this.PaperRele()
-          })
+          console.log(res)
+          if(res.data.statusCode==='fail'){
+            _this.releText='发布';
+            alert('该票已有发布记录！')
+          }else{
+            _this.loadingRele=false;
+            _this.releText='发布';
+            _this.loadingRele=false;
+            this.PaperRele();
+            window.localStorage.clear()
+          }
+        }).catch((err)=>{
+          console.log(err)
+        })
         }
       }
     }
@@ -324,7 +351,9 @@ export default {
         .obtain{
           width: 100%;
           text-align: center;
+          height:40px;
           margin-top: 15%;
+          position: relative;
           button{
             width:120px;
             height:40px;
@@ -334,10 +363,12 @@ export default {
             border-radius: 5px;
           }
           button:nth-child(1){
-            margin-right:20px;
+            position: absolute;
+            top:0;
+            left:40%;
           }
           button:nth-child(2){
-            margin-left: 20px;
+            margin-left: 250px;
           }
         }
       }

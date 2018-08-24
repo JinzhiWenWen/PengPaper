@@ -113,10 +113,10 @@ export default {
     text-align: left;
     span{
       padding-bottom:1%;
-      border-bottom: 4px solid #000152;
+      border-bottom: 4px solid #FF452C;
       font-weight: bold;
       font-size: 16px;
-      color:#000152;
+      color:#FF452C;
       letter-spacing:2px;
     }
   }
@@ -148,7 +148,7 @@ export default {
   .company_license{
     width: 82%;
     margin-left: 18%;
-    height:40%;
+    height:378px;
     text-align: center;
     position: relative;
     .reprod{
@@ -189,14 +189,14 @@ export default {
   }
   .saveMes{
     width: 82%;
-    height:3%;
+    height:28px;
     margin-left: 18%;
     text-align: center;
     margin-bottom:5%;;
     button{
       width: 60%;
       height:100%;
-      background: #000152;
+      background: #FF452C;
       font-size: 14px;
       color:white;
       border-radius: 5px;

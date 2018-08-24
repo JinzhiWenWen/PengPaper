@@ -57,7 +57,7 @@
 export default {
 	data(){
 		return {
-      minHeight:'50%'
+      minHeight:'5%'
 		}
 	},
 	methods:{
@@ -99,6 +99,9 @@ export default {
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
     }
+  },
+  created(){
+    console.log(window.clientHeight)
   }
 }
 </script>
@@ -106,7 +109,7 @@ export default {
 <style lang="scss" scoped>
 .release{
   width: 100%;
-  height:100%;
+  height:auto;
   min-width: 1378px;
   .release_con{
     width: 70%;

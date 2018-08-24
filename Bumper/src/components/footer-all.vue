@@ -45,7 +45,7 @@ export default {
 <style lang="scss" scoped>
 .footer_all{
   width: 100%;
-  height:32%;
+  height:304px;
   background: #e5e5e5;
   min-width: 1378px;
   min-height: 304px;

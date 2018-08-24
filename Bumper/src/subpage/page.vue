@@ -2,7 +2,9 @@
   <div class="page" ref="page">
     <Swiper/>
     <div class="page_con">
-      <router-link to="/release" tag="p" class="page_release"></router-link>
+      <router-link to="/release" tag="p" class="page_release">
+        <img src="../../static/img/page_button_top.png" alt="">
+      </router-link>
       <div class="page_title_f">          <!--票据行情标题 -->
         <img src="../../static/img/page_title1.png" alt="">
       </div>
@@ -89,7 +91,7 @@
        <img src="../../static/img/page_alt3.png" alt="">
      </div>
     </div>
-    <Footer :height="minHeight"/>
+    <Footer/>
   </div>
 </template>
 
@@ -97,7 +99,7 @@
 export default {
   data(){
     return{
-      minHeight:'147.8%',
+      // minHeight:'147.8%',
       roteList:[
         {
           time:'2018-07-23',
@@ -304,13 +306,13 @@ export default {
   min-width: 1378px;
   .page_con{
     width: 70%;
-    height:100%;
+    height:auto;
     margin:0 auto;
     position:relative;
     z-index: 5;
     .page_release{
-      width: 14%;
-      height:98px;
+      width: 300px;
+      height:142px;
       min-height: 98px;
       background: #f45643;
       text-align: center;
@@ -319,13 +321,19 @@ export default {
       color:white;
       font-size: 18px;
       cursor:pointer;
-      background: url('../../static/img/page_button_top.png');
+      background: url('../../static/img/page_button_bot.png');
       background-size: 100% 100%;
+    }
+    .page_release:hover{
+      img{
+        transition:all .1s;
+        transform: translate(-4px,4.2px);
+      }
     }
     .page_title_f{
       font-size: 30px;
       width: 100%;
-      height:28%;
+      height:276px;
       min-height: 276px;
       img{
         width: 100%;
@@ -349,7 +357,9 @@ export default {
         background:#f7f7f7;
       }
       .page_mark_title:hover{
-        background: #fffbee;
+        // background: #fffbee;
+        box-shadow: 0 0 15px red;
+
       }
       .tableMes{
         min-height: 40px;
@@ -367,9 +377,9 @@ export default {
     }
     .page_opera_one{
       width: 100%;
-      height:3.5%;
+      height:34px;
       margin-top:28px;
-      min-height: 33px;
+      min-height: 34px;
       button{
         width: 11%;
         height:100%;

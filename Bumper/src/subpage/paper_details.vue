@@ -181,6 +181,7 @@ export default {
           width: 60%;
           height:60%;
           min-height: 170px;
+          min-width: 388px;
           position: absolute;
           background: white;
           top:25%;

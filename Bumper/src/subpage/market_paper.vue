@@ -1,6 +1,5 @@
 <template lang="html">
   <div class="market_paper">
-  <!-- <Header/> -->
   <div class="market_paper_con">
     <p>
       <span>票据类型:</span>
@@ -51,7 +50,17 @@
       </el-row>
     </div>
   </div>
-  <Footer/>
+  <p class="paging_paper">
+    <el-pagination
+      background
+      layout="prev, pager, next"
+      @next-click="nextPaper()"
+      @prev-click="prevPaper()"
+      @current-change="currentPaper"
+      :total="pagePaper">
+    </el-pagination>
+    </p>
+  <Footer :height="minHeight"/>
   </div>
 </template>
 
@@ -66,13 +75,15 @@ export default {
       colorThr:1,
       billType:'',
       amount:'',
-      date:''
+      date:'',
+      minHeight:'10%',
+      pageP:null,
+      starterPaper:0,
+      pagePaper:30
+
     }
   },
   components:{
-    Header:resolve=>{
-      require(['@/components/header-all'],resolve)
-    },
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
     }
@@ -170,7 +181,7 @@ export default {
         "billType":_this.billType,
       	"amountType":_this.amount,
       	"maturityType":_this.date,
-      	"starter":0,
+      	"starter":_this.starterPaper,
       	"number":10
       },
       {headers:{
@@ -178,6 +189,9 @@ export default {
       }}
       ).then((res)=>{
           _this.noteList=res.data;
+          if(res.data.length>10){
+            _this.pagePaper=res.data.length
+          }
         })
     },
     SeeDetails(index){
@@ -188,6 +202,43 @@ export default {
           bills:bill
         }
       })
+    },
+    currentPaper(index){
+      let _this=this;
+      console.log(typeof(index))
+      if(index==1){
+        _this.starterPaper=_this.starterPaper-10;
+      }else{
+        _this.starterPaper=index*10;
+      }
+      _this.postPaper()
+    },
+    postPaper(){
+      let _this=this;
+      _this.axios.post(this.oUrl+'/bills/filterbill',{
+        "billType":_this.billType,
+        "amountType":_this.amount,
+        "maturityType":_this.date,
+        "starter":_this.starterPaper,
+        "number":10
+      },
+      {headers:{
+        'Content-Type':'application/json'
+      }}
+      ).then((res)=>{
+        this.noteList=res.data
+      })
+    },
+    nextPaper(){
+      let _this=this;
+      _this.starterPaper=_this.starterPaper+10;
+      _this.postPaper()
+    },
+    prevPaper(){
+      let _this=this;
+      _this.starterPaper=_this.starterPaper-10;
+      console.log(_this.starterPaper)
+      _this.postPaper()
     }
   },
   created(){
@@ -206,7 +257,7 @@ export default {
   height:100%;
   .market_paper_con{
     width: 70%;
-    height:100%;
+    height:774px;
     margin:0 auto;
     padding-top:6%;
     p{

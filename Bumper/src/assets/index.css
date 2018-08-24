@@ -50,6 +50,14 @@ button{
 .el-loading-spinner .path{
   stroke: #f45643;
 }
+
+.el-pagination.is-background .el-pager li:not(.disabled).active{
+  background: #f45643;
+  color:white!important;
+}
+.el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li:hover{
+  color:#f45643!important;
+}
 input{
   outline: none;
   border:0;

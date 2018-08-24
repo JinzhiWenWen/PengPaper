@@ -8,7 +8,7 @@
       <router-link to="/marketpa" tag="li" @click.native="market()" :class="{active:color==2}">票据市场</router-link>
       <router-link to="/resources" tag="li" @click.native="resources()" :class="{active:color==3}">资源市场</router-link>
       <router-link to="/releasepa" tag="li" @click.native="releasePa()" :class="{active:color==4}">我要贴现</router-link>
-      <li>我要买票</li>
+      <router-link to="/marketpa" tag="li" @click.native="buypaper()" :class="{active:color==5}">我要买票</router-link>
     </ul>
     <div class="header_oper">
       <p class="enter" v-show="enter">
@@ -49,6 +49,9 @@ export default {
     releasePa(){
       this.color=4;
     },
+    buypaper(){
+      this.color=5;
+    }
   },
   watch:{
     $route(to,from){

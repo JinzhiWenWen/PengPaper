@@ -68,7 +68,7 @@
 
       </div>
     </div>
-
+  <Footer/>
   </div>
 </template>
 
@@ -88,6 +88,9 @@ export default {
       marketResourcesLoadig:true
     }
   },
+  components:{
+    Footer:resolve=>require(['@/components/footer-all'],resolve)
+  },
   methods:{
     current(index){//页码跳转
       let sta=index*4;
@@ -101,7 +104,7 @@ export default {
         'Content-Type':'application/json'
       }}
       ).then((res)=>{
-        _this.noteListLed=res.data;
+        this.noteListLed=res.data;
       })
     },
     next(index){//下一页数据
@@ -243,13 +246,6 @@ export default {
           .el-pagination{
             text-align: right;
             padding-top:6px;
-          }
-          .el-pagination.is-background .el-pager li:not(.disabled).active{
-            background: #f45643;
-            color:white;
-          }
-          .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li:hover{
-            color:#f45643;
           }
         }
       }
