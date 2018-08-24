@@ -2,7 +2,7 @@
   <div class="page" ref="page">
     <Swiper/>
     <div class="page_con">
-      <router-link to="/release" tag="p" class="page_release">急速发票</router-link>
+      <router-link to="/release" tag="p" class="page_release"></router-link>
       <div class="page_title_f">          <!--票据行情标题 -->
         <img src="../../static/img/page_title1.png" alt="">
       </div>
@@ -309,18 +309,18 @@ export default {
     position:relative;
     z-index: 5;
     .page_release{
-      width: 15%;
-      height:10%;
-      min-height: 86px;
+      width: 14%;
+      height:98px;
+      min-height: 98px;
       background: #f45643;
       text-align: center;
-      line-height: 95px;
       position: absolute;
       top:-40px;
       color:white;
       font-size: 18px;
       cursor:pointer;
-      border-radius: 5px;
+      background: url('../../static/img/page_button_top.png');
+      background-size: 100% 100%;
     }
     .page_title_f{
       font-size: 30px;
