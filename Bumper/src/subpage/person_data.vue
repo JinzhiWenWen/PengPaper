@@ -8,7 +8,7 @@
     </p>
     <div class="company_mes">
       <p style="">
-        <span>&nbsp;&nbsp;&nbsp;&nbsp;公司名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
+        <span>&nbsp;&nbsp;&nbsp;&nbsp;公司名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="" /></span>
       </p>
       <p class="">
         <span>联系人姓名&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
@@ -27,16 +27,17 @@
       <div class="reprod">
         <img src="../../static/img/pic_icon.png" alt="">
         <p>点击上传营业执照</p>
-        <input type="file" name="" accept="image/jpg" value="">
+        <input type="file" name="" accept="image/jpg" value="" @change="upLoadBusiness">
+        <img src="../../static/img/page_alt1.png" alt=""  class="showPic"  ref="Business">
       </div>
     </div>
     <p class="person_data_company">
       <span>对公银行账户</span>
-    </p>
+      </p>
     <div class="company_mes">
       <p>
         <span>账户名称&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value=""/></span>
-      </p>
+        </p>
       <p class="">
         <span>开户地址&nbsp;&nbsp;&nbsp;&nbsp;
           <select>
@@ -73,24 +74,47 @@
       </p>
     </div>
     <p class="person_data_company">
-      <span>设置交易密码</span>
-    </p>
-    <div class="company_mes">
-      <p style="padding-left:2.5%;">
-        <span>请输入交易密码&nbsp;&nbsp;<input type="text" value=""/></span>
+      <span>设置联系QQ</span>
       </p>
-      <p class="">
-        <span>请再次输入交易密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" value="" style="margin-left:-5.5%;"/></span>
+    <div class="company_mes">
+      <p>
+        <span>请输入QQ号码&nbsp;&nbsp;<input type="text" value=""/></span>
       </p>
     </div>
     <p class="saveMes">
       <button type="button" name="button">确认</button>
-    </p>
+      </p>
   </div>
 </template>
 
 <script>
 export default {
+  methods:{
+    upLoadBusiness(e){
+      let _this=this;
+      if (e.target.files[0]) {
+      let file = e.target.files[0]
+      let reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = function() {
+        img.src = this.result
+      }
+      let img = new Image,
+        width = 1024, //image resize   压缩后的宽
+        quality = 0.8, //image quality  压缩质量
+        canvas = document.createElement("canvas"),
+        drawer = canvas.getContext("2d");
+        img.onload = function() {
+          canvas.width = width;
+          canvas.height = width * (img.height / img.width);
+          drawer.drawImage(img, 0, 0, canvas.width, canvas.height);
+          let base64 = canvas.toDataURL("image/jpeg", quality); //压缩后的base64图片
+          _this.$refs.Business.src=base64;
+          window.localStorage.setItem('Business',base64);
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -162,6 +186,13 @@ export default {
       margin-top:-18%;
       border:1px solid #ccc;
       line-height: 210px;
+      .showPic{
+        width: 100%;
+        height:100%;
+        position: absolute;
+        top:0;
+        left:0;
+      }
       img{
         width: 20%;
         height:25%;
@@ -184,6 +215,7 @@ export default {
         background: red;
         cursor:pointer;
         opacity: 0;
+        z-index: 1;
       }
     }
   }

@@ -99,9 +99,6 @@ export default {
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
     }
-  },
-  created(){
-    console.log(window.clientHeight)
   }
 }
 </script>

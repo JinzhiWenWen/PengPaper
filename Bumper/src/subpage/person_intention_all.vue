@@ -4,24 +4,27 @@
     <div class="person_intention_mes">
       <el-row>
         <el-col :span="3"><div class="intention_mes_title">票据类型</div></el-col>
-        <el-col :span="3"><div class="intention_mes_title bank">承兑银行</div></el-col>
+        <el-col :span="3"><div class="intention_mes_title">承兑银行</div></el-col>
         <el-col :span="3"><div class="intention_mes_title">金额</div></el-col>
-        <el-col :span="3"><div class="intention_mes_title date">到期日</div></el-col>
+        <el-col :span="3"><div class="intention_mes_title">到期日</div></el-col>
         <el-col :span="3"><div class="intention_mes_title">剩余天数</div></el-col>
-        <el-col :span="3"><div class="intention_mes_title amount">报价</div></el-col>
+        <el-col :span="3"><div class="intention_mes_title">报价</div></el-col>
         <el-col :span="3"><div class="intention_mes_title">状态</div></el-col>
-        <el-col :span="3"><div class="intention_mes_title opera">操作</div></el-col>
+        <el-col :span="3"><div class="intention_mes_title">操作</div></el-col>
       </el-row>
-      <div class="" v-for="(item,index) in noteList" :key="index">
+      <div class="" style="min-width:216px;" v-for="(item,index) in noteList" :key="index">
         <el-row>
           <el-col :span="3"><div class="intention_mes">{{item.billType}}</div></el-col>
-          <el-col :span="3"><div class="intention_mes bankMes">{{item.acceptor}}</div></el-col>
+          <el-col :span="3">
+            <div class="intention_mes bankMes"
+            :class="item.acceptor.length&&item.acceptor.length>8?'lineHeight':''"
+            >{{item.acceptor}}</div></el-col>
           <el-col :span="3"><div class="intention_mes">{{item.amount/10000}}w</div></el-col>
           <el-col :span="3"><div class="intention_mes date">{{item.releaseDate}}</div></el-col>
           <el-col :span="3"><div class="intention_mes">{{item.transacDate}}</div></el-col>
           <el-col :span="3"><div class="intention_mes amountMes">
-            <span class="interest">年化：<span>10%</span></span>
-            <span class="premium">每10w加：<span>***</span></span>
+            <span class="interest">年化：<span>{{item.interest}}%</span></span>
+            <span class="premium">每10w加：<span>{{item.xPerLakh/1000}}k</span></span>
           </div></el-col>
           <el-col :span="3"><div class="intention_mes">{{item.status}}</div></el-col>
           <el-col :span="3"><div class="intention_mes operaMes">
@@ -143,14 +146,12 @@ export default {
 }
 .person_intention_mes{
   width: 90%;
-  border:1px solid #ccc;
-  border-bottom:0;
   margin-top:3%;
   .intention_mes_title{
-    background: #ebebeb;
+    background: #eff8ff;
     min-height: 30px;
     line-height: 30px;
-    border-bottom:1px solid #ccc;
+    font-weight: bold;
   }
   .bank{
     border-left:1px solid #ccc;
@@ -168,17 +169,22 @@ export default {
     border-left:1px solid #ccc;
   }
   .intention_mes{
+    margin-top:8px;
+    margin-bottom:8px;
     min-height: 60px;
     max-height:70px;
     line-height:70px;
-    font-size: 12px;
-    border-bottom:1px solid #ccc;
+    font-size: 14px;
+    min-width: 95px;
   }
   .bankMes{
-    line-height: 28px;
-    padding-top:14%;
     border-left:1px solid #ccc;
     border-right:1px solid #ccc;
+  }
+  .lineHeight{
+    line-height: 35px!important;
+    font-size: 13px;
+    min-width: 95px;
   }
   .amountMes{
     line-height: 0;
@@ -186,6 +192,8 @@ export default {
     border-right:1px solid #ccc;
     display: flex;
     flex-direction: column;
+    font-size: 13px;
+    min-width: 95px;
     .interest{
       height:35px;
       line-height: 35px;
@@ -197,6 +205,7 @@ export default {
     }
   }
   .operaMes{
+    min-width: 95px;
     border-left:1px solid #ccc;
     button{
       width: 70%;
@@ -211,7 +220,6 @@ export default {
   .person_intention_contact{
     width:100%;
     min-height: 40px;
-    border-bottom:1px solid #ccc;
     line-height: 40px;
     font-size: 14px;
     position: relative;

@@ -4,21 +4,23 @@
     <div class="offer_mes">
       <el-row>
         <el-col :span="3"><div class="mes_title">票据类型</div></el-col>
-        <el-col :span="3"><div class="mes_title bank">承兑银行</div></el-col>
+        <el-col :span="3"><div class="mes_title">承兑银行</div></el-col>
         <el-col :span="3"><div class="mes_title">金额</div></el-col>
-        <el-col :span="3"><div class="mes_title date">到期日</div></el-col>
+        <el-col :span="3"><div class="mes_title">到期日</div></el-col>
         <el-col :span="3"><div class="mes_title">剩余天数</div></el-col>
-        <el-col :span="3"><div class="mes_title amount">报价</div></el-col>
+        <el-col :span="3"><div class="mes_title">报价</div></el-col>
         <el-col :span="3"><div class="mes_title">状态</div></el-col>
-        <el-col :span="3"><div class="mes_title opera">操作</div></el-col>
+        <el-col :span="3"><div class="mes_title">操作</div></el-col>
       </el-row>
       <div class="" v-for="(item,index) in noteList" :key="index">
         <el-row >
           <el-col :span="3"><div class="mes">{{item.billType}}</div></el-col>
-          <el-col :span="3"><div class="mes bank">{{item.acceptor}}</div></el-col>
-          <el-col :span="3"><div class="mes">{{item.quoteAmount}}</div></el-col>
-          <el-col :span="3"><div class="mes date">{{item.quoteAmount}}</div></el-col>
-          <el-col :span="3"><div class="mes">{{item.quoteAmount}}</div></el-col>
+          <el-col :span="3"><div class="mes bank" ref="person_offer_all_bank"
+            :class="item.acceptor.length&&item.acceptor.length>8?'lineHeight':''"
+            >{{item.acceptor}}</div></el-col>
+          <el-col :span="3"><div class="mes">{{item.amount}}</div></el-col>
+          <el-col :span="3"><div class="mes date">{{item.maturity}}</div></el-col>
+          <el-col :span="3"><div class="mes">{{}}</div></el-col>
           <el-col :span="3"><div class="mes amount mes_chose">
             <div class="rate">
               <p>利率：{{item.interest}}%</p>
@@ -53,7 +55,8 @@ import {getCookie} from '@/assets/util'
 export default {
   data(){
     return{
-      noteList:[]
+      noteList:[],
+      day:null
     }
   },
   methods:{
@@ -67,8 +70,7 @@ export default {
           'Content-Type':'application/json'
       }}
     ).then((res)=>{
-      console.log(res)
-      this.noteList=res.data
+      this.noteList=res.data;
     })
   },
   turnPlace(index){
@@ -82,8 +84,8 @@ export default {
     })
   }
   },
-  created(){
-    this.getOfferAll()
+  mounted(){
+    this.getOfferAll();
   }
 }
 </script>
@@ -96,13 +98,15 @@ export default {
     width: 100%;
     margin-left: 4%;
     margin-top: 4%;
-    border:1px solid #ccc;
-    border-bottom:0;
     .mes_title{
-      background:#ebebeb;
-      border-bottom:1px solid #ccc  ;
+      background: #eff8ff;
       min-width: 36px;
       line-height: 36px;
+      font-weight: bold;
+    }
+    .lineHeight{
+      line-height: 35px!important;
+      font-size: 13px!important;
     }
     .bank{
       border-left:1px solid #ccc;
@@ -117,8 +121,9 @@ export default {
       border-right:1px solid #ccc;
     }
     .mes{
+      margin-top:8px;
+      margin-bottom:8px;
       min-height: 70px;
-      border-bottom:1px solid #ccc;
       line-height: 70px;
       font-size: 14px;
     }
@@ -128,6 +133,8 @@ export default {
     .mes_chose{
       display: flex;
       flex-direction: column;
+      margin-top:8px;
+      margin-bottom:8px;
       .rate{
         width: 100%;
         height:50%;
@@ -179,7 +186,6 @@ export default {
     .mes_bot{
       min-height: 36px;
       line-height: 36px;
-      border-bottom:1px solid #ccc;
       font-size: 14px;
       position: relative;
       p{

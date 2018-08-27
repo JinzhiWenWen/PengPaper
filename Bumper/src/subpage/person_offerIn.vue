@@ -9,8 +9,10 @@
       <el-col :span="5"><div class="person_offerIn_title">交易时间</div></el-col>
     </el-row>
     <el-row v-for="(item,index) in noteList" :key="index">
-      <el-col :span="5"><div class="person_offerIn_mes">{{item.acceptor}}</div></el-col>
-      <el-col :span="4"><div class="person_offerIn_mes limit">{{item.amount}}</div></el-col>
+      <el-col :span="5"><div class="person_offerIn_mes"
+        :class="item.acceptor.length&&item.acceptor.length>8?'lineHeight':''"
+        >{{item.acceptor}}</div></el-col>
+      <el-col :span="4"><div class="person_offerIn_mes limit">{{item.amount/10000}}w</div></el-col>
       <el-col :span="5"><div class="person_offerIn_mes">{{item.releaseDate}}</div></el-col>
       <el-col :span="5"><div class="person_offerIn_mes time">{{item.maturity}}</div></el-col>
       <el-col :span="5"><div class="person_offerIn_mes tradTime">
@@ -41,8 +43,7 @@ export default {
       }}
     ).then((res)=>{
       console.log(res)
-      this.noteList=res.data
-      console.log(this.noteList)
+      this.noteList=res.data;
     })
     }
   },
@@ -56,20 +57,21 @@ export default {
 .person_offerIn{
   width: 80%;
   height:100%;
-  border:1px solid #ccc;
-  border-bottom:0;
   margin-top: 4%;
   margin-left: 4%;
   .person_offerIn_title{
     min-height: 36px;
     line-height: 36px;
-    background: #ebebeb;
+    background: #eff8ff;
   }
   .person_offerIn_mes{
     min-height: 70px;
     line-height: 70px;
-    border-bottom:1px solid #ccc;
     font-size: 14px;
+  }
+  .lineHeight{
+    line-height: 35px!important;
+    font-size: 13px;
   }
   .tradTime{
     line-height: 0;
