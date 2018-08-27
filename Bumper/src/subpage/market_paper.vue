@@ -79,7 +79,7 @@ export default {
       minHeight:'10%',
       pageP:null,
       starterPaper:0,
-      pagePaper:30
+      pagePaper:10
 
     }
   },
@@ -188,6 +188,7 @@ export default {
         'Content-Type':'application/json'
       }}
       ).then((res)=>{
+        console.log(res.data)
           _this.noteList=res.data;
           if(res.data.length>10){
             _this.pagePaper=res.data.length
