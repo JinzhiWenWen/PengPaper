@@ -58,6 +58,9 @@ button{
 .el-pagination.is-background .btn-next, .el-pagination.is-background .btn-prev, .el-pagination.is-background .el-pager li:hover{
   color:#f45643!important;
 }
+.el-cascader-menu__item.is-active{
+  color:#FF452C!important;
+}
 input{
   outline: none;
   border:0;

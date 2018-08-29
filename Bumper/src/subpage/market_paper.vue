@@ -38,7 +38,7 @@
     <div class="market_paper_table">
       <el-row v-for="(item,index) in noteList" :key="index" class="aa">
         <el-col :span="4"><div class="table time">{{item.billType}}</div></el-col>
-        <el-col :span="3"><div class="table type">{{item.acceptor}}</div></el-col>
+        <el-col :span="3"><div class="table type" ref="acceptor">{{item.acceptor}}</div></el-col>
         <el-col :span="3"><div class="table acce">{{item.amount}}</div></el-col>
         <el-col :span="3"><div class="table amount">{{item.maturity}}</div></el-col>
         <el-col :span="2"><div class="table data"></div></el-col>
@@ -80,7 +80,6 @@ export default {
       pageP:null,
       starterPaper:0,
       pagePaper:10
-
     }
   },
   components:{
@@ -188,14 +187,13 @@ export default {
         'Content-Type':'application/json'
       }}
       ).then((res)=>{
-        console.log(res.data)
           _this.noteList=res.data;
           if(res.data.length>10){
             _this.pagePaper=res.data.length
           }
         })
     },
-    SeeDetails(index){
+    SeeDetails(index){  //查看详情
       let bill=this.noteList[index].billNumber;
       this.$router.push({
         name:'Details',
@@ -230,20 +228,31 @@ export default {
         this.noteList=res.data
       })
     },
-    nextPaper(){
+    nextPaper(){  //下一页
       let _this=this;
       _this.starterPaper=_this.starterPaper+10;
       _this.postPaper()
     },
-    prevPaper(){
+    prevPaper(){  //上一页
       let _this=this;
       _this.starterPaper=_this.starterPaper-10;
       console.log(_this.starterPaper)
       _this.postPaper()
+    },
+    acceptor(){
+      for (let v in this.$refs.acceptor){
+        let than=this.$refs.acceptor[v].innerText
+        if(than.length>11){
+          this.$refs.acceptor[v].innerText=this.$refs.acceptor[v].innerText.substring(0,10)+'...'
+        }
+      }
     }
   },
   created(){
     this.getList()
+  },
+  updated(){
+    this.acceptor()
   }
 }
 </script>

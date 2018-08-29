@@ -54,6 +54,7 @@
 </template>
 
 <script>
+import {getCookie} from '@/assets/util'
 export default {
 	data(){
 		return {
@@ -62,10 +63,10 @@ export default {
 	},
 	methods:{
     handleOpen(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     handleClose(key, keyPath) {
-      console.log(key, keyPath);
+      // console.log(key, keyPath);
     },
     data(){//我的求贴
       this.$router.push('/release/paper')
@@ -83,7 +84,11 @@ export default {
       this.$router.push('/release/intention')
     },
     prise(){//用户企业认证信息
-      this.$router.push('/release/prise')
+      if(getCookie('isAu')=='false'){
+        this.$router.push('/release/data')
+      }else{
+        this.$router.push('/release/prise')
+      }
     },
     order(){//买家资源池票据
       this.$router.push('/release/offer')

@@ -115,7 +115,7 @@ export default {
     },
     PaperSave(){
       if(!getCookie('Iud')){
-        this.$router.push('//signUp/password');
+        this.$router.push('/signUp/password');
         }else{
           this.PaperMaskShow=true;
           this.$refs.save_paompt.style.display="block";
@@ -259,8 +259,9 @@ export default {
             _this.loadingRele=false;
             _this.releText='发布';
             _this.loadingRele=false;
-            this.PaperRele();
-            window.localStorage.clear()
+            _this.PaperRele();
+            window.localStorage.clear();
+            _this.$refs.The.src='';
           }
         }).catch((err)=>{
           console.log(err)

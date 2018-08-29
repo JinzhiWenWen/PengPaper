@@ -51,9 +51,11 @@ export default {
         let token=res.data.ticket;
         let uid=res.data.uuid;
         let nick=res.data.user_phone;
+        let isau=res.data.CompanyAuthentication;
         setCookie('Too',token);
         setCookie('Iud',uid);
-        setCookie('Nick',nick)
+        setCookie('Nick',nick);
+        setCookie('isAu',isau);
         if(_this.back){
           window.history.back()
           setTimeout(()=>{

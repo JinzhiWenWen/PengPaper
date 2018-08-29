@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 // Vue.prototype.$axios=Api;
 Vue.prototype.axios=Axios;
-Vue.prototype.oUrl='http://39.104.140.40'
+Vue.prototype.oUrl='http://39.104.140.40/ppp'
 
 /* eslint-disable no-new */
 new Vue({
