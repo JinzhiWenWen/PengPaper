@@ -242,7 +242,7 @@ export default {
     acceptor(){//字符超过长度省略
       for (let v in this.$refs.acceptor){
         let than=this.$refs.acceptor[v].innerText
-        if(than.length>11){
+        if(than.length>8){
           this.$refs.acceptor[v].innerText=this.$refs.acceptor[v].innerText.substring(0,10)+'...'
         }
       }
