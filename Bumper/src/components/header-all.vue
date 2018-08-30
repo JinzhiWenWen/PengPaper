@@ -15,15 +15,18 @@
         <router-link to="/signIn" tag="span" class="signIn">注册</router-link>
         <router-link to="/signUp" tag="span" class="signUp">登录</router-link>
       </p>
-      <p class="signSucc" v-show="signSucc">欢迎您，<span style="color:#f45643;">{{nick}}</span></p>
-      <span class="user_icon"><img src="../../static/img/user.png" alt="" title="" /></span>
-      <span class="mes_icon"><img src="../../static/img/mes.png" alt="" title="" /></span>
+      <p class="signSucc" v-show="signSucc">欢迎您，<span style="color:#f45643;">{{nick}}，</span>
+        <span style="color:rgb(244, 86, 67);text-decoration:underline;" @click="cancellation()">注销</span>
+      </p>
+      <!-- <span class="user_icon"><img src="../../static/img/user.png" alt="" title="" /></span>
+      <span class="mes_icon"><img src="../../static/img/mes.png" alt="" title="" /></span> -->
     </div>
   </div>
 </template>
 
 <script>
 import {getCookie} from '@/assets/util'
+import {delCookie} from '@/assets/util'
 export default {
   data(){
     return{
@@ -51,6 +54,13 @@ export default {
     },
     buypaper(){
       this.color=5;
+    },
+    cancellation(){//注销
+      delCookie('Iud');
+      delCookie('Too');
+      delCookie('Nick');
+      delCookie('isAu');
+      window.location.reload();
     }
   },
   watch:{
@@ -152,8 +162,10 @@ export default {
 
     }
     .signSucc{
+      width: 200px;
       font-size: 14px;
       margin-top:3%;
+      text-align: left;
     }
     .user_icon{
       img{

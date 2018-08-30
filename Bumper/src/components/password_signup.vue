@@ -23,7 +23,7 @@ export default {
     return{
       back:false,
       loadingSginUp:false,
-      sginUpText:'登录'
+      sginUpText:'登入'
     }
   },
   methods:{
