@@ -8,7 +8,7 @@
       <div class="market_resources_list">
         <el-row>
           <el-col :span="4"><div class="market_resources_title">票据类型</div></el-col>
-          <el-col :span="4"><div class="market_resources_title acceptance">票据类型</div></el-col>
+          <el-col :span="4"><div class="market_resources_title acceptance">承兑方</div></el-col>
           <el-col :span="4"><div class="market_resources_title">金额</div></el-col>
           <el-col :span="4"><div class="market_resources_title rate">利率</div></el-col>
           <el-col :span="2"><div class="market_resources_title">联系人</div></el-col>
@@ -18,13 +18,13 @@
         <el-row class="market_resources_box" v-for="(item,index) in noteList" :key="index" ref="market_resources_box">
           <el-col :span="4"><div class="market_resources_mes">{{item.billType}}</div></el-col>
           <el-col :span="4"><div class="market_resources_mes acceptance">{{item.acceptor}}</div></el-col>
-          <el-col :span="4"><div class="market_resources_mes">{{item.amountRange}}</div></el-col>
+          <el-col :span="4"><div class="market_resources_mes">{{item.amountRange/10000}}w</div></el-col>
           <el-col :span="4"><div class="market_resources_mes rate" ref="rateL">
             {{item.interest}}{{sy}}
             <router-link to="/signUp" style="color:#f45643;text-decoration:none;" v-show="isLogin">登陆后可见</router-link>
           </div>
             </el-col>
-          <el-col :span="2"><div class="market_resources_mes">{{item.people}}</div></el-col>
+          <el-col :span="2"><div class="market_resources_mes">王总</div></el-col>
           <el-col :span="3"><div class="market_resources_mes status">
             <span v-show="item.status=='1'">已成交</span>
             <span v-show="item.status=='2'">收票中</span>
@@ -42,9 +42,9 @@
             <el-row v-for="(itemLed,index) in noteListLed" :key="index">
               <el-col :span="4"><div class="led_mes">{{itemLed.billType}}</div></el-col>
               <el-col :span="4"><div class="led_mes">{{itemLed.acceptor}}</div></el-col>
-              <el-col :span="4"><div class="led_mes">{{itemLed.amountRange}}</div></el-col>
+              <el-col :span="4"><div class="led_mes">{{itemLed.amountRange/10000}}w</div></el-col>
               <el-col :span="4"><div class="led_mes">{{itemLed.interest}}{{sy}}</div></el-col>
-              <el-col :span="2"><div class="led_mes"></div></el-col>
+              <el-col :span="2"><div class="led_mes">王总</div></el-col>
               <el-col :span="3"><div class="led_mes"></div></el-col>
               <el-col :span="3"><div class="led_mes">
                 <button type="button" name="button">我要贴</button>

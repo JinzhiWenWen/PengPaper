@@ -218,12 +218,14 @@ export default {
       }
       .page_mark_title:hover{
         // background: #fffbee;
-        box-shadow: 0 0 15px red;
+        box-shadow: 0 0 15px rgba(0,0,0,.2);
+        z-index: 1;
 
       }
       .tableMes{
         min-height: 40px;
         line-height: 40px;
+        margin-bottom:2px;
       }
       .status{
         button{
