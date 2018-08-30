@@ -16,15 +16,21 @@
               <el-submenu index="1">
                 <template slot="title">
                   <i class="el-icon-location"></i>
-                  <span>报价管理</span>
+                  <span>我是买家</span>
                 </template>
                 <el-menu-item index="1-1"  @click="data()" text-color="#ffd04b">我的求贴</el-menu-item>
                 <el-menu-item index="1-2" @click="offer()">求贴意向</el-menu-item>
-                <el-menu-item index="1-2" @click="order()">我的报价</el-menu-item>
-                <el-menu-item index="1-2">资源池报价</el-menu-item>
-                <el-menu-item index="1-2" @click="releaseOffer()">发布/修改资源池报价</el-menu-item>
               </el-submenu>
               <el-submenu index="2">
+                <template slot="title">
+                  <i class="el-icon-location"></i>
+                  <span>我是卖家</span>
+                </template>
+                <el-menu-item index="1-2" @click="order()">我的报价</el-menu-item>
+                <el-menu-item index="1-2">我的接单</el-menu-item>
+                <el-menu-item index="1-2" @click="releaseOffer()">发布/修改资源池报价</el-menu-item>
+              </el-submenu>
+              <el-submenu index="3">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>我的订单</span>
@@ -32,7 +38,7 @@
                 <el-menu-item index="1-1" @click="sell()">我卖出的</el-menu-item>
                 <el-menu-item index="1-2" @click="buy()">我买入的</el-menu-item>
               </el-submenu>
-              <el-submenu index="3">
+              <el-submenu index="4">
                 <template slot="title">
                   <i class="el-icon-location"></i>
                   <span>设置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>

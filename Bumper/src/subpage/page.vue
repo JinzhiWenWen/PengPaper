@@ -30,14 +30,14 @@
       </div>
       <div class="page_table_mes">
         <el-row v-for="(item,index) in roteList" :key="index" class="page_mark_title">
-          <el-col :span="4"><div class="tableMes time">{{item.time}}</div></el-col>
+          <el-col :span="4"><div class="tableMes time">{{item.releaseDate}}</div></el-col>
           <el-col :span="3"><div class="tableMes type">
-            <span style="color:#ff823f;" v-show="item.type=='1'">银票</span>
-            <span style="color:#3d83c8;" v-show="item.type=='2'">商票</span>
+            <span style="color:#ff823f;" v-show="item.billType=='纸银'">银票</span>
+            <span style="color:#3d83c8;" v-show="item.billType=='国票'">国票</span>
           </div></el-col>
-          <el-col :span="8"><div class="tableMes acce">{{item.acce}}</div></el-col>
-          <el-col :span="4"><div class="tableMes amount">{{item.amount}}</div></el-col>
-          <el-col :span="3"><div class="tableMes data">{{item.data}}</div></el-col>
+          <el-col :span="8"><div class="tableMes acce">{{item.acceptor}}</div></el-col>
+          <el-col :span="4"><div class="tableMes amount">{{item.amount/10000}}w</div></el-col>
+          <el-col :span="3"><div class="tableMes data">{{item.releaseDate}}</div></el-col>
           <el-col :span="2"><div class="tableMes status">{{item.status}}</div></el-col>
         </el-row>
       </div>
@@ -60,16 +60,15 @@
       <div class="page_table_mes">
         <el-row v-for="(item,index) in roteListLimit" :key="index" class="page_mark_title">
           <el-col :span="4"><div class="tableMes time">
-            <span style="color:#ff823f;" v-show="item.type=='1'">银票</span>
-            <span style="color:#3d83c8;" v-show="item.type=='2'">商票</span>
+            <span style="color:#ff823f;" v-show="item.billType=='电银'">电银</span>
+            <span style="color:#3d83c8;" v-show="item.billType=='纸银'">纸银</span>
           </div></el-col>
           <el-col :span="4"><div class="tableMes type">
-            <span v-show="item.other=='1'">国有</span>
-            <span v-show="item.other=='2'">私有</span>
+            {{item.acceptor}}
           </div></el-col>
-          <el-col :span="4"><div class="tableMes acce">{{item.amount}}</div></el-col>
-          <el-col :span="4"><div class="tableMes amount">{{item.amount}}</div></el-col>
-          <el-col :span="4"><div class="tableMes data">{{item.limit}}%</div></el-col>
+          <el-col :span="4"><div class="tableMes acce">{{item.amountRange/10000}}w</div></el-col>
+          <el-col :span="4"><div class="tableMes amount">{{item.interest}}%</div></el-col>
+          <el-col :span="4"><div class="tableMes data">{{item.note}}</div></el-col>
           <el-col :span="4"><div class="tableMes status">
             <button type="button" name="button">收票中</button>
           </div></el-col>
@@ -80,7 +79,7 @@
         </p>
     </div>
     <PageBot/>
-    
+
     <Footer :height="minHeight"/>
   </div>
 </template>
@@ -90,169 +89,8 @@ export default {
   data(){
     return{
       minHeight:'10%',
-      roteList:[
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          acce:'中国电建集团财务有限责任公司',
-          amount:'1,000,000.25',
-          data:'2018-10-20',
-          status:'已成交'
-        },
-        {
-          time:'2018-06-12',
-          type:1,     //1为银票，2为商票
-          acce:'中交财务有限公司',
-          amount:'200,000.00',
-          data:'2019-02-11',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          acce:'中铁财务有限责任公司',
-          amount:'500,000.00',
-          data:'2018-12-11',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          acce:'中华工程财务集团有限责任公司',
-          amount:'2300,000.00',
-          data:'2020-10-19',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          acce:'华润置地（重庆）有限公司',
-          amount:'1,518,2332.75',
-          data:'2019-05-16',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          acce:'中国电建集团财务有限责任公司',
-          amount:'1,000,000.25',
-          data:'2018-10-20',
-          status:'已成交'
-        },
-        {
-          time:'2018-06-12',
-          type:1,     //1为银票，2为商票
-          acce:'中交财务有限公司',
-          amount:'200,000.00',
-          data:'2019-02-11',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          acce:'中铁财务有限责任公司',
-          amount:'500,000.00',
-          data:'2018-12-11',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          acce:'中华工程财务集团有限责任公司',
-          amount:'2300,000.00',
-          data:'2020-10-19',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          acce:'华润置地（重庆）有限公司',
-          amount:'1,518,2332.75',
-          data:'2019-05-16',
-          status:'已成交'
-        },
-      ],
-      roteListLimit:[
-        {
-          type:1,     //1为银票，2为商票
-          other:1,   //1为国有，2为私有
-          amount:'100-500万',
-          limit:'1.98',
-          status:'已成交'
-        },
-        {
-          time:'2018-06-12',
-          type:1,     //1为银票，2为商票
-          other:2,
-          amount:'100-500万',
-          limit:'9.66',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          other:2,
-          amount:'100-500万',
-          limit:'6.64',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          other:1,
-          amount:'100-500万',
-          limit:'7.01',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          other:2,
-          amount:'100-500万',
-          limit:'6.22',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          other:2,
-          amount:'100-500万',
-          limit:'5.65',
-          status:'已成交'
-        },
-        {
-          time:'2018-06-12',
-          type:1,     //1为银票，2为商票
-          other:2,
-          amount:'100-500万',
-          limit:'6.12',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          other:2,
-          amount:'100-500万',
-          limit:'8.06',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:1,     //1为银票，2为商票
-          other:1,
-          amount:'100-500万',
-          limit:'5.5',
-          status:'已成交'
-        },
-        {
-          time:'2018-07-23',
-          type:2,     //1为银票，2为商票
-          other:1,
-          amount:'100-500万',
-          limit:'4.05',
-          status:'已成交'
-        },
-      ]
+      roteList:[],
+      roteListLimit:[]
     }
   },
   components:{
@@ -287,7 +125,36 @@ export default {
       }else {
         clearTimeout(c);
       }
+    },
+    getListTop(){//票据列表
+      let _this=this;
+      _this.axios.post(_this.oUrl+'/bills/filterbill',{
+        "billType":0,
+        "amountType":0,
+        "maturityType":0,
+        "starter":0,
+        "number":10
+      },
+      {
+        headers:{
+          'Content-Type':'application/json'
+        }
+      }
+      ).then((res)=>{
+        _this.roteList=res.data;
+      })
+    },
+    getListBot(){//资源列表
+      let _this=this;
+      _this.axios.post(_this.oUrl+'/resourceMarket/getPriorityItem').then((res)=>{
+        console.log(res)
+        _this.roteListLimit=res.data;
+      })
     }
+  },
+  created(){
+    this.getListTop();
+    this.getListBot()
   }
 }
 </script>
