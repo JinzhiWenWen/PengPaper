@@ -78,20 +78,10 @@
       <p class="page_opera_one">
         <router-link to="/resources" tag="button">查看更多>></router-link>
         </p>
-       <div class="page_title_In"> <!--流程介绍标题 -->
-        <img src="../../static/img/page_title3.png" alt="">
-      </div>
-      <div class="page_alt_In"> <!--流程介绍详情 -->
-       <img src="../../static/img/page_alt1.png" alt="">
-      </div>
-     <div class="page_alt_Ad"> <!--平台优势 -->
-      <img src="../../static/img/page_alt2.png" alt="">
-        </div>
-      <div class="page_alt_De"> <!--优势详情 -->
-       <img src="../../static/img/page_alt3.png" alt="">
-     </div>
     </div>
-    <Footer/>
+    <PageBot/>
+    
+    <Footer :height="minHeight"/>
   </div>
 </template>
 
@@ -99,7 +89,7 @@
 export default {
   data(){
     return{
-      // minHeight:'147.8%',
+      minHeight:'10%',
       roteList:[
         {
           time:'2018-07-23',
@@ -274,6 +264,9 @@ export default {
     },
     Footer:resolve=>{
       require(['@/components/footer-all'],resolve)
+    },
+    PageBot:resolve=>{
+      require(['@/subpage/page_bot'],resolve)
     }
   },
   methods:{
@@ -398,42 +391,7 @@ export default {
         height:100%;
       }
     }
-    .page_title_In{
-      width: 100%;
-      height:300px;
-      min-height: 300px;
-      img{
-        width: 100%;
-        height:100%;
-      }
-    }
-    .page_alt_In{
-      width: 150%;
-      height:688px;
-      margin-left:-22%;
-      img{
-        width: 100%;
-        height:100%;
-      }
-    }
-    .page_alt_Ad{
-      width: 150%;
-      height:740px;
-      margin-left:-22%;
-      img{
-        width: 100%;
-        height:100%;
-      }
-    }
-    .page_alt_De{
-      width: 150%;
-      margin-left: -22%;
-      height:540px;
-      img{
-        width: 100%;
-        height:100%;
-      }
-    }
+
     .page_options{
       width: 4%;
       height:25%;
