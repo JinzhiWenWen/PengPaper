@@ -20,7 +20,7 @@
             >{{item.acceptor}}</div></el-col>
           <el-col :span="3"><div class="mes">{{item.amount}}</div></el-col>
           <el-col :span="3"><div class="mes date">{{item.maturity}}</div></el-col>
-          <el-col :span="3"><div class="mes">{{}}</div></el-col>
+          <el-col :span="3"><div class="mes">{{day}}</div></el-col>
           <el-col :span="3"><div class="mes amount mes_chose">
             <div class="rate">
               <p>利率：{{item.interest}}%</p>
@@ -56,7 +56,8 @@ export default {
   data(){
     return{
       noteList:[],
-      day:null
+      day:null,
+      marDay:[]
     }
   },
   methods:{
@@ -70,7 +71,28 @@ export default {
           'Content-Type':'application/json'
       }}
     ).then((res)=>{
-      this.noteList=res.data;
+      let _this=this;
+      console.log(res)
+      _this.noteList=res.data;
+      for(let v in res.data){
+        // console.log(res.data[v].maturity)
+        // _this.marDay=res.data[v].maturity;
+        let date=new Date();
+        let year=date.getFullYear();
+        let month=date.getMonth()+1;
+        let day=date.getDate();
+        if(month>=1&&month<9){
+          month='0'+month
+        }
+        let secDay=year+'/'+month+'/'+day;
+        let secDayStamp=new Date(secDay).getTime()
+        let timeAll=new Date(res.data[v].maturity).getTime();
+        let lastDay=timeAll-secDayStamp;
+        _this.day=Math.floor(lastDay/86400000)
+        console.log(_this.day)
+        _this.marDay.push(_this.day)
+      }
+      console.log(_this.marDay)
     })
   },
   turnPlace(index){
